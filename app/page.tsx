@@ -21,15 +21,13 @@ export default function Home() {
           />
           {/* Hairline grid: 1px charcoal gutters + outer border */}
           <div
+            className="grid grid-cols-4 max-[880px]:grid-cols-2"
             style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(4, 1fr)",
               gap: "1px",
               background: "var(--hjc-charcoal)",
               border: "1px solid var(--hjc-charcoal)",
               marginTop: "44px",
             }}
-            className="max-[880px]:grid-cols-2"
           >
             {LANE_ITEMS.map((lane) => (
               <ServiceCard
@@ -102,12 +100,7 @@ export default function Home() {
             </Link>
           </div>
           <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(3, 1fr)",
-              gap: "24px",
-            }}
-            className="max-[880px]:grid-cols-1"
+            className="grid grid-cols-3 gap-6 max-[880px]:grid-cols-1"
           >
             {SHOWCASE_ITEMS.map((item) => (
               <ShowcaseCard key={item.id} item={item} />

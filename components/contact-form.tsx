@@ -55,8 +55,7 @@ export default function ContactForm() {
   return (
     <form
       onSubmit={(e) => { e.preventDefault(); setSent(true); }}
-      style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "22px" }}
-      className="max-[880px]:grid-cols-1"
+      className="grid grid-cols-2 gap-[22px] max-[880px]:grid-cols-1"
     >
       {/* Name */}
       <div style={{ display: "flex", flexDirection: "column", gap: "7px" }}>

@@ -27,12 +27,7 @@ export default function ContactPage() {
 
         {/* Two-column layout: form + contact aside */}
         <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1.4fr 1fr",
-            gap: "56px",
-          }}
-          className="max-[880px]:grid-cols-1 max-[880px]:gap-10"
+          className="grid grid-cols-[1.4fr_1fr] gap-14 max-[880px]:grid-cols-1 max-[880px]:gap-10"
         >
           {/* Form */}
           <ContactForm />

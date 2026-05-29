@@ -41,12 +41,7 @@ export default function ShowcasePage() {
 
         {/* Showcase grid */}
         <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(3, 1fr)",
-            gap: "24px",
-          }}
-          className="max-[880px]:grid-cols-1"
+          className="grid grid-cols-3 gap-6 max-[880px]:grid-cols-1"
         >
           {SHOWCASE_ITEMS.map((item) => (
             <div key={item.id} id={item.slug} className="scroll-mt-20">

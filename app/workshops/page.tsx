@@ -40,8 +40,7 @@ export default function WorkshopsPage() {
 
         {/* Workshop grid */}
         <div
-          style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px" }}
-          className="max-[880px]:grid-cols-1"
+          className="grid grid-cols-2 gap-6 max-[880px]:grid-cols-1"
         >
           <div
             style={{

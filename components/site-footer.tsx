@@ -23,12 +23,7 @@ export default function SiteFooter() {
       <div className="max-w-[1200px] mx-auto px-8 max-[880px]:px-5">
         {/* Grid */}
         <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "2fr 1fr 1fr",
-            gap: "40px",
-          }}
-          className="max-[880px]:grid-cols-1 max-[880px]:gap-7"
+          className="grid grid-cols-[2fr_1fr_1fr] gap-10 max-[880px]:grid-cols-1 max-[880px]:gap-7"
         >
           {/* Brand column */}
           <div>
