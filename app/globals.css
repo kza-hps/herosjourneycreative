@@ -1,0 +1,31 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f7f3ea;
+  --foreground: #000000;
+  
+  --hjc-yellow: #ffb700;
+  --hjc-black: #000000;
+  --hjc-warm-white: #f7f3ea;
+  --hjc-charcoal: #333333;
+  --hjc-aged-gold: #a87f11;
+  --hjc-blue: #06358e;
+}
+
+@theme {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  
+  --color-hjc-yellow: var(--hjc-yellow);
+  --color-hjc-black: var(--hjc-black);
+  --color-hjc-warm-white: var(--hjc-warm-white);
+  --color-hjc-charcoal: var(--hjc-charcoal);
+  --color-hjc-aged-gold: var(--hjc-aged-gold);
+  --color-hjc-blue: var(--hjc-blue);
+}
+
+body {
+  background-color: var(--color-hjc-warm-white);
+  color: var(--color-hjc-black);
+  min-height: 100vh;
+}
