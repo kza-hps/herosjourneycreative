@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# design handoff — reference only, not needed by build
+/public/brand/handoff/
+/public/brand/*.zip

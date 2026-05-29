@@ -1,71 +1,122 @@
 import Link from "next/link";
-import { NAV_LINKS, BRAND_INFO } from "@/lib/site-content";
+import Image from "next/image";
+
+const STUDIO_LINKS = [
+  { label: "About",                   href: "/about" },
+  { label: "Workshops",               href: "/workshops" },
+  { label: "Legacy Writing",          href: "/legacy-writing" },
+  { label: "Personal Myth Authoring", href: "/personal-myth-authoring" },
+];
+
+const CONNECT_LINKS = [
+  { label: "Journal",   href: "/journal" },
+  { label: "Showcase",  href: "/showcase" },
+  { label: "Contact",   href: "/contact" },
+];
 
 export default function SiteFooter() {
   return (
-    <footer className="w-full border-t border-hjc-charcoal/20 bg-hjc-warm-white py-12 mt-auto">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {/* Brand Info */}
-          <div className="lg:col-span-2 space-y-4">
-            <h2 className="text-lg font-bold tracking-tight text-hjc-black">
-              {BRAND_INFO.name}
-            </h2>
-            <p className="text-sm text-hjc-charcoal/80 max-w-sm">
-              {BRAND_INFO.tagline}
-            </p>
-            <p className="text-xs text-hjc-charcoal/60">
-              {BRAND_INFO.location}
+    <footer
+      className="w-full mt-auto"
+      style={{ background: "var(--hjc-black)", color: "var(--hjc-warm-white)", padding: "72px 0 40px" }}
+    >
+      <div className="max-w-[1200px] mx-auto px-8 max-[880px]:px-5">
+        {/* Grid */}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "2fr 1fr 1fr",
+            gap: "40px",
+          }}
+          className="max-[880px]:grid-cols-1 max-[880px]:gap-7"
+        >
+          {/* Brand column */}
+          <div>
+            <div className="relative mb-5" style={{ height: "30px", width: "260px" }}>
+              <Image
+                src="/brand/assets/wordmark-line-yellow.png"
+                alt="Hero's Journey Creative"
+                fill
+                sizes="260px"
+                className="object-contain object-left"
+              />
+            </div>
+            <p
+              style={{
+                fontFamily: "var(--font-serif)",
+                color: "var(--fg-on-ink-2)",
+                fontSize: "0.95rem",
+                maxWidth: "330px",
+                lineHeight: "1.6",
+                margin: 0,
+              }}
+            >
+              A creative studio for writing, workshops, story worlds, and human-centred AI
+              experiments. Built for people turning memory, experience, and imagination into story.
             </p>
           </div>
 
-          {/* Quick Links Column 1 */}
-          <div className="space-y-3">
-            <h3 className="text-xs uppercase tracking-widest font-semibold text-hjc-black">
-              Navigation
-            </h3>
-            <ul className="space-y-2">
-              {NAV_LINKS.slice(0, 4).map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-hjc-charcoal/80 hover:text-hjc-aged-gold transition-colors"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Quick Links Column 2 */}
-          <div className="space-y-3">
-            <h3 className="text-xs uppercase tracking-widest font-semibold text-hjc-black">
+          {/* Studio links */}
+          <div>
+            <h5
+              style={{
+                fontFamily: "var(--font-mono)",
+                fontSize: "10px",
+                letterSpacing: "0.2em",
+                textTransform: "uppercase",
+                color: "var(--hjc-yellow)",
+                margin: "0 0 16px",
+              }}
+            >
               Studio
-            </h3>
-            <ul className="space-y-2">
-              {NAV_LINKS.slice(4).map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-hjc-charcoal/80 hover:text-hjc-aged-gold transition-colors"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            </h5>
+            {STUDIO_LINKS.map((link) => (
+              <Link key={link.href} href={link.href} className="hjc-ft-link">
+                {link.label}
+              </Link>
+            ))}
+          </div>
+
+          {/* Connect links */}
+          <div>
+            <h5
+              style={{
+                fontFamily: "var(--font-mono)",
+                fontSize: "10px",
+                letterSpacing: "0.2em",
+                textTransform: "uppercase",
+                color: "var(--hjc-yellow)",
+                margin: "0 0 16px",
+              }}
+            >
+              Connect
+            </h5>
+            {CONNECT_LINKS.map((link) => (
+              <Link key={link.href} href={link.href} className="hjc-ft-link">
+                {link.label}
+              </Link>
+            ))}
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="mt-12 pt-6 border-t border-hjc-charcoal/10 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-hjc-charcoal/65">
-            {BRAND_INFO.copyright}
-          </p>
-          <p className="text-xs text-hjc-charcoal/60">
-            Aotearoa New Zealand
-          </p>
+        {/* Bottom bar */}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            borderTop: "1px solid var(--rule-ink)",
+            marginTop: "48px",
+            paddingTop: "24px",
+            fontFamily: "var(--font-mono)",
+            fontSize: "11px",
+            letterSpacing: "0.06em",
+            color: "var(--fg-on-ink-2)",
+            flexWrap: "wrap",
+            gap: "8px",
+          }}
+        >
+          <span>© 2026 Hero&apos;s Journey Creative</span>
+          <span>Aotearoa New Zealand</span>
         </div>
       </div>
     </footer>

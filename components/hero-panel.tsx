@@ -1,32 +1,77 @@
 import Link from "next/link";
-import { BRAND_INFO } from "@/lib/site-content";
 
 export default function HeroPanel() {
   return (
-    <section className="py-16 md:py-24 border-b border-hjc-charcoal/10 bg-hjc-warm-white flex flex-col justify-center">
-      <div className="max-w-4xl mx-auto text-center px-4 space-y-8">
-        <div className="inline-block px-3 py-1 border border-hjc-charcoal text-xs uppercase tracking-widest font-mono text-hjc-charcoal">
-          Creative Studio & Workshop House
-        </div>
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-hjc-black leading-tight max-w-3xl mx-auto">
-          {BRAND_INFO.tagline}
-        </h1>
-        <p className="text-base sm:text-lg md:text-xl text-hjc-charcoal/85 leading-relaxed font-serif max-w-2xl mx-auto italic">
-          {BRAND_INFO.location}
-        </p>
-        <div className="pt-4 flex flex-col sm:flex-row justify-center items-center gap-4">
-          <Link
-            href="/contact"
-            className="w-full sm:w-auto px-6 py-3 text-xs uppercase tracking-widest font-semibold bg-hjc-black text-hjc-warm-white border border-hjc-black hover:bg-hjc-warm-white hover:text-hjc-black transition-colors"
+    <section
+      style={{
+        background: "var(--hjc-black)",
+        color: "var(--hjc-warm-white)",
+        position: "relative",
+        overflow: "hidden",
+      }}
+    >
+      {/* Bust silhouette — bleeds off the right edge, behind copy */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/brand/assets/bust-yellow.png"
+        alt=""
+        aria-hidden="true"
+        className="hero-bust-img"
+      />
+
+      <div
+        className="max-w-[1200px] mx-auto px-8 max-[880px]:px-5"
+        style={{ position: "relative", zIndex: 2 }}
+      >
+        <div style={{ padding: "96px 0 104px", maxWidth: "760px" }} className="max-[880px]:py-16 max-[880px]:max-w-none">
+          {/* Mono kicker */}
+          <span className="hjc-kick hjc-kick-ink mb-5 block">
+            Creative Studio &amp; Workshop House
+          </span>
+
+          {/* Anton poster headline */}
+          <h1
+            style={{
+              fontFamily: "var(--font-display)",
+              fontSize: "var(--step-poster)",
+              lineHeight: 0.9,
+              letterSpacing: "var(--track-display)",
+              textTransform: "uppercase",
+              color: "var(--hjc-warm-white)",
+              margin: "22px 0 26px",
+            }}
           >
-            Initiate Contact
-          </Link>
-          <Link
-            href="/about"
-            className="w-full sm:w-auto px-6 py-3 text-xs uppercase tracking-widest font-semibold border border-hjc-black text-hjc-black hover:bg-hjc-yellow transition-colors"
+            Turn memory
+            <br />
+            into{" "}
+            <em style={{ color: "var(--hjc-yellow)", fontStyle: "normal" }}>myth</em>
+          </h1>
+
+          {/* Italic Spectral subhead */}
+          <p
+            style={{
+              fontFamily: "var(--font-serif)",
+              fontStyle: "italic",
+              fontSize: "var(--step-body-lg)",
+              lineHeight: 1.5,
+              color: "#cdc8bb",
+              maxWidth: "520px",
+              marginBottom: "36px",
+            }}
           >
-            Learn More
-          </Link>
+            A studio for writing, workshops, story worlds, and human-centred AI experiments —
+            based in Aotearoa New Zealand.
+          </p>
+
+          {/* CTAs */}
+          <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
+            <Link href="/contact" className="hjc-btn hjc-btn-yellow">
+              Initiate Contact
+            </Link>
+            <Link href="/about" className="hjc-btn hjc-btn-ghost-ink">
+              Learn More
+            </Link>
+          </div>
         </div>
       </div>
     </section>

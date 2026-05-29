@@ -4,82 +4,108 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Logo from "./logo";
-import { NAV_LINKS } from "@/lib/site-content";
+
+const MAIN_NAV = [
+  { label: "About",     href: "/about" },
+  { label: "Workshops", href: "/workshops" },
+  { label: "Journal",   href: "/journal" },
+  { label: "Showcase",  href: "/showcase" },
+];
+
+const ALL_NAV = [
+  { label: "About",                   href: "/about" },
+  { label: "Workshops",               href: "/workshops" },
+  { label: "Legacy Writing",          href: "/legacy-writing" },
+  { label: "Personal Myth Authoring", href: "/personal-myth-authoring" },
+  { label: "Journal",                 href: "/journal" },
+  { label: "Showcase",                href: "/showcase" },
+  { label: "Initiate Contact →",      href: "/contact" },
+];
 
 export default function SiteHeader() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-hjc-charcoal/20 bg-hjc-warm-white/90 backdrop-blur-sm">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 items-center justify-between gap-4">
-          <div className="flex-shrink-0">
-            <Logo />
-          </div>
+    <header
+      className="sticky top-0 z-40 w-full"
+      style={{
+        background: "rgba(247,243,234,0.88)",
+        backdropFilter: "blur(8px)",
+        borderBottom: "1px solid var(--rule)",
+      }}
+    >
+      <div className="max-w-[1200px] mx-auto px-8 max-[880px]:px-5">
+        <div className="flex items-center justify-between" style={{ height: "74px" }}>
+          {/* Wordmark */}
+          <Logo variant="black" height={22} width={220} />
 
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-6">
-            {NAV_LINKS.map((link) => {
+          {/* Desktop navigation */}
+          <nav className="hidden items-center gap-[26px]" style={{ display: "none" }} aria-label="Main navigation">
+            {/* Rendered via media query — see below */}
+          </nav>
+
+          <div className="flex items-center gap-[26px] max-[880px]:hidden">
+            {MAIN_NAV.map((link) => {
               const isActive = pathname === link.href;
               return (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`text-xs uppercase tracking-widest font-medium transition-colors hover:text-hjc-aged-gold ${
-                    isActive
-                      ? "text-hjc-black font-semibold border-b border-hjc-black pb-0.5"
-                      : "text-hjc-charcoal/80"
-                  }`}
+                  className={`hjc-nav-link ${isActive ? "hjc-nav-link-active" : ""}`}
                 >
                   {link.label}
                 </Link>
               );
             })}
-          </nav>
+            <Link href="/contact" className="hjc-btn-dark">
+              Initiate Contact
+            </Link>
+          </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile hamburger */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="lg:hidden p-2 text-hjc-black hover:text-hjc-aged-gold focus:outline-none"
+            className="min-[880px]:hidden p-2 focus:outline-none"
+            style={{ background: "none", border: "none", color: "var(--fg1)", cursor: "pointer" }}
             aria-label="Toggle menu"
             aria-expanded={isOpen}
           >
-            <svg
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
               {isOpen ? (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                <path d="M6 6l12 12M6 18L18 6" strokeLinecap="round" />
               ) : (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                <path d="M4 7h16M4 12h16M4 17h16" strokeLinecap="round" />
               )}
             </svg>
           </button>
         </div>
       </div>
 
-      {/* Mobile Navigation Dropdown */}
+      {/* Mobile drawer */}
       {isOpen && (
-        <nav className="lg:hidden border-t border-hjc-charcoal/10 bg-hjc-warm-white px-4 py-3 flex flex-col gap-2 shadow-md">
-          {NAV_LINKS.map((link) => {
-            const isActive = pathname === link.href;
-            return (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setIsOpen(false)}
-                className={`py-2 text-xs uppercase tracking-widest font-medium transition-colors hover:text-hjc-aged-gold ${
-                  isActive ? "text-hjc-black font-semibold border-l-2 border-hjc-black pl-2" : "text-hjc-charcoal/80 pl-2"
-                }`}
-              >
-                {link.label}
-              </Link>
-            );
-          })}
-        </nav>
+        <div style={{ borderTop: "1px solid var(--rule)", background: "var(--hjc-warm-white)" }}>
+          {ALL_NAV.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              onClick={() => setIsOpen(false)}
+              style={{
+                display: "block",
+                fontFamily: "var(--font-mono)",
+                fontSize: "12px",
+                letterSpacing: "0.16em",
+                textTransform: "uppercase",
+                color: "var(--fg1)",
+                textDecoration: "none",
+                padding: "14px 20px",
+                borderBottom: "1px solid var(--rule)",
+              }}
+            >
+              {link.label}
+            </Link>
+          ))}
+        </div>
       )}
     </header>
   );

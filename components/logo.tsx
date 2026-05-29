@@ -4,27 +4,41 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
-export default function Logo() {
+interface LogoProps {
+  variant?: "black" | "yellow" | "white";
+  height?: number;
+  width?: number;
+}
+
+export default function Logo({ variant = "black", height = 22, width = 220 }: LogoProps) {
   const [hasError, setHasError] = useState(false);
-  const logoPath = "/brand/NEW_HJC_LOGO.png";
+  const logoPath = `/brand/assets/wordmark-line-${variant}.png`;
 
   return (
-    <Link href="/" className="inline-flex items-center py-1 select-none focus:outline-none">
+    <Link href="/" className="inline-flex items-center select-none focus:outline-none">
       {!hasError ? (
-        <div className="relative w-56 h-12">
+        <div className="relative" style={{ height: `${height}px`, width: `${width}px` }}>
           <Image
             src={logoPath}
-            alt="Hero's Journey Creative Logo"
+            alt="Hero's Journey Creative"
             fill
-            sizes="224px"
+            sizes={`${width}px`}
             className="object-contain object-left"
             priority
             onError={() => setHasError(true)}
           />
         </div>
       ) : (
-        <span className="text-xl font-bold tracking-tight text-hjc-black hover:text-hjc-aged-gold transition-colors">
-          Hero’s Journey Creative
+        <span
+          style={{
+            fontFamily: "var(--font-mono)",
+            fontSize: "11px",
+            letterSpacing: "0.16em",
+            textTransform: "uppercase",
+            color: variant === "black" ? "var(--hjc-black)" : "var(--hjc-warm-white)",
+          }}
+        >
+          Hero&apos;s Journey Creative
         </span>
       )}
     </Link>

@@ -1,52 +1,122 @@
 import HeroPanel from "@/components/hero-panel";
 import ServiceCard from "@/components/service-card";
+import ShowcaseCard from "@/components/showcase-card";
 import CtaBand from "@/components/cta-band";
 import SectionHeading from "@/components/section-heading";
+import Link from "next/link";
+import { LANE_ITEMS, SHOWCASE_ITEMS } from "@/lib/site-content";
 
 export default function Home() {
   return (
     <div className="flex flex-col w-full">
-      {/* Hero Section */}
+      {/* Hero — black, cinematic */}
       <HeroPanel />
 
-      {/* Main Focus Lanes */}
-      <section className="py-16 bg-white dark:bg-transparent">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+      {/* Studio Lanes — paper ground */}
+      <section style={{ padding: "90px 0", background: "var(--bg)" }}>
+        <div className="max-w-[1200px] mx-auto px-8 max-[880px]:px-5">
           <SectionHeading
             title="Studio Lanes"
             subtitle="The core disciplines of our creative studio and story house."
           />
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <ServiceCard
-              title="Workshops"
-              description="Guided sessions, writing workshops, and generative text experiments built for writers turning experience into structure."
-              href="/workshops"
-              ctaText="Explore Workshops"
-            />
-            <ServiceCard
-              title="Legacy & Personal Story"
-              description="Deep-dive memoir creation, family archive structuring, and personal myth writing services to capture lifetimes."
-              href="/legacy-writing"
-              ctaText="Explore Writing Services"
-            />
-            <ServiceCard
-              title="Journal"
-              description="Reflections on language, notes from workshops, and insights from our human-centred AI experiments."
-              href="/journal"
-              ctaText="Read Journal"
-            />
-            <ServiceCard
-              title="Showcase / Projects"
-              description="Selected case studies, hand-bound archive portfolios, and digital world-building experiments."
-              href="/showcase"
-              ctaText="View Showcase"
-            />
+          {/* Hairline grid: 1px charcoal gutters + outer border */}
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(4, 1fr)",
+              gap: "1px",
+              background: "var(--hjc-charcoal)",
+              border: "1px solid var(--hjc-charcoal)",
+              marginTop: "44px",
+            }}
+            className="max-[880px]:grid-cols-2"
+          >
+            {LANE_ITEMS.map((lane) => (
+              <ServiceCard
+                key={lane.no}
+                catalogueNo={lane.no}
+                title={lane.title}
+                description={lane.description}
+                href={lane.href}
+                ctaText="Explore Lane"
+              />
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Contact CTA Band */}
+      {/* Manifesto band — black, cinematic breathing room */}
+      <section style={{ background: "var(--hjc-black)", color: "var(--hjc-warm-white)", padding: "96px 0" }}>
+        <div className="max-w-[1200px] mx-auto px-8 max-[880px]:px-5">
+          <span className="hjc-kick hjc-kick-ink block mb-6">The studio</span>
+          <p
+            style={{
+              fontFamily: "var(--font-serif)",
+              fontSize: "clamp(1.6rem, 3.2vw, 2.6rem)",
+              lineHeight: 1.32,
+              fontWeight: 400,
+              maxWidth: "880px",
+              letterSpacing: "-0.01em",
+              color: "var(--fg-on-ink-1)",
+              margin: "26px 0 0",
+            }}
+          >
+            We believe narrative is the{" "}
+            <strong style={{ color: "var(--hjc-yellow)", fontWeight: 400 }}>
+              foundational infrastructure
+            </strong>{" "}
+            of human experience — and that everyone carries a story worth structuring,
+            preserving, and telling well.
+          </p>
+          <div
+            style={{
+              fontFamily: "var(--font-mono)",
+              fontSize: "11px",
+              letterSpacing: "0.18em",
+              textTransform: "uppercase",
+              color: "var(--fg-on-ink-2)",
+              marginTop: "30px",
+            }}
+          >
+            Hero&apos;s Journey Creative — Aotearoa New Zealand
+          </div>
+        </div>
+      </section>
+
+      {/* Selected Work — paper ground */}
+      <section style={{ padding: "90px 0", background: "var(--bg)" }}>
+        <div className="max-w-[1200px] mx-auto px-8 max-[880px]:px-5">
+          <div
+            style={{
+              display: "flex",
+              alignItems: "flex-end",
+              justifyContent: "space-between",
+              gap: "24px",
+              marginBottom: "42px",
+              flexWrap: "wrap",
+            }}
+          >
+            <SectionHeading title="Selected Work" />
+            <Link href="/showcase" className="hjc-lnk">
+              View Showcase →
+            </Link>
+          </div>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(3, 1fr)",
+              gap: "24px",
+            }}
+            className="max-[880px]:grid-cols-1"
+          >
+            {SHOWCASE_ITEMS.map((item) => (
+              <ShowcaseCard key={item.id} item={item} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA band — yellow */}
       <CtaBand />
     </div>
   );

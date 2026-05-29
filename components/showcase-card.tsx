@@ -7,29 +7,65 @@ interface ShowcaseCardProps {
 
 export default function ShowcaseCard({ item }: ShowcaseCardProps) {
   return (
-    <div className="border border-hjc-charcoal/20 p-6 bg-hjc-warm-white hover:border-hjc-charcoal hover:bg-white transition-all flex flex-col justify-between h-full">
-      <div className="space-y-3">
-        <div className="flex items-center justify-between text-xs font-mono gap-2">
-          <span className="px-2 py-0.5 border border-hjc-charcoal/20 bg-hjc-warm-white text-hjc-charcoal/90 text-[10px] uppercase tracking-wider truncate">
+    <div className="hjc-card">
+      <div>
+        {/* Top row: category tag + year */}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            fontFamily: "var(--font-mono)",
+            fontSize: "10px",
+            letterSpacing: "0.08em",
+            textTransform: "uppercase",
+            color: "var(--fg3)",
+            marginBottom: "18px",
+          }}
+        >
+          <span
+            style={{
+              border: "1px solid var(--rule)",
+              padding: "4px 8px",
+            }}
+          >
             {item.category}
           </span>
-          <span className="text-hjc-charcoal/60 flex-shrink-0">{item.year}</span>
+          <span>{item.year}</span>
         </div>
-        <h3 className="text-lg font-bold tracking-tight text-hjc-black hover:text-hjc-aged-gold transition-colors">
-          <Link href={`/showcase#${item.slug}`}>{item.title}</Link>
-        </h3>
-        <p className="text-sm text-hjc-charcoal/80 leading-relaxed">
+
+        {/* Serif semibold title */}
+        <h4
+          style={{
+            fontFamily: "var(--font-serif)",
+            fontWeight: 600,
+            fontSize: "1.25rem",
+            lineHeight: 1.15,
+            color: "var(--fg1)",
+            margin: "0 0 10px",
+          }}
+        >
+          {item.title}
+        </h4>
+
+        {/* Serif description */}
+        <p
+          style={{
+            fontFamily: "var(--font-serif)",
+            fontSize: "0.92rem",
+            lineHeight: 1.5,
+            color: "var(--fg2)",
+            margin: 0,
+          }}
+        >
           {item.description}
         </p>
       </div>
-      <div className="pt-6">
-        <Link
-          href={`/showcase#${item.slug}`}
-          className="text-xs font-mono font-semibold uppercase tracking-wider text-hjc-black hover:text-hjc-aged-gold transition-colors"
-        >
-          View Case Study <span className="ml-1">→</span>
-        </Link>
-      </div>
+
+      {/* Footer link */}
+      <Link href={`/showcase#${item.slug}`} className="hjc-card-go" style={{ textDecoration: "none" }}>
+        View Case Study →
+      </Link>
     </div>
   );
 }

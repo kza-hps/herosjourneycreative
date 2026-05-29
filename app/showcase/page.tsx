@@ -1,18 +1,53 @@
 import Link from "next/link";
-import SectionHeading from "@/components/section-heading";
 import ShowcaseCard from "@/components/showcase-card";
 import { SHOWCASE_ITEMS } from "@/lib/site-content";
 
 export default function ShowcasePage() {
   return (
-    <div className="flex-1 bg-white py-12 md:py-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
-        <SectionHeading
-          title="Project Showcase"
-          subtitle="Selected family history memoirs, storytelling workshops, and human-centred AI interactive nodes."
-        />
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div
+      className="hjc-fade flex-1"
+      style={{ padding: "72px 0 80px", background: "var(--bg)" }}
+    >
+      <div className="max-w-[1200px] mx-auto px-8 max-[880px]:px-5">
+        {/* Page header */}
+        <span className="hjc-kick block mb-[18px]">Public Archive</span>
+        <h1
+          style={{
+            fontFamily: "var(--font-display)",
+            textTransform: "uppercase",
+            fontSize: "var(--step-display)",
+            lineHeight: 0.94,
+            color: "var(--fg1)",
+            margin: "0 0 18px",
+          }}
+        >
+          Showcase
+        </h1>
+        <p
+          style={{
+            fontFamily: "var(--font-serif)",
+            fontStyle: "italic",
+            fontSize: "var(--step-body-lg)",
+            lineHeight: 1.5,
+            color: "var(--fg2)",
+            maxWidth: "680px",
+            margin: 0,
+          }}
+        >
+          A portfolio and public archive of completed story projects — memoirs, interactive
+          portals, and community programmes.
+        </p>
+        <hr style={{ border: "none", borderTop: "1px solid var(--rule)", margin: "48px 0" }} />
+
+        {/* Showcase grid */}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(3, 1fr)",
+            gap: "24px",
+          }}
+          className="max-[880px]:grid-cols-1"
+        >
           {SHOWCASE_ITEMS.map((item) => (
             <div key={item.id} id={item.slug} className="scroll-mt-20">
               <ShowcaseCard item={item} />
@@ -20,14 +55,31 @@ export default function ShowcasePage() {
           ))}
         </div>
 
-        <div className="pt-12 border-t border-hjc-charcoal/10 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
-          <p className="text-sm text-hjc-charcoal/85 max-w-lg">
-            We focus on bespoke, archival-grade physical books and carefully designed digital interfaces. Let’s co-create your story world.
-          </p>
-          <Link
-            href="/contact"
-            className="inline-block text-xs font-mono font-semibold uppercase tracking-wider text-hjc-black hover:text-hjc-aged-gold border-b border-hjc-black hover:border-hjc-aged-gold pb-0.5 self-start"
+        <hr style={{ border: "none", borderTop: "1px solid var(--rule)", margin: "60px 0 48px" }} />
+
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            flexWrap: "wrap",
+            gap: "16px",
+          }}
+        >
+          <p
+            style={{
+              fontFamily: "var(--font-serif)",
+              fontSize: "var(--step-body)",
+              lineHeight: 1.6,
+              color: "var(--fg2)",
+              maxWidth: "520px",
+              margin: 0,
+            }}
           >
+            We focus on bespoke, archival-grade physical books and carefully designed digital
+            interfaces. Let&apos;s co-create your story world.
+          </p>
+          <Link href="/contact" className="hjc-lnk">
             Inquire About Custom Projects →
           </Link>
         </div>

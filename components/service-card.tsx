@@ -1,31 +1,67 @@
 import Link from "next/link";
 
 interface ServiceCardProps {
+  catalogueNo: string;
   title: string;
   description: string;
   href: string;
   ctaText?: string;
 }
 
-export default function ServiceCard({ title, description, href, ctaText = "Explore Lane" }: ServiceCardProps) {
+export default function ServiceCard({
+  catalogueNo,
+  title,
+  description,
+  href,
+  ctaText = "Explore Lane",
+}: ServiceCardProps) {
   return (
-    <div className="flex flex-col justify-between border border-hjc-charcoal p-6 bg-hjc-warm-white hover:bg-white hover:shadow-[4px_4px_0px_0px_#ffb700] transition-all duration-200">
-      <div className="space-y-3">
-        <h3 className="text-lg font-bold tracking-tight text-hjc-black uppercase">
+    <Link href={href} className="hjc-lane block" style={{ textDecoration: "none" }}>
+      <div>
+        {/* Catalogue number */}
+        <div
+          style={{
+            fontFamily: "var(--font-mono)",
+            fontSize: "11px",
+            color: "var(--fg3)",
+            letterSpacing: "0.1em",
+          }}
+        >
+          № {catalogueNo}
+        </div>
+
+        {/* Anton title */}
+        <h3
+          style={{
+            fontFamily: "var(--font-display)",
+            textTransform: "uppercase",
+            fontSize: "1.5rem",
+            lineHeight: 1.04,
+            color: "var(--fg1)",
+            margin: "18px 0 12px",
+          }}
+        >
           {title}
         </h3>
-        <p className="text-sm text-hjc-charcoal/80 leading-relaxed">
+
+        {/* Serif description */}
+        <p
+          style={{
+            fontFamily: "var(--font-serif)",
+            fontSize: "0.95rem",
+            lineHeight: 1.5,
+            color: "var(--fg2)",
+            margin: 0,
+          }}
+        >
           {description}
         </p>
       </div>
-      <div className="pt-6">
-        <Link
-          href={href}
-          className="inline-flex items-center text-xs font-mono font-semibold uppercase tracking-wider text-hjc-black hover:text-hjc-aged-gold transition-colors"
-        >
-          {ctaText} <span className="ml-1">→</span>
-        </Link>
-      </div>
-    </div>
+
+      {/* Footer link */}
+      <span className="hjc-lane-go">
+        {ctaText} →
+      </span>
+    </Link>
   );
 }
