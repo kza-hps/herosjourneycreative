@@ -348,7 +348,7 @@ img { display: block; }
 .hero-bust-img {
   position: absolute;
   right: -40px;
-  bottom: -7%;
+  bottom: -48px;
   height: 124%;
   width: auto;
   z-index: 1;
