@@ -7,8 +7,7 @@ export default function WorkshopsPage() {
       style={{ padding: "72px 0 80px", background: "var(--bg)" }}
     >
       <div className="max-w-[1200px] mx-auto px-8 max-[880px]:px-5">
-        {/* Page header */}
-        <span className="hjc-kick block mb-[18px]">Studio Lane № 01</span>
+        <span className="hjc-kick block mb-[18px]">Studio Lane No. 01</span>
         <h1
           style={{
             fontFamily: "var(--font-display)",
@@ -33,15 +32,12 @@ export default function WorkshopsPage() {
           }}
         >
           Structured containers for people to unpack experience, find narrative clarity, and
-          form a writing practice — in person across Aotearoa, and remote for international
+          form a writing practice - in person across Aotearoa, and remote for international
           cohorts.
         </p>
         <hr style={{ border: "none", borderTop: "1px solid var(--rule)", margin: "48px 0" }} />
 
-        {/* Workshop grid */}
-        <div
-          className="grid grid-cols-2 gap-6 max-[880px]:grid-cols-1"
-        >
+        <div className="grid grid-cols-2 gap-6 max-[880px]:grid-cols-1">
           <div
             style={{
               border: "1px solid var(--rule)",
@@ -59,7 +55,7 @@ export default function WorkshopsPage() {
                 marginBottom: "14px",
               }}
             >
-              Cohort · Remote &amp; in-person
+              Cohort / Remote &amp; in-person
             </div>
             <h3
               style={{
@@ -103,7 +99,7 @@ export default function WorkshopsPage() {
                 marginBottom: "14px",
               }}
             >
-              Cohort · Project-based
+              Cohort / Project-based
             </div>
             <h3
               style={{
@@ -151,10 +147,10 @@ export default function WorkshopsPage() {
               color: "var(--fg3)",
             }}
           >
-            Cohort dates &amp; enrolment — illustrative placeholder, to be confirmed by the studio.
+            Cohort dates &amp; enrolment are arranged directly with the studio.
           </span>
           <Link href="/contact" className="hjc-lnk">
-            Inquire About Enrolment →
+            Inquire About Enrolment -&gt;
           </Link>
         </div>
       </div>

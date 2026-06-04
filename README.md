@@ -1,36 +1,42 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Hero's Journey Creative
 
-## Getting Started
+Next.js site for Hero's Journey Creative, intended to replace the previous Shopify storefront at `https://herosjourneycreative.co.nz`.
 
-First, run the development server:
+## Local Development
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Production Checks
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run lint
+npm run build
+```
 
-## Learn More
+## Contact Form
 
-To learn more about Next.js, take a look at the following resources:
+The contact form posts to `/api/contact` and sends email through Resend when these environment variables are configured:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+CONTACT_TO_EMAIL=kauri@herosjourneycreative.co.nz
+CONTACT_FROM_EMAIL="Hero's Journey Creative <noreply@heroboardmaker.com>"
+RESEND_API_KEY=...
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Until those variables are configured in the hosting environment, the form shows a direct email fallback.
 
-## Deploy on Vercel
+## Domain Migration
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The app includes redirects for old Shopify surfaces such as `/products/*`, `/collections/*`, `/cart`, `/checkout/*`, `/search`, and `/policies/*`.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+When ready to cut over:
+
+1. Add `herosjourneycreative.co.nz` and `www.herosjourneycreative.co.nz` to the Vercel project.
+2. Configure the DNS records Vercel recommends for the project.
+3. Verify both apex and `www` serve this Next.js app.
+4. Leave Shopify active until DNS and redirects are confirmed.

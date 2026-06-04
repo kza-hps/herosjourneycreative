@@ -15,7 +15,7 @@ export default function Logo({ variant = "black", height = 22, width = 220 }: Lo
   const logoPath = `/brand/assets/wordmark-line-${variant}.png`;
 
   return (
-    <Link href="/" className="inline-flex items-center select-none focus:outline-none">
+    <Link href="/" className="inline-flex items-center select-none">
       {!hasError ? (
         <div className="relative" style={{ height: `${height}px`, width: `${width}px` }}>
           <Image

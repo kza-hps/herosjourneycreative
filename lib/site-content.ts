@@ -1,6 +1,4 @@
-// Static content for Hero's Journey Creative
-// Placeholder warning: dates, cohorts, case studies, and contact details are illustrative
-// and have not been confirmed by the studio. Do not present them as facts.
+// Static content for Hero's Journey Creative.
 
 export interface NavLink {
   label: string;
@@ -34,24 +32,24 @@ export interface ShowcaseItem {
 }
 
 export const NAV_LINKS: NavLink[] = [
-  { label: "Home",                    href: "/" },
-  { label: "About",                   href: "/about" },
-  { label: "Workshops",               href: "/workshops" },
-  { label: "Legacy Writing",          href: "/legacy-writing" },
+  { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
+  { label: "Workshops", href: "/workshops" },
+  { label: "Legacy Writing", href: "/legacy-writing" },
   { label: "Personal Myth Authoring", href: "/personal-myth-authoring" },
-  { label: "Journal",                 href: "/journal" },
-  { label: "Showcase",                href: "/showcase" },
-  { label: "Contact",                 href: "/contact" },
+  { label: "Journal", href: "/journal" },
+  { label: "Showcase", href: "/showcase" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export const BRAND_INFO = {
-  name:      "Hero's Journey Creative",
-  tagline:   "A creative studio for writing, workshops, story worlds, and human-centred AI experiments.",
-  location:  "Based in Aotearoa New Zealand. Built for people turning memory, experience, and imagination into story.",
+  name: "Hero's Journey Creative",
+  tagline: "A creative studio for writing, workshops, story worlds, and human-centred AI experiments.",
+  location: "Based in Aotearoa New Zealand. Built for people turning memory, experience, and imagination into story.",
   copyright: "© 2026 Hero's Journey Creative",
-  email:     "Contact details to be confirmed by the studio.",
-  phone:     "Contact details to be confirmed by the studio.",
-  address:   "Aotearoa New Zealand",
+  email: "kauri@herosjourneycreative.co.nz",
+  phone: "",
+  address: "Aotearoa New Zealand",
 };
 
 export const LANE_ITEMS: LaneItem[] = [
@@ -59,7 +57,7 @@ export const LANE_ITEMS: LaneItem[] = [
     no: "01",
     id: "workshops",
     title: "Workshops",
-    description: "Guided sessions and structured writing environments — morning journal cohorts, world & myth architecture.",
+    description: "Guided sessions and structured writing environments: morning journal cohorts, world and myth architecture.",
     href: "/workshops",
   },
   {
@@ -73,14 +71,14 @@ export const LANE_ITEMS: LaneItem[] = [
     no: "03",
     id: "journal",
     title: "Journal",
-    description: "Reflections on language, notes from the workshop table, and our human-centred AI experiments.",
+    description: "Reflections on language, notes from the workshop table, and human-centred AI experiments.",
     href: "/journal",
   },
   {
     no: "04",
     id: "showcase",
     title: "Showcase",
-    description: "Selected case studies — hand-bound archives, interactive portals, community programmes.",
+    description: "Selected case studies: hand-bound archives, interactive portals, and community programmes.",
     href: "/showcase",
   },
 ];
@@ -106,7 +104,7 @@ export const JOURNAL_ITEMS: JournalItem[] = [
     id: "journal-3",
     title: "Writing with the machine",
     publishedAt: "Field note",
-    excerpt: "Notes from our human-centred AI experiments — collaboration, not replacement.",
+    excerpt: "Notes from our human-centred AI experiments: collaboration, not replacement.",
     slug: "writing-with-the-machine",
     readTime: "8 min",
   },
@@ -119,7 +117,7 @@ export const SHOWCASE_ITEMS: ShowcaseItem[] = [
     category: "Memoir",
     description: "A multi-generational memoir, structured and printed as a private volume.",
     slug: "family-archive",
-    year: "—",
+    year: "Private",
   },
   {
     id: "showcase-2",
@@ -127,7 +125,7 @@ export const SHOWCASE_ITEMS: ShowcaseItem[] = [
     category: "Interactive",
     description: "A branching narrative portal mapping a community's shared history.",
     slug: "story-world-portal",
-    year: "—",
+    year: "Studio",
   },
   {
     id: "showcase-3",
@@ -135,6 +133,6 @@ export const SHOWCASE_ITEMS: ShowcaseItem[] = [
     category: "Programme",
     description: "A season of workshops turning lived experience into publishable structure.",
     slug: "regional-cohort",
-    year: "—",
+    year: "Cohort",
   },
 ];

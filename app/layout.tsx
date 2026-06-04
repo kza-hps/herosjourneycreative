@@ -25,8 +25,34 @@ const spaceMono = Space_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://herosjourneycreative.co.nz"),
   title: "Hero's Journey Creative | Writing, Workshops, Story Worlds",
   description: "A creative studio for writing, workshops, legacy story services, and human-centred AI experiments based in Aotearoa New Zealand.",
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title: "Hero's Journey Creative",
+    description: "Writing, workshops, legacy story services, and human-centred AI experiments from Aotearoa New Zealand.",
+    url: "https://herosjourneycreative.co.nz",
+    siteName: "Hero's Journey Creative",
+    locale: "en_NZ",
+    type: "website",
+    images: [
+      {
+        url: "/brand/NEW_HJC_LOGO.png",
+        width: 1200,
+        height: 630,
+        alt: "Hero's Journey Creative",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Hero's Journey Creative",
+    description: "Writing, workshops, legacy story services, and human-centred AI experiments from Aotearoa New Zealand.",
+    images: ["/brand/NEW_HJC_LOGO.png"],
+  },
 };
 
 export default function RootLayout({

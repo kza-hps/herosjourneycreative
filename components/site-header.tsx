@@ -66,10 +66,11 @@ export default function SiteHeader() {
           {/* Mobile hamburger */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="min-[880px]:hidden p-2 focus:outline-none"
+            className="min-[880px]:hidden p-2"
             style={{ background: "none", border: "none", color: "var(--fg1)", cursor: "pointer" }}
             aria-label="Toggle menu"
             aria-expanded={isOpen}
+            aria-controls="mobile-navigation"
           >
             <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
               {isOpen ? (
@@ -84,7 +85,7 @@ export default function SiteHeader() {
 
       {/* Mobile drawer */}
       {isOpen && (
-        <div style={{ borderTop: "1px solid var(--rule)", background: "var(--hjc-warm-white)" }}>
+        <div id="mobile-navigation" style={{ borderTop: "1px solid var(--rule)", background: "var(--hjc-warm-white)" }}>
           {ALL_NAV.map((link) => (
             <Link
               key={link.href}

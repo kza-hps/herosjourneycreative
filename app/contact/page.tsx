@@ -95,15 +95,18 @@ export default function ContactPage() {
               >
                 Contact details
               </div>
-              <div
+              <a
+                href="mailto:kauri@herosjourneycreative.co.nz"
                 style={{
                   fontFamily: "var(--font-mono)",
                   fontSize: "12px",
-                  color: "var(--fg3)",
+                  color: "var(--fg1)",
+                  textDecoration: "underline",
+                  textUnderlineOffset: "3px",
                 }}
               >
-                To be confirmed by the studio.
-              </div>
+                kauri@herosjourneycreative.co.nz
+              </a>
             </div>
 
             <div
