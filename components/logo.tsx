@@ -10,7 +10,7 @@ interface LogoProps {
   width?: number;
 }
 
-export default function Logo({ variant = "black", height = 22, width = 220 }: LogoProps) {
+export default function Logo({ variant = "black", height = 42, width = 168 }: LogoProps) {
   const [hasError, setHasError] = useState(false);
   const logoPath = `/brand/assets/wordmark-line-${variant}.png`;
 
