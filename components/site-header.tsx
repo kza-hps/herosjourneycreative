@@ -38,7 +38,7 @@ export default function SiteHeader() {
       <div className="max-w-[1200px] mx-auto px-8 max-[880px]:px-5">
         <div className="flex items-center justify-between" style={{ height: "74px" }}>
           {/* Wordmark */}
-          <Logo variant="black" height={22} width={220} />
+          <Logo variant="black" height={42} width={168} />
 
           {/* Desktop navigation */}
           <nav className="hidden items-center gap-[26px]" style={{ display: "none" }} aria-label="Main navigation">
