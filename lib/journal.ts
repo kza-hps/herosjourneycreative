@@ -106,11 +106,26 @@ function sanitizeHtml(html: string): string {
     .replace(/\shref\s*=\s*["']javascript:[^"']*["']/gi, "");
 }
 
+function stripOpeningChapterTitle(html: string): string {
+  const openingParagraph = /^\s*<p\b[^>]*>([\s\S]*?)<\/p>\s*/i;
+  const match = html.match(openingParagraph);
+  if (!match) return html;
+
+  const paragraphText = match[1]
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&nbsp;/gi, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+
+  if (!/^CHAPTER\s+[A-Z0-9\s-]+\s*\|/i.test(paragraphText)) {
+    return html;
+  }
+
+  return html.slice(match[0].length);
+}
+
 function postProcessHtml(html: string): string {
-  const withoutDocxTitle = html.replace(
-    /^\s*<p>(?:<[^>]+>)*\s*CHAPTER\s+[A-Z0-9]+\s*\|\s*.*?<\/p>\s*/i,
-    ""
-  );
+  const withoutDocxTitle = stripOpeningChapterTitle(html);
 
   // Tag scene-break paragraphs so CSS can center them
   return withoutDocxTitle.replace(
