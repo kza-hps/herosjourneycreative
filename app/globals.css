@@ -409,6 +409,33 @@ img { display: block; }
   }
 }
 
+/* ============================================================
+   CHAPTER READER
+   Outer shell / page-column sizing only.
+   Manuscript text styles live in reader.module.css so they
+   compile as a fresh CSS Module and are never stale-cached.
+   ============================================================ */
+
+.chapter-reader-shell {
+  /* inherits background from page wrapper */
+}
+
+.chapter-reader-page {
+  max-width: 660px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+@media (max-width: 880px) {
+  .chapter-reader-page {
+    padding: 0 20px;
+  }
+}
+
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

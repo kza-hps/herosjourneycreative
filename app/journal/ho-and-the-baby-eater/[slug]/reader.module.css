@@ -1,0 +1,69 @@
+/* Manuscript / book-reader text styles.
+   Compiled as a CSS Module so Turbopack always builds a fresh file.
+   Applied to the .body div wrapping dangerouslySetInnerHTML output. */
+
+.body {
+  font-family: var(--font-serif);
+  font-size: 1.12rem;
+  line-height: 2;
+  color: var(--fg1);
+}
+
+/* Every paragraph indented except the first */
+.body p {
+  margin-top: 0;
+  margin-bottom: 0;
+  text-indent: 1.5em;
+  text-align: justify;
+  orphans: 3;
+  widows: 3;
+}
+
+.body > p:first-child,
+.body p.no-indent {
+  text-indent: 0;
+}
+
+/* Italic runs */
+.body em,
+.body i {
+  font-style: italic;
+}
+
+/* Bold runs */
+.body strong,
+.body b {
+  font-weight: 600;
+}
+
+/* Scene breaks — *** or similar — tagged by lib/journal.ts post-processor */
+.body :global(.scene-break) {
+  text-indent: 0;
+  text-align: center;
+  margin: 2.5rem 0;
+  color: var(--fg3);
+  letter-spacing: 0.3em;
+}
+
+/* In-chapter headings (mammoth may produce h2/h3 for section titles) */
+.body h1,
+.body h2,
+.body h3 {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  text-indent: 0;
+  margin: 2.5rem 0 0.75rem;
+  line-height: 1.25;
+}
+
+/* Mobile */
+@media (max-width: 880px) {
+  .body {
+    font-size: 1.05rem;
+    line-height: 1.9;
+  }
+  .body p {
+    text-align: left;
+    text-indent: 1.2em;
+  }
+}
