@@ -122,6 +122,7 @@ function stripOpeningChapterTitle(html: string): string {
     if (!match) return currentHtml;
 
     const paragraphText = match[1]
+      .replace(/<br\s*\/?>/gi, " - ")
       .replace(/<[^>]+>/g, " ")
       .replace(/&nbsp;/gi, " ")
       .replace(/&(?:mdash|ndash);|&#821[12];/gi, " - ")
