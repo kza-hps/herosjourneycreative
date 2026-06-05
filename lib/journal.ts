@@ -106,9 +106,115 @@ function sanitizeHtml(html: string): string {
     .replace(/\shref\s*=\s*["']javascript:[^"']*["']/gi, "");
 }
 
+const OPENING_PARAGRAPH_REGEX = /^\s*<p\b[^>]*>([\s\S]*?)<\/p>\s*/i;
+const CHAPTER_PREFIX = "CHAPTER ";
+const CHAPTER_UNITS = new Set([
+  "ONE", "TWO", "THREE", "FOUR", "FIVE",
+  "SIX", "SEVEN", "EIGHT", "NINE",
+]);
+const CHAPTER_TEENS = new Set([
+  "TEN", "ELEVEN", "TWELVE", "THIRTEEN", "FOURTEEN",
+  "FIFTEEN", "SIXTEEN", "SEVENTEEN", "EIGHTEEN", "NINETEEN",
+]);
+const CHAPTER_TENS = new Set([
+  "TWENTY", "THIRTY", "FORTY", "FIFTY",
+  "SIXTY", "SEVENTY", "EIGHTY", "NINETY",
+]);
+
+function normalizeParagraphText(html: string): string {
+  return html
+    .replace(/<br\s*\/?>|<[^>]+>|&nbsp;|&(?:mdash|ndash);|&#821[12];/gi, (token) =>
+      /^<br|^&(?:mdash|ndash);|^&#821[12];/i.test(token) ? " - " : " "
+    )
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function separatorIndex(text: string): number {
+  for (let i = 0; i < text.length; i++) {
+    const char = text[i];
+    if (char === ":" || char === "|" || char === "." || char === "–" || char === "—") {
+      return i;
+    }
+    if (char === "-" && (text[i - 1] === " " || text[i + 1] === " ")) {
+      return i;
+    }
+  }
+  return -1;
+}
+
+function isChapterDesignation(value: string): boolean {
+  const trimmed = value.trim().toUpperCase();
+  if (/^\d{1,3}$/.test(trimmed) || /^[IVXLCDM]+$/.test(trimmed)) return true;
+
+  const parts = trimmed.split(/[\s-]+/);
+  if (parts.length === 1) {
+    return (
+      CHAPTER_UNITS.has(parts[0]) ||
+      CHAPTER_TEENS.has(parts[0]) ||
+      CHAPTER_TENS.has(parts[0])
+    );
+  }
+  return parts.length === 2 && CHAPTER_TENS.has(parts[0]) && CHAPTER_UNITS.has(parts[1]);
+}
+
+function isLikelyChapterSubtitle(value: string): boolean {
+  const titlePart = value.trim();
+  return (
+    titlePart.length <= 60 &&
+    !/^["'\u2018\u201c]/.test(titlePart) &&
+    !/[.!?](\s|$)/.test(titlePart)
+  );
+}
+
+function isChapterTitleParagraph(text: string): boolean {
+  const upper = text.toUpperCase();
+  if (!upper.startsWith(CHAPTER_PREFIX)) return false;
+
+  const afterPrefix = text.slice(CHAPTER_PREFIX.length).trim();
+  const sepIndex = separatorIndex(afterPrefix);
+
+  if (sepIndex >= 0) {
+    const designation = afterPrefix.slice(0, sepIndex);
+    return isChapterDesignation(designation) &&
+      isLikelyChapterSubtitle(afterPrefix.slice(sepIndex + 1));
+  }
+
+  return isChapterDesignation(afterPrefix);
+}
+
+function stripOpeningChapterTitle(html: string): string {
+  let currentHtml = html;
+
+  while (true) {
+    const match = currentHtml.match(OPENING_PARAGRAPH_REGEX);
+    if (!match) return currentHtml;
+
+    if (!match[0]) return currentHtml;
+
+    const paragraphText = normalizeParagraphText(match[1]);
+
+    if (!paragraphText) {
+      if (/<img\b/i.test(match[1])) {
+        return currentHtml;
+      }
+      currentHtml = currentHtml.slice(match[0].length);
+      continue;
+    }
+
+    if (isChapterTitleParagraph(paragraphText)) {
+      return currentHtml.slice(match[0].length);
+    }
+
+    return currentHtml;
+  }
+}
+
 function postProcessHtml(html: string): string {
+  const withoutDocxTitle = stripOpeningChapterTitle(html);
+
   // Tag scene-break paragraphs so CSS can center them
-  return html.replace(
+  return withoutDocxTitle.replace(
     /<p>(\s*(\*{3}|—\s*—\s*—|#{3}|~ ~ ~)\s*)<\/p>/g,
     '<p class="scene-break">$2</p>'
   );
