@@ -106,9 +106,16 @@ function sanitizeHtml(html: string): string {
     .replace(/\shref\s*=\s*["']javascript:[^"']*["']/gi, "");
 }
 
+const OPENING_PARAGRAPH_REGEX = /^\s*<p\b[^>]*>([\s\S]*?)<\/p>\s*/i;
+const CHAPTER_DESIGNATION =
+  "(?:\\d{1,3}|[IVXLCDM]+|(?:ONE|TWO|THREE|FOUR|FIVE|SIX|SEVEN|EIGHT|NINE|TEN|ELEVEN|TWELVE|THIRTEEN|FOURTEEN|FIFTEEN|SIXTEEN|SEVENTEEN|EIGHTEEN|NINETEEN|TWENTY|THIRTY|FORTY|FIFTY|SIXTY|SEVENTY|EIGHTY|NINETY)(?:[\\s-](?:ONE|TWO|THREE|FOUR|FIVE|SIX|SEVEN|EIGHT|NINE))?)";
+const CHAPTER_TITLE_REGEX = new RegExp(
+  `^CHAPTER\\s+${CHAPTER_DESIGNATION}\\s*\\|`,
+  "i"
+);
+
 function stripOpeningChapterTitle(html: string): string {
-  const openingParagraph = /^\s*<p\b[^>]*>([\s\S]*?)<\/p>\s*/i;
-  const match = html.match(openingParagraph);
+  const match = html.match(OPENING_PARAGRAPH_REGEX);
   if (!match) return html;
 
   const paragraphText = match[1]
@@ -117,10 +124,7 @@ function stripOpeningChapterTitle(html: string): string {
     .replace(/\s+/g, " ")
     .trim();
 
-  const chapterDesignation =
-    "(?:\\d{1,3}|[IVXLCDM]+|(?:ONE|TWO|THREE|FOUR|FIVE|SIX|SEVEN|EIGHT|NINE|TEN|ELEVEN|TWELVE|THIRTEEN|FOURTEEN|FIFTEEN|SIXTEEN|SEVENTEEN|EIGHTEEN|NINETEEN|TWENTY|THIRTY|FORTY|FIFTY|SIXTY|SEVENTY|EIGHTY|NINETY)(?:[\\s-](?:ONE|TWO|THREE|FOUR|FIVE|SIX|SEVEN|EIGHT|NINE))?)";
-
-  if (!new RegExp(`^CHAPTER\\s+${chapterDesignation}\\s*\\|`, "i").test(paragraphText)) {
+  if (!CHAPTER_TITLE_REGEX.test(paragraphText)) {
     return html;
   }
 
