@@ -1,5 +1,114 @@
 // Static content for Hero's Journey Creative.
 
+export const WORKSHOPS_MEETUP_URL =
+  "https://www.meetup.com/auckland-creative-writing-sprint-workshops/";
+
+export interface WorkshopPathwayCard {
+  label: string;
+  heading: string;
+  body: string;
+  cta: string;
+  href: string;
+  external?: boolean;
+}
+
+export interface WorkshopPricingTier {
+  title: string;
+  price: string;
+  detail: string;
+}
+
+export interface SprintRow {
+  session: string;
+  focus: string;
+  whatWeDo: string;
+}
+
+export const WORKSHOP_PATHWAY_CARDS: WorkshopPathwayCard[] = [
+  {
+    label: "Public / Auckland",
+    heading: "Auckland Live Sprint-Workshops",
+    body: "Drop-in writing sprint sessions held in Auckland. Timed prompts, group energy, and a structured container for stories you haven't written yet.",
+    cta: "View on Meetup",
+    href: WORKSHOPS_MEETUP_URL,
+    external: true,
+  },
+  {
+    label: "Public / Zoom",
+    heading: "Zoom Sprint-Workshops",
+    body: "The same guided sprint format, open to writers anywhere in Aotearoa and internationally. Join live from wherever you write.",
+    cta: "View on Meetup",
+    href: WORKSHOPS_MEETUP_URL,
+    external: true,
+  },
+  {
+    label: "Private / Group Booking",
+    heading: "Creative & Legacy Writing Workshops",
+    body: "Bespoke workshops tailored for your team, school, community group, marae, or care setting. We design the session around your people and purpose.",
+    cta: "Enquire About a Private Workshop",
+    href: "/contact?interest=private-workshop",
+    external: false,
+  },
+];
+
+export const WORKSHOP_PRICING: WorkshopPricingTier[] = [
+  {
+    title: "On-site workshop",
+    price: "$350 + GST",
+    detail: "Up to 20 participants, up to 2 hours",
+  },
+  {
+    title: "4-workshop bundle",
+    price: "$1,200 + GST",
+    detail: "Save $200, plus a free beta/feedback service",
+  },
+];
+
+export const SPRINT_FORMAT_ROWS: SprintRow[] = [
+  {
+    session: "Welcome",
+    focus: "Settling in",
+    whatWeDo: "Brief introductions, prompt framing, and a warm-up exercise to get words moving.",
+  },
+  {
+    session: "Sprints 1–5",
+    focus: "Five focused sprints",
+    whatWeDo: "Five timed 10-minute writing bursts, each opened with a short prompt. You follow where it leads.",
+  },
+  {
+    session: "Break",
+    focus: "Reset",
+    whatWeDo: "A short pause to stretch, breathe, and let the writing settle.",
+  },
+  {
+    session: "Share",
+    focus: "Reading aloud",
+    whatWeDo: "Opt-in sharing of a passage. The group listens without critique — just attention.",
+  },
+  {
+    session: "Wrap-Up",
+    focus: "Closing reflection",
+    whatWeDo: "What surfaced, what to carry forward, and next steps for your writing practice.",
+  },
+];
+
+export const PRIVATE_AUDIENCE_GROUPS: string[] = [
+  "Teams & workplaces",
+  "Schools & universities",
+  "Marae, iwi & community groups",
+  "Libraries & arts centres",
+  "Aged-care & retirement communities",
+  "Hospice & wellbeing settings",
+  "Private writing groups",
+];
+
+export const WHAT_TO_BRING: string[] = [
+  "A notebook and pen — or a laptop",
+  "A topic, memory, or character you're curious about",
+  "An open mind — first drafts are allowed to be messy",
+  "Nothing else. All prompts and structure are provided.",
+];
+
 export interface NavLink {
   label: string;
   href: string;
