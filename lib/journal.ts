@@ -180,6 +180,9 @@ function stripOpeningChapterTitle(html: string): string {
     const paragraphText = normalizeParagraphText(match[1]);
 
     if (!paragraphText) {
+      if (/<img\b/i.test(match[1])) {
+        return currentHtml;
+      }
       currentHtml = currentHtml.slice(match[0].length);
       continue;
     }
