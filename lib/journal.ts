@@ -158,14 +158,29 @@ function isChapterDesignation(value: string): boolean {
   return parts.length === 2 && CHAPTER_TENS.has(parts[0]) && CHAPTER_UNITS.has(parts[1]);
 }
 
+function isLikelyChapterSubtitle(value: string): boolean {
+  const titlePart = value.trim();
+  return (
+    titlePart.length <= 60 &&
+    !/^["'\u2018\u201c]/.test(titlePart) &&
+    !/[.!?](\s|$)/.test(titlePart)
+  );
+}
+
 function isChapterTitleParagraph(text: string): boolean {
   const upper = text.toUpperCase();
   if (!upper.startsWith(CHAPTER_PREFIX)) return false;
 
   const afterPrefix = text.slice(CHAPTER_PREFIX.length).trim();
   const sepIndex = separatorIndex(afterPrefix);
-  const designation = sepIndex >= 0 ? afterPrefix.slice(0, sepIndex) : afterPrefix;
-  return isChapterDesignation(designation);
+
+  if (sepIndex >= 0) {
+    const designation = afterPrefix.slice(0, sepIndex);
+    return isChapterDesignation(designation) &&
+      isLikelyChapterSubtitle(afterPrefix.slice(sepIndex + 1));
+  }
+
+  return isChapterDesignation(afterPrefix);
 }
 
 function stripOpeningChapterTitle(html: string): string {
