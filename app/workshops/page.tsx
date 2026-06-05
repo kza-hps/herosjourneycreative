@@ -149,7 +149,7 @@ export default function WorkshopsPage() {
                   className="hjc-lnk"
                   style={{ alignSelf: "flex-start" }}
                 >
-                  {card.cta} →
+                  {card.cta} <span aria-hidden="true">→</span>
                 </a>
               ) : (
                 <Link
@@ -157,7 +157,7 @@ export default function WorkshopsPage() {
                   className="hjc-lnk"
                   style={{ alignSelf: "flex-start" }}
                 >
-                  {card.cta} →
+                  {card.cta} <span aria-hidden="true">→</span>
                 </Link>
               )}
             </div>
@@ -303,11 +303,12 @@ export default function WorkshopsPage() {
           style={{ alignItems: "start", marginTop: "28px" }}
         >
           <div>
-            <div
+            <ul
               className="grid grid-cols-2 gap-x-6 gap-y-3 max-[560px]:grid-cols-1"
+              style={{ margin: 0, padding: 0, listStyle: "none" }}
             >
               {PRIVATE_AUDIENCE_GROUPS.map((group) => (
-                <div
+                <li
                   key={group}
                   style={{
                     display: "flex",
@@ -319,6 +320,7 @@ export default function WorkshopsPage() {
                   }}
                 >
                   <span
+                    aria-hidden="true"
                     style={{
                       display: "inline-block",
                       width: "18px",
@@ -328,9 +330,9 @@ export default function WorkshopsPage() {
                     }}
                   />
                   {group}
-                </div>
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
 
           {/* What to bring */}
@@ -410,8 +412,7 @@ export default function WorkshopsPage() {
           style={{
             display: "flex",
             flexDirection: "column",
-            alignItems: "center",
-            textAlign: "center",
+            alignItems: "flex-start",
             gap: "24px",
           }}
         >
@@ -429,7 +430,7 @@ export default function WorkshopsPage() {
             Join an upcoming public session on Meetup, or get in touch to arrange a private
             workshop for your group.
           </p>
-          <div style={{ display: "flex", flexWrap: "wrap", gap: "14px", justifyContent: "center" }}>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "14px" }}>
             <a
               href={WORKSHOPS_MEETUP_URL}
               target="_blank"
