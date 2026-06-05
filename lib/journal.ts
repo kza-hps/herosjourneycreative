@@ -117,7 +117,10 @@ function stripOpeningChapterTitle(html: string): string {
     .replace(/\s+/g, " ")
     .trim();
 
-  if (!/^CHAPTER\s+[A-Z0-9\s-]+\s*\|/i.test(paragraphText)) {
+  const chapterDesignation =
+    "(?:\\d{1,3}|[IVXLCDM]+|(?:ONE|TWO|THREE|FOUR|FIVE|SIX|SEVEN|EIGHT|NINE|TEN|ELEVEN|TWELVE|THIRTEEN|FOURTEEN|FIFTEEN|SIXTEEN|SEVENTEEN|EIGHTEEN|NINETEEN|TWENTY|THIRTY|FORTY|FIFTY|SIXTY|SEVENTY|EIGHTY|NINETY)(?:[\\s-](?:ONE|TWO|THREE|FOUR|FIVE|SIX|SEVEN|EIGHT|NINE))?)";
+
+  if (!new RegExp(`^CHAPTER\\s+${chapterDesignation}\\s*\\|`, "i").test(paragraphText)) {
     return html;
   }
 
