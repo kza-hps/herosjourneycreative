@@ -7,6 +7,7 @@ import {
   SPRINT_FORMAT_ROWS,
   PRIVATE_AUDIENCE_GROUPS,
   WHAT_TO_BRING,
+  BRAND_INFO,
 } from "@/lib/site-content";
 
 // ─── local helpers ────────────────────────────────────────────────────────────
@@ -391,7 +392,7 @@ export default function WorkshopsPage() {
             action-fantasy novel set in classical Polynesia.
           </p>
           <a
-            href="mailto:kauri@herosjourneycreative.co.nz"
+            href={`mailto:${BRAND_INFO.email}`}
             style={{
               fontFamily: "var(--font-mono)",
               fontSize: "11px",
@@ -401,7 +402,7 @@ export default function WorkshopsPage() {
               textUnderlineOffset: "3px",
             }}
           >
-            kauri@herosjourneycreative.co.nz
+            {BRAND_INFO.email}
           </a>
         </div>
 
