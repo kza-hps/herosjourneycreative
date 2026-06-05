@@ -107,8 +107,13 @@ function sanitizeHtml(html: string): string {
 }
 
 function postProcessHtml(html: string): string {
+  const withoutDocxTitle = html.replace(
+    /^<p>\s*CHAPTER\s+[A-Z]+\s*\|\s*[^<]+<\/p>\s*/i,
+    ""
+  );
+
   // Tag scene-break paragraphs so CSS can center them
-  return html.replace(
+  return withoutDocxTitle.replace(
     /<p>(\s*(\*{3}|—\s*—\s*—|#{3}|~ ~ ~)\s*)<\/p>/g,
     '<p class="scene-break">$2</p>'
   );
