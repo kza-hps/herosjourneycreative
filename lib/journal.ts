@@ -115,20 +115,29 @@ const CHAPTER_TITLE_REGEX = new RegExp(
 );
 
 function stripOpeningChapterTitle(html: string): string {
-  const match = html.match(OPENING_PARAGRAPH_REGEX);
-  if (!match) return html;
+  let currentHtml = html;
 
-  const paragraphText = match[1]
-    .replace(/<[^>]+>/g, " ")
-    .replace(/&nbsp;/gi, " ")
-    .replace(/\s+/g, " ")
-    .trim();
+  while (true) {
+    const match = currentHtml.match(OPENING_PARAGRAPH_REGEX);
+    if (!match) return currentHtml;
 
-  if (!CHAPTER_TITLE_REGEX.test(paragraphText)) {
-    return html;
+    const paragraphText = match[1]
+      .replace(/<[^>]+>/g, " ")
+      .replace(/&nbsp;/gi, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+
+    if (!paragraphText) {
+      currentHtml = currentHtml.slice(match[0].length);
+      continue;
+    }
+
+    if (CHAPTER_TITLE_REGEX.test(paragraphText)) {
+      return currentHtml.slice(match[0].length);
+    }
+
+    return currentHtml;
   }
-
-  return html.slice(match[0].length);
 }
 
 function postProcessHtml(html: string): string {
