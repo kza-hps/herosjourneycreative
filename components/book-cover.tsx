@@ -8,21 +8,15 @@ interface BookCoverProps {
 export default function BookCover({ book }: BookCoverProps) {
   if (book.coverImage) {
     return (
-      <div
-        style={{
-          aspectRatio: "2 / 3",
-          maxWidth: "320px",
-          width: "100%",
-          position: "relative",
-          border: "1px solid var(--rule)",
-        }}
-      >
+      <div style={{ maxWidth: "320px", width: "100%", lineHeight: 0 }}>
         <Image
           src={book.coverImage}
           alt={`${book.title} cover`}
-          fill
-          style={{ objectFit: "cover" }}
+          width={320}
+          height={480}
+          style={{ width: "100%", height: "auto", display: "block" }}
           sizes="320px"
+          priority
         />
       </div>
     );
