@@ -108,7 +108,7 @@ function sanitizeHtml(html: string): string {
 
 function postProcessHtml(html: string): string {
   const withoutDocxTitle = html.replace(
-    /^<p>\s*CHAPTER\s+[A-Z]+\s*\|\s*[^<]+<\/p>\s*/i,
+    /^\s*<p>(?:<[^>]+>)*\s*CHAPTER\s+[A-Z0-9]+\s*\|\s*.*?<\/p>\s*/i,
     ""
   );
 
