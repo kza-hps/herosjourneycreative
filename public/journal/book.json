@@ -3,7 +3,7 @@
   "author": "Kauri Tukere",
   "subtitle": "A slow-release mythic fantasy serial",
   "description": "A Polynesian-inspired mythic fantasy novel about exile, hunger, mana, prophecy, pride, gods, monsters, and the cost of becoming a hero.",
-  "coverImage": null,
-  "coverPlaceholder": true,
+  "coverImage": "/journal/Ho_and_the_Baby_Eater_Cover.png",
+  "coverPlaceholder": false,
   "status": "serialising"
 }
