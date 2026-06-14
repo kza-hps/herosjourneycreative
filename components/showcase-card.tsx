@@ -9,7 +9,7 @@ export default function ShowcaseCard({ item }: ShowcaseCardProps) {
   return (
     <div className="hjc-card">
       <div>
-        {/* Top row: category tag + year */}
+        {/* Top row: eyebrow tag + metadata */}
         <div
           style={{
             display: "flex",
@@ -21,6 +21,7 @@ export default function ShowcaseCard({ item }: ShowcaseCardProps) {
             textTransform: "uppercase",
             color: "var(--fg3)",
             marginBottom: "18px",
+            gap: "12px",
           }}
         >
           <span
@@ -29,9 +30,9 @@ export default function ShowcaseCard({ item }: ShowcaseCardProps) {
               padding: "4px 8px",
             }}
           >
-            {item.category}
+            {item.eyebrow}
           </span>
-          <span>{item.year}</span>
+          <span>{item.metadata}</span>
         </div>
 
         {/* Serif semibold title */}
@@ -55,15 +56,30 @@ export default function ShowcaseCard({ item }: ShowcaseCardProps) {
             fontSize: "0.92rem",
             lineHeight: 1.5,
             color: "var(--fg2)",
-            margin: 0,
+            margin: "0 0 14px",
           }}
         >
           {item.description}
         </p>
+
+        {/* Notes line */}
+        {item.notes && (
+          <p
+            style={{
+              fontFamily: "var(--font-mono)",
+              fontSize: "10px",
+              letterSpacing: "0.04em",
+              color: "var(--fg3)",
+              margin: 0,
+            }}
+          >
+            {item.notes}
+          </p>
+        )}
       </div>
 
       {/* Footer link */}
-      <Link href={`/showcase#${item.slug}`} className="hjc-card-go" style={{ textDecoration: "none" }}>
+      <Link href={`/showcase/${item.slug}`} className="hjc-card-go" style={{ textDecoration: "none" }}>
         View Case Study →
       </Link>
     </div>
