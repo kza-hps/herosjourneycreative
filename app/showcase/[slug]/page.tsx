@@ -43,7 +43,7 @@ function DetailBlock({ label, children }: { label: string; children: React.React
       >
         {label}
       </p>
-      <p
+      <div
         style={{
           fontFamily: "var(--font-serif)",
           fontSize: "var(--step-body)",
@@ -53,7 +53,7 @@ function DetailBlock({ label, children }: { label: string; children: React.React
         }}
       >
         {children}
-      </p>
+      </div>
     </div>
   );
 }

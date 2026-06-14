@@ -167,11 +167,7 @@ function isLikelyChapterSubtitle(value: string): boolean {
     return true;
   }
 
-  return (
-    titlePart.length <= 60 &&
-    !/^["'\u2018\u201c]/.test(titlePart) &&
-    !/[.!?](\s|$)/.test(titlePart)
-  );
+  return titlePart.length <= 100;
 }
 
 function isChapterTitleParagraph(text: string): boolean {
