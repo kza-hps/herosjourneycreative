@@ -422,28 +422,28 @@ export const SHOWCASE_ITEMS: ShowcaseItem[] = [
       },
       buildStory: {
         problem:
-          "Long-form mythic fiction is hard to sustain and hard to publish incrementally — the world, characters, and prophecy threads need to stay consistent across chapters released over time, in a format built for serial reading rather than a single bound manuscript.",
+          "Long-form mythic fiction is hard to sustain and hard to publish incrementally — the world, characters, and prophecy threads need to stay consistent across chapters released over time, in a format built for serial reading rather than a single bound manuscript. The first draft of this manuscript was completed during the COVID-19 lockdowns; only now, in 2025/26, is the author taking the time to edit it to completion and pursue publication.",
         insight:
           "Treat the story as both a literary work and a production system: pair ongoing manuscript development with a structured journal-publishing format, so each chapter can be released, read, and tracked as part of a continuing world.",
         aiRole:
-          "Agents assist with drafting support, structural review, worldbuilding continuity checks, cover-art and image prompting, and the formatting work needed to turn manuscript chapters into a web-ready serial reading experience.",
+          "AI's role here is narrow and tool-like — comparable to a grammar checker, offering line-level suggestions on phrasing, punctuation, and clarity. The manuscript itself was written well before AI tools entered the workflow; AI was also used to generate the cover and worldbuilding concept art.",
         humanInLoop:
-          "The human author remains the source of myth, voice, cultural judgment, character logic, and final prose — agents accelerate iteration and production packaging without taking over authorship.",
+          "Every word of the manuscript — myth, voice, structure, character logic, prophecy, and final prose — is the author's own, drafted long before AI was part of the process. Line-edit suggestions were reviewed individually and accepted or rejected by the author, who retains full authorship, independently confirmed as 100% human-written via Pangram. Author Kauri Tukere is a graduate of the New Zealand Writers College, having completed its Basic, Advanced, and Novel Writing courses.",
       },
       productionNotes: {
-        stack: "Long-form manuscript / mythology / climate allegory / serial journal publishing / cover art direction / AI-assisted editing / image prompting / story-world continuity / web typography",
+        stack: "Human-authored manuscript / mythology / climate allegory / serial journal publishing / cover art direction / AI image prompting / Grammarly-style line-edit pass / story-world continuity / web typography",
         designProcess:
           "Cover art went through iterative AI-assisted exploration before landing on the published artwork, alongside typography and layout work for the chapter-reader format used in the Journal.",
         promptingWorkflow:
-          "Image prompting for cover and worldbuilding visuals ran alongside structural review passes on each chapter, checking prophecy threads, character logic, and island cosmology for continuity.",
+          "AI use was limited to two things: image prompting for the cover and worldbuilding concept art, and grammar-checker-style line-edit suggestions on the manuscript prose. All structural decisions, prophecy threads, and character logic were worked out by the author, with the manuscript predating any AI involvement.",
         testing:
-          "Each chapter is reviewed for structural and continuity consistency with the wider Seed of Kafiki world before being formatted and published to the Journal's serial reader.",
+          "Each chapter is reviewed by the author for structural and continuity consistency with the wider Seed of Kafiki world before being formatted and published to the Journal's serial reader. The manuscript text is independently verified as 100% human-written via Pangram's AI-detection analysis.",
       },
       outcome: {
         currentState:
           "Chapters are being released through the Journal's serial reader, with the wider Seed of Kafiki mythology continuing to develop alongside the published manuscript.",
         demonstrates:
-          "The literary side of Hero's Journey Creative — using AI to accelerate drafting, structure, and production packaging while the human author retains full creative and cultural authority over the work.",
+          "The literary side of Hero's Journey Creative — a manuscript fully authored by a human writer, predating AI involvement, with AI limited to grammar-style line-edit suggestions and cover/concept art generation. Authorship is verified 100% human-written via Pangram.",
       },
       videoPlaceholderTitle: "Walkthrough coming soon",
     },
