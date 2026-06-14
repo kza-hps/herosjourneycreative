@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { SHOWCASE_ITEMS } from "@/lib/site-content";
 
 const baseUrl = "https://herosjourneycreative.co.nz";
 
@@ -10,11 +11,7 @@ const routes = [
   "/personal-myth-authoring",
   "/journal",
   "/showcase",
-  "/showcase/vouchmeapp",
-  "/showcase/heroboardmaker",
-  "/showcase/ho-and-the-baby-eater",
-  "/showcase/te-aho-matatu",
-  "/showcase/legends-barbershop",
+  ...SHOWCASE_ITEMS.map((item) => `/showcase/${item.slug}`),
   "/contact",
 ];
 

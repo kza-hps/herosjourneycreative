@@ -178,6 +178,7 @@ export interface ShowcaseItem {
   metadata: string;
   notes: string;
   heroImage?: string;
+  heroImageDimensions?: { width: number; height: number };
   screenshots?: ShowcaseScreenshot[];
   externalLinks: ShowcaseExternalLink[];
   detail: ShowcaseDetail;
@@ -273,6 +274,7 @@ export const SHOWCASE_ITEMS: ShowcaseItem[] = [
     metadata: "Live product",
     notes: "Multi-role SaaS · Supabase · Stripe · OAuth · Private audio · UAT",
     heroImage: "/showcase/vouchmeapp/hero.png",
+    heroImageDimensions: { width: 1906, height: 1086 },
     screenshots: [
       { src: "/showcase/vouchmeapp/dashboard.png", alt: "VouchMeApp recruiter dashboard", caption: "Recruiter dashboard" },
       { src: "/showcase/vouchmeapp/reference-request.png", alt: "VouchMeApp reference request flow", caption: "Reference request flow" },
@@ -337,6 +339,7 @@ export const SHOWCASE_ITEMS: ShowcaseItem[] = [
     metadata: "Live product",
     notes: "No-account flow · Prompt pipeline · Stripe checkout · Image generation",
     heroImage: "/showcase/heroboardmaker/hero.png",
+    heroImageDimensions: { width: 1151, height: 962 },
     screenshots: [
       { src: "/showcase/heroboardmaker/selection.png", alt: "HeroBoardMaker prompt and style selection screen", caption: "Prompt & style selection" },
       { src: "/showcase/heroboardmaker/edit.png", alt: "HeroBoardMaker board editing screen", caption: "Editing the board" },
@@ -396,6 +399,7 @@ export const SHOWCASE_ITEMS: ShowcaseItem[] = [
     metadata: "Publishing project",
     notes: "Manuscript · Mythology · Cover art · Journal serialisation",
     heroImage: "/showcase/ho-and-the-baby-eater/hero.png",
+    heroImageDimensions: { width: 1024, height: 1536 },
     screenshots: [
       { src: "/showcase/ho-and-the-baby-eater/concept-1.png", alt: "Concept art for the Seed of Kafiki world, study I", caption: "Worldbuilding concept art — study I" },
       { src: "/showcase/ho-and-the-baby-eater/concept-2.png", alt: "Concept art for the Seed of Kafiki world, study II", caption: "Worldbuilding concept art — study II" },
@@ -512,6 +516,7 @@ export const SHOWCASE_ITEMS: ShowcaseItem[] = [
     metadata: "Concept / Prototype",
     notes: "Retro UI design · Character & world design · React prototype · framer-motion",
     heroImage: "/showcase/legends-barbershop/hero.png",
+    heroImageDimensions: { width: 1448, height: 1086 },
     screenshots: [
       { src: "/showcase/legends-barbershop/box-back.png", alt: "Back-of-box pitch art for Legends Barbershop", caption: "Back-of-box pitch art" },
       { src: "/showcase/legends-barbershop/title-screen.png", alt: "Legends Barbershop title screen", caption: "Title screen" },

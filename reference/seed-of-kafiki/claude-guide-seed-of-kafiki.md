@@ -26,16 +26,17 @@ Book 0, Ho and the Baby Eater, is the first entry point into the series. It work
 
 Treat this as working canon unless Kauri updates it.
 
-Prophecy / Motif	Tribe / Line	Associated characters or notes
-The White Robin	Matavai	Teā; prophecy child; sings beneath a false/dark sky
-The Incoming Tide of Death	Frealta	Future book / tribal prophecy thread
-The Volcano God Gives Birth	Ahukai	Sukey / Faturaki; Takali Foto; sacrifice / birth imagery
-The Warrior Who Broke with the Gods	Feke	Howaru / Ho; Kura; rupture with divine order
-The Last Moa Is Eaten	Autara	Ngara; extinction / last-resource logic
-The Offering to Restore Balance	Matavea	Maqafu; sacrifice, exchange, failed restoration
-The Gods Reject All Gifts	Tumutumu	Ritual exhaustion; failed reciprocity with atua
-The Ledger Is Full	Unusi	Debt, accounting, justice, accumulated consequence
-The Island Must Die	Hatu	Gundaidhar; final civilisational truth
+| Prophecy / Motif | Tribe / Line | Associated characters or notes |
+| --- | --- | --- |
+| The White Robin | Matavai | Teā; prophecy child; sings beneath a false/dark sky |
+| The Incoming Tide of Death | Frealta | Future book / tribal prophecy thread |
+| The Volcano God Gives Birth | Ahukai | Sukey / Faturaki; Takali Foto; sacrifice / birth imagery |
+| The Warrior Who Broke with the Gods | Feke | Howaru / Ho; Kura; rupture with divine order |
+| The Last Moa Is Eaten | Autara | Ngara; extinction / last-resource logic |
+| The Offering to Restore Balance | Matavea | Maqafu; sacrifice, exchange, failed restoration |
+| The Gods Reject All Gifts | Tumutumu | Ritual exhaustion; failed reciprocity with atua |
+| The Ledger Is Full | Unusi | Debt, accounting, justice, accumulated consequence |
+| The Island Must Die | Hatu | Gundaidhar; final civilisational truth |
 
 Claude should not invent full plots for these books without marking them as proposals. The prophecy map is a structural spine, not permission to fabricate canon.
 

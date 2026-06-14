@@ -8,13 +8,6 @@ import ShowcaseImagePlaceholder from "@/components/showcase-image-placeholder";
 import ShowcaseGallery from "@/components/showcase-gallery";
 import VideoPlaceholder from "@/components/video-placeholder";
 
-const HERO_IMAGE_DIMENSIONS: Record<string, { width: number; height: number }> = {
-  vouchmeapp: { width: 1906, height: 1086 },
-  heroboardmaker: { width: 1151, height: 962 },
-  "ho-and-the-baby-eater": { width: 1024, height: 1536 },
-  "legends-barbershop": { width: 1448, height: 1086 },
-};
-
 export const dynamicParams = false;
 
 export async function generateStaticParams() {
@@ -166,8 +159,8 @@ export default async function ShowcaseDetailPage({
             <Image
               src={item.heroImage}
               alt={`${item.title} screenshot`}
-              width={HERO_IMAGE_DIMENSIONS[item.slug]?.width ?? 1600}
-              height={HERO_IMAGE_DIMENSIONS[item.slug]?.height ?? 900}
+              width={item.heroImageDimensions?.width ?? 1600}
+              height={item.heroImageDimensions?.height ?? 900}
               style={{ width: "100%", height: "auto", display: "block" }}
               sizes="(max-width: 880px) 100vw, 1200px"
               priority

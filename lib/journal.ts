@@ -160,6 +160,13 @@ function isChapterDesignation(value: string): boolean {
 
 function isLikelyChapterSubtitle(value: string): boolean {
   const titlePart = value.trim();
+
+  // Chapter headings in this manuscript are set in all caps, even when the
+  // subtitle is long or a quoted line of dialogue ending in punctuation.
+  if (/[A-Z]/.test(titlePart) && titlePart === titlePart.toUpperCase()) {
+    return true;
+  }
+
   return (
     titlePart.length <= 60 &&
     !/^["'\u2018\u201c]/.test(titlePart) &&
@@ -188,15 +195,15 @@ function stripOpeningChapterTitle(html: string): string {
 
   while (true) {
     const match = currentHtml.match(OPENING_PARAGRAPH_REGEX);
-    if (!match) return currentHtml;
+    if (!match) return html;
 
-    if (!match[0]) return currentHtml;
+    if (!match[0]) return html;
 
     const paragraphText = normalizeParagraphText(match[1]);
 
     if (!paragraphText) {
       if (/<img\b/i.test(match[1])) {
-        return currentHtml;
+        return html;
       }
       currentHtml = currentHtml.slice(match[0].length);
       continue;
@@ -206,7 +213,7 @@ function stripOpeningChapterTitle(html: string): string {
       return currentHtml.slice(match[0].length);
     }
 
-    return currentHtml;
+    return html;
   }
 }
 
