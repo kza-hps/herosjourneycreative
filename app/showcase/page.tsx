@@ -31,11 +31,25 @@ export default function ShowcasePage() {
             lineHeight: 1.5,
             color: "var(--fg2)",
             maxWidth: "680px",
+            margin: "0 0 20px",
+          }}
+        >
+          A public archive of finished creative builds, story worlds, research frameworks, and
+          human-centred AI experiments.
+        </p>
+        <p
+          style={{
+            fontFamily: "var(--font-serif)",
+            fontSize: "var(--step-body)",
+            lineHeight: 1.6,
+            color: "var(--fg2)",
+            maxWidth: "680px",
             margin: 0,
           }}
         >
-          A portfolio and public archive of completed story projects — memoirs, interactive
-          portals, and community programmes.
+          Each case study documents not only what was made, but how it was made: the prompts,
+          product decisions, agent workflows, design systems, infrastructure choices, and
+          production rituals used to turn an idea into a working artefact.
         </p>
         <hr style={{ border: "none", borderTop: "1px solid var(--rule)", margin: "48px 0" }} />
 
