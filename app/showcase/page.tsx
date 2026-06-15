@@ -57,7 +57,7 @@ export default function ShowcasePage() {
         <div
           className="grid grid-cols-3 gap-6 max-[880px]:grid-cols-1"
         >
-          {SHOWCASE_ITEMS.map((item) => (
+          {SHOWCASE_ITEMS.filter((item) => !item.hidden).map((item) => (
             <div key={item.id} id={item.slug} className="scroll-mt-20">
               <ShowcaseCard item={item} />
             </div>

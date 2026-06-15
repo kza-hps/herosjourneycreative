@@ -11,7 +11,7 @@ import VideoPlaceholder from "@/components/video-placeholder";
 export const dynamicParams = false;
 
 export async function generateStaticParams() {
-  return SHOWCASE_ITEMS.map((item) => ({ slug: item.slug }));
+  return SHOWCASE_ITEMS.filter((item) => !item.hidden).map((item) => ({ slug: item.slug }));
 }
 
 export async function generateMetadata({

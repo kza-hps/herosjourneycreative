@@ -102,7 +102,7 @@ export default function Home() {
           <div
             className="grid grid-cols-3 gap-6 max-[880px]:grid-cols-1"
           >
-            {SHOWCASE_ITEMS.map((item) => (
+            {SHOWCASE_ITEMS.filter((item) => !item.hidden).map((item) => (
               <ShowcaseCard key={item.id} item={item} />
             ))}
           </div>

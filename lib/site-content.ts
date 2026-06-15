@@ -182,6 +182,7 @@ export interface ShowcaseItem {
   screenshots?: ShowcaseScreenshot[];
   externalLinks: ShowcaseExternalLink[];
   detail: ShowcaseDetail;
+  hidden?: boolean;
 }
 
 export const NAV_LINKS: NavLink[] = [
@@ -392,6 +393,7 @@ export const SHOWCASE_ITEMS: ShowcaseItem[] = [
   {
     id: "showcase-ho-and-the-baby-eater",
     slug: "ho-and-the-baby-eater",
+    hidden: true,
     eyebrow: "Story World / Mythic Fiction",
     title: "Ho and the Baby Eater",
     description:

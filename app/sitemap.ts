@@ -11,7 +11,7 @@ const routes = [
   "/personal-myth-authoring",
   "/journal",
   "/showcase",
-  ...SHOWCASE_ITEMS.map((item) => `/showcase/${item.slug}`),
+  ...SHOWCASE_ITEMS.filter((item) => !item.hidden).map((item) => `/showcase/${item.slug}`),
   "/contact",
 ];
 
