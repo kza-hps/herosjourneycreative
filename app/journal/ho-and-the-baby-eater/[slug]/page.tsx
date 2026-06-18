@@ -28,7 +28,7 @@ export async function generateMetadata({
   if (!chapter || chapter.status !== "published") return {};
   const book = getBook();
   return {
-    title: `Chapter ${chapterWord(chapter.chapterNumber)}: ${chapter.title} — ${book.title} | Hero's Journey Creative`,
+    title: `Chapter ${chapterWord(chapter.chapterNumber)}: ${chapter.title} - ${book.title} | Hero's Journey Creative`,
     description: chapter.summary,
   };
 }
@@ -47,14 +47,14 @@ export default async function ChapterPage({
 
   const book = getBook();
   const { prev, next } = getAdjacentChapters(slug);
-  const bodyHtml = await renderChapterDocx(chapter.sourceFile);
+  const glossaryHref = "/journal/ho-and-the-baby-eater/glossary";
+  const bodyHtml = await renderChapterDocx(chapter.sourceFile, chapter.title);
 
   return (
     <div
       className="hjc-fade flex-1"
       style={{ background: "var(--bg)", padding: "64px 0 96px" }}
     >
-      {/* Back link — sits in the wider 1200px column */}
       <div
         className="max-w-[1200px] mx-auto px-8 max-[880px]:px-5"
         style={{ marginBottom: "56px" }}
@@ -64,16 +64,14 @@ export default async function ChapterPage({
           className="hjc-lnk"
           style={{ display: "inline-flex", alignItems: "center", gap: "8px" }}
         >
-          ← {book.title}
+          Back to {book.title}
         </Link>
       </div>
 
-      {/* Reader shell — chapter header + manuscript + nav */}
       <main className="chapter-reader-shell">
         <article className="chapter-reader-page">
-          {/* Chapter header */}
           <span className="hjc-kick block mb-[16px]">
-            {book.title} — Chapter {chapterWord(chapter.chapterNumber)}
+            {book.title} - Chapter {chapterWord(chapter.chapterNumber)}
           </span>
 
           <h1
@@ -83,11 +81,17 @@ export default async function ChapterPage({
               fontSize: "clamp(1.5rem, 3vw, 2.2rem)",
               lineHeight: 1.2,
               color: "var(--fg1)",
-              margin: "0 0 32px",
+              margin: "0 0 20px",
             }}
           >
             {chapter.title}
           </h1>
+
+          <div style={{ margin: "0 0 32px" }}>
+            <Link href={glossaryHref} className="hjc-lnk">
+              Glossary
+            </Link>
+          </div>
 
           {chapter.contentWarning && (
             <p
@@ -114,7 +118,6 @@ export default async function ChapterPage({
             }}
           />
 
-          {/* Manuscript body — CSS Module ensures styles always apply */}
           <div
             className={`chapter-body ${styles.body}`}
             dangerouslySetInnerHTML={{ __html: bodyHtml }}
@@ -128,7 +131,6 @@ export default async function ChapterPage({
             }}
           />
 
-          {/* Chapter navigation */}
           <nav
             style={{
               display: "flex",
@@ -156,11 +158,27 @@ export default async function ChapterPage({
                   href={`/journal/ho-and-the-baby-eater/${prev.slug}`}
                   className="hjc-lnk"
                 >
-                  ← Chapter {chapterWord(prev.chapterNumber)}
+                  Chapter {chapterWord(prev.chapterNumber)}
                 </Link>
               </div>
             ) : (
-              <div />
+              <div>
+                <p
+                  style={{
+                    fontFamily: "var(--font-mono)",
+                    fontSize: "9px",
+                    letterSpacing: "0.16em",
+                    textTransform: "uppercase",
+                    color: "var(--fg3)",
+                    margin: "0 0 6px",
+                  }}
+                >
+                  Reference
+                </p>
+                <Link href={glossaryHref} className="hjc-lnk">
+                  Glossary
+                </Link>
+              </div>
             )}
 
             {next ? (
@@ -181,11 +199,27 @@ export default async function ChapterPage({
                   href={`/journal/ho-and-the-baby-eater/${next.slug}`}
                   className="hjc-lnk"
                 >
-                  Chapter {chapterWord(next.chapterNumber)} →
+                  Chapter {chapterWord(next.chapterNumber)}
                 </Link>
               </div>
             ) : (
-              <div />
+              <div style={{ textAlign: "right" }}>
+                <p
+                  style={{
+                    fontFamily: "var(--font-mono)",
+                    fontSize: "9px",
+                    letterSpacing: "0.16em",
+                    textTransform: "uppercase",
+                    color: "var(--fg3)",
+                    margin: "0 0 6px",
+                  }}
+                >
+                  Reference
+                </p>
+                <Link href={glossaryHref} className="hjc-lnk">
+                  Glossary
+                </Link>
+              </div>
             )}
           </nav>
         </article>

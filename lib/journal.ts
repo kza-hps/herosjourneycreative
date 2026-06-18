@@ -12,6 +12,9 @@ export interface BookMeta {
   coverImage: string | null;
   coverPlaceholder: boolean;
   status: string;
+  glossarySourceFile?: string;
+  glossaryTitle?: string;
+  glossaryDescription?: string;
 }
 
 export interface ChapterMeta {
@@ -30,6 +33,12 @@ function assertBook(data: unknown): BookMeta {
   const d = data as Record<string, unknown>;
   if (!d.title) throw new Error("book.json: missing title");
   if (!d.author) throw new Error("book.json: missing author");
+  if (d.glossarySourceFile) {
+    const glossaryPath = path.join(JOURNAL_DIR, d.glossarySourceFile as string);
+    if (!fs.existsSync(glossaryPath)) {
+      throw new Error(`book.json: glossary source file not found: ${d.glossarySourceFile}`);
+    }
+  }
   return d as unknown as BookMeta;
 }
 
@@ -130,6 +139,32 @@ function normalizeParagraphText(html: string): string {
     .trim();
 }
 
+function normalizeComparableText(value: string): string {
+  return value
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[“”]/g, '"')
+    .replace(/[‘’]/g, "'")
+    .replace(/&(?:mdash|ndash);|&#821[12];/gi, "-")
+    .replace(/[^\p{L}\p{N}'"]+/gu, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+    .toLocaleLowerCase();
+}
+
+function slugify(value: string): string {
+  return value
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[‘’]/g, "")
+    .replace(/[“”]/g, "")
+    .replace(/&/g, " and ")
+    .toLocaleLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .replace(/-{2,}/g, "-");
+}
+
 function separatorIndex(text: string): number {
   for (let i = 0; i < text.length; i++) {
     const char = text[i];
@@ -186,35 +221,67 @@ function isChapterTitleParagraph(text: string): boolean {
   return isChapterDesignation(afterPrefix);
 }
 
-function stripOpeningChapterTitle(html: string): string {
+function stripOpeningTitlePrefix(html: string, title: string): string {
+  const match = html.match(OPENING_PARAGRAPH_REGEX);
+  if (!match || !match[0]) return html;
+
+  const innerHtml = match[1];
+  if (/<[^>]+>/.test(innerHtml)) return html;
+
+  const paragraphText = normalizeParagraphText(innerHtml);
+  const normalizedParagraph = normalizeComparableText(paragraphText);
+  const normalizedTitle = normalizeComparableText(title);
+
+  if (!normalizedParagraph.startsWith(normalizedTitle)) return html;
+
+  const titlePattern = title
+    .replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
+    .replace(/\s+/g, "\\s+");
+  const strippedInner = innerHtml
+    .replace(new RegExp(`^\\s*${titlePattern}\\s*[.!?]?\\s*`, "i"), "")
+    .trimStart();
+
+  if (!strippedInner) {
+    return html.slice(match[0].length);
+  }
+
+  return html.replace(match[0], `<p>${strippedInner}</p>`);
+}
+
+function stripOpeningChapterTitle(html: string, chapterTitle?: string): string {
   let currentHtml = html;
 
   while (true) {
     const match = currentHtml.match(OPENING_PARAGRAPH_REGEX);
-    if (!match) return html;
+    if (!match) {
+      return chapterTitle ? stripOpeningTitlePrefix(currentHtml, chapterTitle) : currentHtml;
+    }
 
-    if (!match[0]) return html;
+    if (!match[0]) {
+      return chapterTitle ? stripOpeningTitlePrefix(currentHtml, chapterTitle) : currentHtml;
+    }
 
     const paragraphText = normalizeParagraphText(match[1]);
 
     if (!paragraphText) {
       if (/<img\b/i.test(match[1])) {
-        return html;
+        return chapterTitle ? stripOpeningTitlePrefix(currentHtml, chapterTitle) : currentHtml;
       }
       currentHtml = currentHtml.slice(match[0].length);
       continue;
     }
 
     if (isChapterTitleParagraph(paragraphText)) {
-      return currentHtml.slice(match[0].length);
+      currentHtml = currentHtml.slice(match[0].length);
+      continue;
     }
 
-    return html;
+    return chapterTitle ? stripOpeningTitlePrefix(currentHtml, chapterTitle) : currentHtml;
   }
 }
 
-function postProcessHtml(html: string): string {
-  const withoutDocxTitle = stripOpeningChapterTitle(html);
+function postProcessHtml(html: string, chapterTitle?: string): string {
+  const withoutDocxTitle = stripOpeningChapterTitle(html, chapterTitle);
 
   // Tag scene-break paragraphs so CSS can center them
   return withoutDocxTitle.replace(
@@ -223,7 +290,7 @@ function postProcessHtml(html: string): string {
   );
 }
 
-export async function renderChapterDocx(sourceFile: string): Promise<string> {
+export async function renderChapterDocx(sourceFile: string, chapterTitle?: string): Promise<string> {
   const docxPath = path.join(JOURNAL_DIR, sourceFile);
   if (!fs.existsSync(docxPath)) {
     throw new Error(`Source file not found: ${sourceFile}`);
@@ -231,9 +298,46 @@ export async function renderChapterDocx(sourceFile: string): Promise<string> {
   const buffer = fs.readFileSync(docxPath);
   const result = await mammoth.convertToHtml({ buffer });
   const sanitized = sanitizeHtml(result.value);
-  const processed = postProcessHtml(sanitized);
+  const processed = postProcessHtml(sanitized, chapterTitle);
   if (!processed.trim()) {
     throw new Error(`Chapter body is empty after processing: ${sourceFile}`);
+  }
+  return processed;
+}
+
+function addGlossaryAnchors(html: string): string {
+  return html.replace(
+    /<tr><td><p>(?!<strong>)([\s\S]*?)<\/p><\/td><td>/g,
+    (rowStart, termHtml: string) => {
+      const term = normalizeParagraphText(termHtml);
+      const id = slugify(term);
+      if (!id) return rowStart;
+      return `<tr id="${id}"><td><p>${termHtml}</p></td><td>`;
+    }
+  );
+}
+
+function stripGlossaryDocTitle(html: string, title?: string): string {
+  if (!title) return html;
+  const match = html.match(OPENING_PARAGRAPH_REGEX);
+  if (!match || !match[0]) return html;
+  const paragraphText = normalizeParagraphText(match[1]);
+  return normalizeComparableText(paragraphText) === normalizeComparableText(title)
+    ? html.slice(match[0].length)
+    : html;
+}
+
+export async function renderGlossaryDocx(sourceFile: string, title?: string): Promise<string> {
+  const docxPath = path.join(JOURNAL_DIR, sourceFile);
+  if (!fs.existsSync(docxPath)) {
+    throw new Error(`Glossary source file not found: ${sourceFile}`);
+  }
+  const buffer = fs.readFileSync(docxPath);
+  const result = await mammoth.convertToHtml({ buffer });
+  const sanitized = sanitizeHtml(result.value);
+  const processed = addGlossaryAnchors(stripGlossaryDocTitle(sanitized, title));
+  if (!processed.trim()) {
+    throw new Error(`Glossary body is empty after processing: ${sourceFile}`);
   }
   return processed;
 }

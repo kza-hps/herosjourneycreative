@@ -5,5 +5,8 @@
   "description": "A Polynesian-inspired mythic fantasy novel about exile, hunger, mana, prophecy, pride, gods, monsters, and the cost of becoming a hero.",
   "coverImage": "/journal/Ho_and_the_Baby_Eater_Cover.png",
   "coverPlaceholder": false,
-  "status": "serialising"
+  "status": "serialising",
+  "glossarySourceFile": "Ho and the Baby Eater - Glossary Publication.docx",
+  "glossaryTitle": "Ho and the Baby Eater: Glossary",
+  "glossaryDescription": "A spoiler-light reader aid for recurring names, atua, places, peoples, Polynesian terms, and in-world words from Ho & the Baby Eater."
 }

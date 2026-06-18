@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { getPublishedChapters } from "@/lib/journal";
 import { SHOWCASE_ITEMS } from "@/lib/site-content";
 
 const baseUrl = "https://herosjourneycreative.co.nz";
@@ -16,7 +17,12 @@ const routes = [
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  return routes.map((route) => ({
+  const journalRoutes = [
+    ...getPublishedChapters().map((chapter) => `/journal/ho-and-the-baby-eater/${chapter.slug}`),
+    "/journal/ho-and-the-baby-eater/glossary",
+  ];
+
+  return [...routes, ...journalRoutes].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
     changeFrequency: route === "" ? "monthly" : "yearly",
