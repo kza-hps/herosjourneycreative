@@ -1,5 +1,9 @@
 import { cookies } from "next/headers";
+import Link from "next/link";
 import type { Metadata } from "next";
+import { SHOWCASE_ITEMS } from "@/lib/site-content";
+import SectionHeading from "@/components/section-heading";
+import VideoPlaceholder from "@/components/video-placeholder";
 import { PREREG } from "@/lib/tam/frozen";
 import { getSessions } from "@/lib/tam/db";
 import ThreadGap from "@/components/tam/ThreadGap";
@@ -9,13 +13,52 @@ import OperatorRunner from "@/components/tam/OperatorRunner";
 
 export const dynamic = "force-dynamic";
 
+const item = SHOWCASE_ITEMS.find((i) => i.slug === "te-aho-matatu")!;
+
 export const metadata: Metadata = {
-  title: "Te Aho Matatū — σ-Correspondence Test | Hero's Journey Creative",
-  description:
-    "A live, falsifiable experiment testing whether symbolic correspondence tracks inner coherence. Scored by rule, logged including misses, reported either way.",
+  title: `${item.title} — Showcase | Hero's Journey Creative`,
+  description: item.detail.heroSubtitle,
 };
 
-export default async function TamPage() {
+function DetailBlock({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <div>
+      <p
+        style={{
+          fontFamily: "var(--font-mono)",
+          fontSize: "10px",
+          letterSpacing: "0.14em",
+          textTransform: "uppercase",
+          color: "var(--fg3)",
+          margin: "0 0 10px",
+        }}
+      >
+        {label}
+      </p>
+      <div
+        style={{
+          fontFamily: "var(--font-serif)",
+          fontSize: "var(--step-body)",
+          lineHeight: 1.6,
+          color: "var(--fg2)",
+        }}
+      >
+        {children}
+      </div>
+    </div>
+  );
+}
+
+function Section({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <section style={{ margin: "60px 0" }}>
+      <SectionHeading title={title} className="mb-[28px]" />
+      {children}
+    </section>
+  );
+}
+
+export default async function TamShowcasePage() {
   const sessions = await getSessions().catch(() => []);
 
   const cookieStore = await cookies();
@@ -23,135 +66,196 @@ export default async function TamPage() {
     !!process.env.OPERATOR_TOKEN &&
     cookieStore.get("tam_op")?.value === process.env.OPERATOR_TOKEN;
 
+  const { detail } = item;
+
   return (
-    <div className="tam-shell">
-      <div style={{ maxWidth: 1040, margin: "0 auto", padding: "32px 20px 80px" }}>
+    <div className="hjc-fade flex-1" style={{ padding: "64px 0 80px", background: "var(--bg)" }}>
+      <div className="max-w-[1200px] mx-auto px-8 max-[880px]:px-5">
+
+        {/* Back link */}
+        <Link
+          href="/showcase"
+          className="hjc-lnk"
+          style={{ display: "inline-flex", alignItems: "center", gap: "8px", marginBottom: "40px" }}
+        >
+          ← Showcase
+        </Link>
 
         {/* ── Hero ── */}
-        <header style={{ marginBottom: 32 }}>
-          <div
-            style={{
-              fontFamily: "var(--font-space-mono)",
-              fontSize: 12,
-              letterSpacing: "0.18em",
-              textTransform: "uppercase",
-              color: "var(--tam-muted)",
-              marginBottom: 8,
-            }}
-          >
-            Hero&apos;s Journey Creative · Human-centred AI experiments
-          </div>
-          <h1
-            style={{
-              fontFamily: "var(--font-spectral)",
-              fontWeight: 600,
-              fontSize: "clamp(30px, 5vw, 46px)",
-              lineHeight: 1.05,
-              margin: "0.3em 0 0.15em",
-              letterSpacing: "-0.01em",
-            }}
-          >
-            Te Aho <span style={{ color: "var(--tam-thread)" }}>Matatū</span> — the σ test
-          </h1>
-          <p
-            style={{
-              fontFamily: "var(--font-space-mono)",
-              fontSize: 14,
-              color: "var(--tam-muted)",
-              margin: "6px 0 0",
-              letterSpacing: "0.02em",
-            }}
-          >
-            Ψ → ∑Mi(↑/↓) ⇄ σ(ϕ) → ϕ
-          </p>
-          <p
-            style={{
-              maxWidth: "62ch",
-              color: "#cfcabf",
-              margin: "18px 0 0",
-              fontSize: 16,
-              lineHeight: 1.6,
-            }}
-          >
-            A live, falsifiable test of one claim: that the symbol a participant draws (
-            <b style={{ color: "var(--tam-ink)" }}>ϕ</b>) corresponds to their inner state{" "}
-            <b style={{ color: "var(--tam-ink)" }}>
-              more when they are coherent (∑Mi↑) than when scattered (∑Mi↓)
-            </b>
-            . The result is the{" "}
-            <b style={{ color: "var(--tam-ink)" }}>gap between those two arms</b> — scored by rule,
-            logged including misses, and reported either way. A second deck of plain playing cards
-            runs in parallel, to test whether the tarot&apos;s symbols matter or only its structure does.
-          </p>
-        </header>
+        <span className="hjc-kick block mb-[18px]">{item.eyebrow}</span>
+        <h1
+          style={{
+            fontFamily: "var(--font-display)",
+            textTransform: "uppercase",
+            fontSize: "var(--step-display)",
+            lineHeight: 0.94,
+            color: "var(--fg1)",
+            margin: "0 0 18px",
+          }}
+        >
+          {item.title}
+        </h1>
+        <p
+          style={{
+            fontFamily: "var(--font-serif)",
+            fontStyle: "italic",
+            fontSize: "var(--step-body-lg)",
+            lineHeight: 1.5,
+            color: "var(--fg2)",
+            maxWidth: "680px",
+            margin: "0 0 28px",
+          }}
+        >
+          {detail.heroSubtitle}
+        </p>
 
-        {/* ── Thread-gap dashboard ── */}
-        <ThreadGap sessions={sessions} />
-
-        {/* ── Pre-registration panel ── */}
-        <PreregPanel prereg={PREREG} />
-
-        {/* ── Session record ── */}
-        <SessionTable sessions={sessions} />
-
-        {/* ── Downloads / links ── */}
-        <section className="tam-panel">
-          <h2
-            style={{
-              fontFamily: "var(--font-spectral)",
-              fontWeight: 600,
-              fontSize: 20,
-              margin: "0 0 14px",
-            }}
-          >
-            Downloads &amp; links
-          </h2>
-          <ul style={{ listStyle: "none", margin: 0, padding: 0, display: "flex", flexDirection: "column", gap: 10 }}>
-            <li>
+        {item.externalLinks.length > 0 && (
+          <div style={{ display: "flex", gap: "16px", flexWrap: "wrap", marginBottom: "48px" }}>
+            {item.externalLinks.map((link) => (
               <a
-                href="/showcase/te-aho-matatu/paper.pdf"
+                key={link.href}
+                href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                style={{ color: "var(--tam-pounamu)", textDecoration: "none", borderBottom: "1px solid rgba(95,184,166,.4)", fontFamily: "var(--font-space-mono)", fontSize: 13 }}
+                className="hjc-btn hjc-btn-ghost"
               >
-                Te Aho Matatū — original framework paper (PDF)
+                {link.label} ↗
               </a>
-            </li>
-            <li>
-              <a
-                href="/showcase/te-aho-matatu/Te_Aho_Matatu_Sigma_Protocol_v1.md"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{ color: "var(--tam-pounamu)", textDecoration: "none", borderBottom: "1px solid rgba(95,184,166,.4)", fontFamily: "var(--font-space-mono)", fontSize: 13 }}
-              >
-                σ-Correspondence Protocol v1.0 (Markdown)
-              </a>
-            </li>
-          </ul>
-          <div
-            style={{
-              marginTop: 20,
-              padding: "14px 16px",
-              background: "var(--tam-surface-2)",
-              border: "1px solid var(--tam-line)",
-              borderRadius: 10,
-              fontSize: 13,
-              color: "#cfcabf",
-              lineHeight: 1.6,
-            }}
-          >
-            <b style={{ color: "var(--tam-ink)" }}>How this was built.</b> The original framework
-            paper was drafted with AI as collaborator. A multi-model adversarial critique pass found
-            where the central physics argument fails. The corrected protocol — falsifiable, with a
-            real control and mechanical scoring — was co-designed with AI as engineer. The same tools
-            that helped build the claim were turned on it to break it. Sessions are filmed and
-            logged here in the open; the operator commits to reporting a null result as a real
-            finding.
+            ))}
           </div>
-        </section>
+        )}
 
-        {/* ── Operator section (not prominent) ── */}
-        <OperatorRunner isOperator={isOperator} />
+        {/* ── Live σ-test dashboard (replaces image placeholder) ── */}
+        <div className="tam-shell" style={{ borderRadius: 14, overflow: "hidden" }}>
+          <div style={{ padding: "32px 28px 28px", borderBottom: "1px solid var(--tam-line)" }}>
+            <div
+              style={{
+                fontFamily: "var(--font-space-mono)",
+                fontSize: 11,
+                letterSpacing: "0.18em",
+                textTransform: "uppercase",
+                color: "var(--tam-muted)",
+                marginBottom: 8,
+              }}
+            >
+              Live experiment · σ-Correspondence Protocol
+            </div>
+            <p
+              style={{
+                fontFamily: "var(--font-space-mono)",
+                fontSize: 14,
+                color: "var(--tam-muted)",
+                margin: "0 0 4px",
+                letterSpacing: "0.02em",
+              }}
+            >
+              Ψ → ∑Mi(↑/↓) ⇄ σ(ϕ) → ϕ
+            </p>
+            <p style={{ maxWidth: "62ch", color: "#cfcabf", margin: "10px 0 0", fontSize: 14, lineHeight: 1.6 }}>
+              A falsifiable test: does the symbol drawn correspond to inner state{" "}
+              <b style={{ color: "var(--tam-ink)" }}>more when coherent (∑Mi↑) than scattered (∑Mi↓)</b>?
+              The result is the gap between those two arms — scored by rule, logged including misses.
+            </p>
+          </div>
+          <div style={{ padding: "0 28px 28px" }}>
+            <ThreadGap sessions={sessions} />
+            <PreregPanel prereg={PREREG} />
+            <SessionTable sessions={sessions} />
+            <OperatorRunner isOperator={isOperator} />
+          </div>
+        </div>
+
+        <hr style={{ border: "none", borderTop: "1px solid var(--rule)", margin: "60px 0 0" }} />
+
+        {/* ── Project Summary ── */}
+        <Section title="Project Summary">
+          <div className="grid grid-cols-3 gap-6 max-[880px]:grid-cols-1">
+            <DetailBlock label="What It Is">{detail.summary.whatItIs}</DetailBlock>
+            <DetailBlock label="Why It Exists">{detail.summary.whyItExists}</DetailBlock>
+            <DetailBlock label="What Was Built">{detail.summary.whatWasBuilt}</DetailBlock>
+          </div>
+        </Section>
+
+        <hr style={{ border: "none", borderTop: "1px solid var(--rule)", margin: "0" }} />
+
+        {/* ── Build Story ── */}
+        <Section title="Build Story">
+          <div className="grid grid-cols-2 gap-6 max-[880px]:grid-cols-1" style={{ rowGap: "32px" }}>
+            <DetailBlock label="The Original Problem">{detail.buildStory.problem}</DetailBlock>
+            <DetailBlock label="The Creative / Product Insight">{detail.buildStory.insight}</DetailBlock>
+            <DetailBlock label="The Role of AI Agents">{detail.buildStory.aiRole}</DetailBlock>
+            <DetailBlock label="The Human-in-the-Loop Decisions">{detail.buildStory.humanInLoop}</DetailBlock>
+          </div>
+        </Section>
+
+        <hr style={{ border: "none", borderTop: "1px solid var(--rule)", margin: "0" }} />
+
+        {/* ── Production Notes ── */}
+        <Section title="Production Notes">
+          <div style={{ marginBottom: "32px" }}>
+            <p
+              style={{
+                fontFamily: "var(--font-mono)",
+                fontSize: "10px",
+                letterSpacing: "0.14em",
+                textTransform: "uppercase",
+                color: "var(--fg3)",
+                margin: "0 0 10px",
+              }}
+            >
+              Tech / Method Stack
+            </p>
+            <p
+              style={{
+                fontFamily: "var(--font-mono)",
+                fontSize: "12px",
+                lineHeight: 1.8,
+                color: "var(--fg2)",
+                margin: 0,
+              }}
+            >
+              {detail.productionNotes.stack}
+            </p>
+          </div>
+          <div className="grid grid-cols-3 gap-6 max-[880px]:grid-cols-1">
+            <DetailBlock label="Design Process">{detail.productionNotes.designProcess}</DetailBlock>
+            <DetailBlock label="Prompting / Agent Workflow">{detail.productionNotes.promptingWorkflow}</DetailBlock>
+            <DetailBlock label="Testing / Validation / Review">{detail.productionNotes.testing}</DetailBlock>
+          </div>
+        </Section>
+
+        <hr style={{ border: "none", borderTop: "1px solid var(--rule)", margin: "0" }} />
+
+        {/* ── Video Walkthrough ── */}
+        <Section title="Video Walkthrough">
+          <VideoPlaceholder title={detail.videoPlaceholderTitle} />
+        </Section>
+
+        <hr style={{ border: "none", borderTop: "1px solid var(--rule)", margin: "0" }} />
+
+        {/* ── Outcome ── */}
+        <Section title="Outcome">
+          <div className="grid grid-cols-2 gap-6 max-[880px]:grid-cols-1">
+            <DetailBlock label="Current State">{detail.outcome.currentState}</DetailBlock>
+            <DetailBlock label="What This Project Demonstrates">{detail.outcome.demonstrates}</DetailBlock>
+          </div>
+        </Section>
+
+        <hr style={{ border: "none", borderTop: "1px solid var(--rule)", margin: "0 0 48px" }} />
+
+        {/* ── Footer ── */}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            flexWrap: "wrap",
+            gap: "16px",
+          }}
+        >
+          <Link href="/showcase" className="hjc-lnk">← Back to Showcase</Link>
+          <Link href="/contact" className="hjc-lnk">Inquire About Custom Projects →</Link>
+        </div>
 
       </div>
     </div>
