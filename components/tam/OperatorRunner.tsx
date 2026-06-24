@@ -35,6 +35,88 @@ function scoreChip(label: string, val: number, hit: boolean | null) {
   );
 }
 
+function CardReference() {
+  const tarotEntries = Object.entries(TAROT_VALENCE);
+  const suitEntries = Object.entries(SUIT_VALENCE);
+
+  return (
+    <details style={{ textAlign: "left" }}>
+      <summary
+        style={{
+          cursor: "pointer",
+          fontFamily: "var(--font-space-mono)",
+          fontSize: 11,
+          letterSpacing: "0.1em",
+          color: "var(--tam-muted)",
+          listStyle: "none",
+          userSelect: "none",
+        }}
+      >
+        ▾ Card reference
+      </summary>
+      <div
+        style={{
+          marginTop: 10,
+          padding: 14,
+          background: "var(--tam-surface-2)",
+          border: "1px solid var(--tam-line)",
+          borderRadius: 10,
+        }}
+      >
+        {/* Suit valences */}
+        <div style={{ marginBottom: 12 }}>
+          <div style={{ fontFamily: "var(--font-space-mono)", fontSize: 10, color: "var(--tam-muted)", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 6 }}>
+            Playing cards — by suit
+          </div>
+          <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
+            {suitEntries.map(([suit, val]) => (
+              <span key={suit} style={{ fontFamily: "var(--font-space-mono)", fontSize: 13, color: val > 0 ? "var(--tam-thread)" : "var(--tam-scatter)" }}>
+                {suit} {val > 0 ? "+" : ""}{val}
+              </span>
+            ))}
+          </div>
+          <div style={{ fontFamily: "var(--font-space-mono)", fontSize: 10, color: "var(--tam-muted)", marginTop: 4 }}>
+            Red (♥ ♦) = +1 &nbsp;·&nbsp; Black (♣ ♠) = −1
+          </div>
+        </div>
+
+        {/* Tarot valences */}
+        <div style={{ fontFamily: "var(--font-space-mono)", fontSize: 10, color: "var(--tam-muted)", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 6 }}>
+          Tarot — {tarotEntries.length} cards (pre-registered RWS valences)
+        </div>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fill, minmax(180px, 1fr))",
+            gap: "3px 12px",
+            maxHeight: 220,
+            overflowY: "auto",
+          }}
+        >
+          {tarotEntries.map(([card, val]) => (
+            <div
+              key={card}
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                fontFamily: "var(--font-space-mono)",
+                fontSize: 11,
+                padding: "2px 0",
+                borderBottom: "1px solid var(--tam-line)",
+              }}
+            >
+              <span style={{ color: "var(--tam-muted)" }}>{card}</span>
+              <span style={{ color: val > 0 ? "var(--tam-thread)" : val < 0 ? "var(--tam-warn)" : "var(--tam-muted)", marginLeft: 6 }}>
+                {val > 0 ? "+" : ""}{val}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </details>
+  );
+}
+
 function TokenGate({ onAuth }: { onAuth: () => void }) {
   const [token, setToken] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -323,8 +405,11 @@ export default function OperatorRunner({ isOperator }: Props) {
 
             {/* Step 3: Cards */}
             <div style={{ borderTop: "1px solid var(--tam-line)", padding: "16px 0" }}>
-              <div style={{ fontFamily: "var(--font-space-mono)", fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--tam-muted)", marginBottom: 8 }}>
-                3 · Draw, then record both cards
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", flexWrap: "wrap", gap: 8, marginBottom: 8 }}>
+                <div style={{ fontFamily: "var(--font-space-mono)", fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--tam-muted)" }}>
+                  3 · Draw, then record both cards
+                </div>
+                <CardReference />
               </div>
               <div style={{ display: "grid", gap: 12, gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))" }}>
                 <div>
