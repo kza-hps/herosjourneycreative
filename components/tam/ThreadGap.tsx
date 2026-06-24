@@ -17,12 +17,12 @@ function armStats(sessions: TamSession[], deck: "tarot_dir_hit" | "playing_dir_h
 
 function erfc(x: number): number {
   const t = 1 / (1 + 0.3275911 * Math.abs(x));
-  const y =
-    1 -
-    ((((1.061405429 * t - 1.453152027) * t + 1.421413741) * t - 0.284496736) * t + 0.254829592) *
-      t *
-      Math.exp(-x * x);
-  return x >= 0 ? 1 - y : 1 + y;
+  const poly =
+    ((((1.061405429 * t - 1.453152027) * t + 1.421413741) * t - 0.284496736) * t +
+      0.254829592) *
+    t *
+    Math.exp(-x * x);
+  return x >= 0 ? poly : 2 - poly;
 }
 
 function zTest(up: ArmStats, dn: ArmStats): { z: number; p: number } | null {

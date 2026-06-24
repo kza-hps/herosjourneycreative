@@ -32,13 +32,12 @@ function armStats(sessions: PublicSession[], field: "thit" | "phit", cond: "up" 
 
 function erfc(x: number): number {
   const t = 1 / (1 + 0.3275911 * Math.abs(x));
-  const y =
-    1 -
+  const poly =
     ((((1.061405429 * t - 1.453152027) * t + 1.421413741) * t - 0.284496736) * t +
       0.254829592) *
-      t *
-      Math.exp(-x * x);
-  return x >= 0 ? 1 - y : 1 + y;
+    t *
+    Math.exp(-x * x);
+  return x >= 0 ? poly : 2 - poly;
 }
 
 function zTest(up: ArmStats, dn: ArmStats): { z: number; p: number } | null {
@@ -243,9 +242,12 @@ export default function PublicRunDashboard() {
   useEffect(() => {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
-      if (raw) setSessions(JSON.parse(raw) as PublicSession[]);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed)) setSessions(parsed as PublicSession[]);
+      }
     } catch {
-      /* in-memory fallback */
+      /* corrupted storage — start fresh */
     }
     setLoaded(true);
   }, []);
@@ -337,10 +339,10 @@ export default function PublicRunDashboard() {
         s.pc,
         s.pval,
         s.phit === null ? "" : s.phit,
-        `"${s.note.replace(/"/g, '""')}"`,
+        `"${(s.note ?? "").replace(/"/g, '""')}"`,
       ].join(",")
     );
-    const csv = [header, ...rows].join("\n");
+    const csv = [header, ...rows].join("\r\n");
     const blob = new Blob([csv], { type: "text/csv" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
