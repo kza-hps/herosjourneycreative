@@ -5,6 +5,7 @@ import {
   TAROT,
   SUIT_VALENCE,
   dirHit,
+  tarotValence,
   parseYoutubeId,
   type TamSession,
 } from "@/lib/tam/frozen";
@@ -72,7 +73,7 @@ export async function POST(request: NextRequest) {
     return Response.json({ error: "Invalid playing card." }, { status: 400 });
   }
 
-  const tarot_valence = tarot_reversed ? TAROT[tarot_card].reversed : TAROT[tarot_card].upright;
+  const tarot_valence = tarotValence(tarot_card, tarot_reversed);
   const playing_valence = SUIT_VALENCE[pc_suit];
   const playing_card = `${pc_rank} ${pc_suit}`;
 

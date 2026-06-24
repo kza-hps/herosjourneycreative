@@ -1,7 +1,10 @@
 import valences from "./valences.json";
 import { CONFIG_HASH } from "./generated-hash";
 
-export const TAROT: Record<string, { upright: number; reversed: number }> = valences.tarot;
+export type Valence = -2 | -1 | 0 | 1 | 2;
+export interface CardValence { upright: Valence; reversed: Valence; }
+
+export const TAROT: Record<string, CardValence> = valences.tarot as Record<string, CardValence>;
 export const SUIT_VALENCE: Record<string, number> = valences.suit;
 
 export const RANKS = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"] as const;
@@ -10,7 +13,12 @@ export type Suit = (typeof SUITS)[number];
 
 export function dirHit(cardVal: number, stateVal: number): boolean | null {
   if (stateVal === 0 || cardVal === 0) return null;
-  return cardVal > 0 === stateVal > 0;
+  return (cardVal > 0) === (stateVal > 0);
+}
+
+export function tarotValence(card: string, reversed: boolean): Valence {
+  const c = TAROT[card];
+  return reversed ? c.reversed : c.upright;
 }
 
 export function parseYoutubeId(url: string): string | null {
