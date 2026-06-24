@@ -10,7 +10,7 @@ export async function GET() {
     lines.push(`"${suit}",${v}`);
   }
 
-  return new Response(lines.join("\n"), {
+  return new Response(lines.join("\r\n"), {
     headers: {
       "Content-Type": "text/csv; charset=utf-8",
       "Content-Disposition": 'attachment; filename="tam-scoring-table.csv"',

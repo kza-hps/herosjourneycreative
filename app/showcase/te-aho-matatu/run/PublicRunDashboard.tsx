@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { TAROT, SUIT_VALENCE, RANKS, SUITS, dirHit, tarotValence } from "@/lib/tam/frozen";
+import { type ArmStats, zTest, pct, gapStr } from "@/lib/tam/stats";
 
 const STORAGE_KEY = "tam_public_sessions";
 
@@ -21,44 +22,30 @@ type PublicSession = {
   note: string;
 };
 
-type ArmStats = { n: number; hits: number; p: number | null };
+function isValidSession(s: unknown): s is Omit<PublicSession, "note"> & { note?: string } {
+  if (s === null || typeof s !== "object") return false;
+  const sess = s as Record<string, unknown>;
+  return (
+    typeof sess.id === "string" &&
+    typeof sess.ts === "string" &&
+    (sess.cond === "up" || sess.cond === "down") &&
+    typeof sess.mood === "number" &&
+    typeof sess.tarot === "string" &&
+    typeof sess.tarot_reversed === "boolean" &&
+    typeof sess.tval === "number" &&
+    (sess.thit === null || typeof sess.thit === "boolean") &&
+    typeof sess.pc === "string" &&
+    typeof sess.pval === "number" &&
+    (sess.phit === null || typeof sess.phit === "boolean") &&
+    (sess.note === undefined || typeof sess.note === "string")
+  );
+}
 
 function armStats(sessions: PublicSession[], field: "thit" | "phit", cond: "up" | "down"): ArmStats {
   const arm = sessions.filter((s) => s.cond === cond && s[field] !== null);
   if (!arm.length) return { n: 0, hits: 0, p: null };
   const hits = arm.filter((s) => s[field] === true).length;
   return { n: arm.length, hits, p: hits / arm.length };
-}
-
-function erfc(x: number): number {
-  const t = 1 / (1 + 0.3275911 * Math.abs(x));
-  const y =
-    1 -
-    ((((1.061405429 * t - 1.453152027) * t + 1.421413741) * t - 0.284496736) * t +
-      0.254829592) *
-      t *
-      Math.exp(-x * x);
-  return x >= 0 ? 1 - y : 1 + y;
-}
-
-function zTest(up: ArmStats, dn: ArmStats): { z: number; p: number } | null {
-  if (up.n < 2 || dn.n < 2 || up.p === null || dn.p === null) return null;
-  const pp = (up.hits + dn.hits) / (up.n + dn.n);
-  const se = Math.sqrt(pp * (1 - pp) * (1 / up.n + 1 / dn.n));
-  if (se === 0) return null;
-  const z = (up.p - dn.p) / se;
-  const p = 0.5 * erfc(z / Math.SQRT2);
-  return { z, p };
-}
-
-function pct(n: number | null): string {
-  if (n === null) return "n/a";
-  return Math.round(n * 100) + "%";
-}
-
-function gapStr(gap: number | null): string {
-  if (gap === null) return "n/a";
-  return (gap >= 0 ? "+" : "") + Math.round(gap * 100) + "%";
 }
 
 const TAROT_KEYS = Object.keys(TAROT);
@@ -243,9 +230,18 @@ export default function PublicRunDashboard() {
   useEffect(() => {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
-      if (raw) setSessions(JSON.parse(raw) as PublicSession[]);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed)) {
+          setSessions(
+            parsed
+              .filter(isValidSession)
+              .map((s) => ({ ...s, note: s.note ?? "" }))
+          );
+        }
+      }
     } catch {
-      /* in-memory fallback */
+      /* corrupted storage — start fresh */
     }
     setLoaded(true);
   }, []);
@@ -337,10 +333,10 @@ export default function PublicRunDashboard() {
         s.pc,
         s.pval,
         s.phit === null ? "" : s.phit,
-        `"${s.note.replace(/"/g, '""')}"`,
+        `"${(s.note ?? "").replace(/"/g, '""')}"`,
       ].join(",")
     );
-    const csv = [header, ...rows].join("\n");
+    const csv = [header, ...rows].join("\r\n");
     const blob = new Blob([csv], { type: "text/csv" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
