@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { TAROT, SUIT_VALENCE, RANKS, SUITS, dirHit } from "@/lib/tam/frozen";
+import { TAROT, SUIT_VALENCE, RANKS, SUITS, dirHit, tarotValence } from "@/lib/tam/frozen";
 
 interface Props {
   isOperator: boolean;
@@ -297,10 +297,9 @@ export default function OperatorRunner({ isOperator }: Props) {
   }
 
   // Live score preview
-  const tarotEntry = tarotCard ? TAROT[tarotCard] : null;
   const tarotVal =
-    tarotEntry && tarotReversed !== null
-      ? tarotReversed ? tarotEntry.reversed : tarotEntry.upright
+    tarotCard && tarotReversed !== null
+      ? tarotValence(tarotCard, tarotReversed)
       : null;
   const suitVal = pcSuit ? SUIT_VALENCE[pcSuit] : null;
   const tarotHit = tarotVal !== null ? dirHit(tarotVal, stateValence) : null;
@@ -468,6 +467,7 @@ export default function OperatorRunner({ isOperator }: Props) {
                       <button
                         type="button"
                         onClick={() => setTarotReversed(false)}
+                        disabled={!tarotCard}
                         style={{
                           padding: "6px 14px",
                           borderRadius: 8,
@@ -476,7 +476,8 @@ export default function OperatorRunner({ isOperator }: Props) {
                           color: tarotReversed === false ? "var(--tam-thread)" : "var(--tam-muted)",
                           fontFamily: "var(--font-space-mono)",
                           fontSize: 12,
-                          cursor: "pointer",
+                          cursor: !tarotCard ? "not-allowed" : "pointer",
+                          opacity: !tarotCard ? 0.4 : 1,
                         }}
                       >
                         ↑ Upright
@@ -484,6 +485,7 @@ export default function OperatorRunner({ isOperator }: Props) {
                       <button
                         type="button"
                         onClick={() => setTarotReversed(true)}
+                        disabled={!tarotCard}
                         style={{
                           padding: "6px 14px",
                           borderRadius: 8,
@@ -492,7 +494,8 @@ export default function OperatorRunner({ isOperator }: Props) {
                           color: tarotReversed === true ? "var(--tam-warn)" : "var(--tam-muted)",
                           fontFamily: "var(--font-space-mono)",
                           fontSize: 12,
-                          cursor: "pointer",
+                          cursor: !tarotCard ? "not-allowed" : "pointer",
+                          opacity: !tarotCard ? 0.4 : 1,
                         }}
                       >
                         ↓ Reversed

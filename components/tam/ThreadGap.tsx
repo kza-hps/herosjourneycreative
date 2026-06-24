@@ -170,9 +170,13 @@ export default function ThreadGap({ sessions }: Props) {
           <span key="sym">
             Tarot gap exceeds the plain-deck gap by {Math.round(diff * 100)}% — suggestive that <b>symbols</b> (not just structure) are doing something, though the decks differ in size so treat this as indicative only.{" "}
           </span>
+        ) : diff < -0.05 ? (
+          <span key="sym">
+            The plain-deck gap exceeds the tarot gap by {Math.round(Math.abs(diff) * 100)}% — so far <b>structure alone</b> explains more than symbolic content does. Treat this secondary comparison as suggestive only — deck sizes differ.{" "}
+          </span>
         ) : (
           <span key="sym">
-            Tarot and plain-deck gaps are close — so far <b>structure</b>, not symbolic content, explains any effect. Deck sizes differ, so treat this secondary comparison as suggestive only.{" "}
+            Tarot and plain-deck gaps are close — no clear separation between symbolic and structural contributions yet. Treat this secondary comparison as suggestive only — deck sizes differ.{" "}
           </span>
         )
       );
