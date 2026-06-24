@@ -27,5 +27,6 @@ export function pct(n: number | null): string {
 
 export function gapStr(gap: number | null): string {
   if (gap === null) return "n/a";
-  return (gap >= 0 ? "+" : "") + Math.round(gap * 100) + "%";
+  const rounded = Math.round(gap * 100) + 0;
+  return (rounded > 0 ? "+" : "") + rounded + "%";
 }

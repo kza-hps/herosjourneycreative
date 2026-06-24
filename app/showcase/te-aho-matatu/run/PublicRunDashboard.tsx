@@ -22,7 +22,7 @@ type PublicSession = {
   note: string;
 };
 
-function isValidSession(s: unknown): s is PublicSession {
+function isValidSession(s: unknown): s is Omit<PublicSession, "note"> & { note?: string } {
   if (s === null || typeof s !== "object") return false;
   const sess = s as Record<string, unknown>;
   return (
