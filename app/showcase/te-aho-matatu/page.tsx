@@ -165,6 +165,68 @@ export default async function TamShowcasePage() {
           </div>
         </div>
 
+        {/* ── Run it yourself CTA ── */}
+        <div
+          style={{
+            border: "1px solid var(--rule)",
+            borderRadius: 12,
+            padding: "28px 32px",
+            marginTop: 40,
+          }}
+        >
+          <h3
+            style={{
+              fontFamily: "var(--font-display)",
+              textTransform: "uppercase",
+              fontSize: "var(--step-body-lg)",
+              color: "var(--fg1)",
+              margin: "0 0 12px",
+              letterSpacing: "0.04em",
+            }}
+          >
+            Run it yourself.
+          </h3>
+          <p
+            style={{
+              fontFamily: "var(--font-serif)",
+              fontSize: "var(--step-body)",
+              color: "var(--fg2)",
+              lineHeight: 1.65,
+              maxWidth: "68ch",
+              margin: "0 0 24px",
+            }}
+          >
+            This experiment is built to be repeated — that&apos;s what makes it worth anything. Open your own private instance, grab a tarot deck, a deck of cards, and a camera, and log your own sessions. Nothing you do there touches these results; it&apos;s your run, on your device. The more people who run it, the clearer the eventual answer.
+          </p>
+          <div style={{ display: "flex", gap: 12, flexWrap: "wrap", alignItems: "center" }}>
+            <Link href="/showcase/te-aho-matatu/run" className="hjc-btn hjc-btn-ghost">
+              Open the experiment
+            </Link>
+            <a
+              href="/showcase/te-aho-matatu/paper.pdf"
+              style={{
+                fontFamily: "var(--font-mono)",
+                fontSize: 12,
+                color: "var(--fg3)",
+                textDecoration: "none",
+              }}
+            >
+              Download the protocol (PDF)
+            </a>
+            <a
+              href="/api/tam/codebook"
+              style={{
+                fontFamily: "var(--font-mono)",
+                fontSize: 12,
+                color: "var(--fg3)",
+                textDecoration: "none",
+              }}
+            >
+              Download the scoring table
+            </a>
+          </div>
+        </div>
+
         <hr style={{ border: "none", borderTop: "1px solid var(--rule)", margin: "60px 0 0" }} />
 
         {/* ── Project Summary ── */}
@@ -242,6 +304,46 @@ export default async function TamShowcasePage() {
         </Section>
 
         <hr style={{ border: "none", borderTop: "1px solid var(--rule)", margin: "0 0 48px" }} />
+
+        {/* ── Repeat CTA ── */}
+        <div style={{ marginBottom: 48, textAlign: "center" }}>
+          <p
+            style={{
+              fontFamily: "var(--font-serif)",
+              fontStyle: "italic",
+              fontSize: "var(--step-body)",
+              color: "var(--fg2)",
+              margin: "0 0 18px",
+              lineHeight: 1.55,
+            }}
+          >
+            Run it yourself — the more people who log their own sessions, the clearer the eventual answer.
+          </p>
+          <div
+            style={{
+              display: "flex",
+              gap: 14,
+              justifyContent: "center",
+              flexWrap: "wrap",
+              alignItems: "center",
+            }}
+          >
+            <Link href="/showcase/te-aho-matatu/run" className="hjc-btn hjc-btn-ghost">
+              Open the experiment →
+            </Link>
+            <a
+              href="/api/tam/codebook"
+              style={{
+                fontFamily: "var(--font-mono)",
+                fontSize: 12,
+                color: "var(--fg3)",
+                textDecoration: "none",
+              }}
+            >
+              Download the scoring table
+            </a>
+          </div>
+        </div>
 
         {/* ── Footer ── */}
         <div
