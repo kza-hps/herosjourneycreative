@@ -18,6 +18,7 @@ export function dirHit(cardVal: number, stateVal: number): boolean | null {
 
 export function tarotValence(card: string, reversed: boolean): Valence {
   const c = TAROT[card];
+  if (!c) throw new Error(`Unknown tarot card: "${card}"`);
   return reversed ? c.reversed : c.upright;
 }
 

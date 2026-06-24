@@ -297,11 +297,10 @@ export default function OperatorRunner({ isOperator }: Props) {
   }
 
   // Live score preview
+  const tarotEntry = tarotCard ? TAROT[tarotCard] : null;
   const tarotVal =
-    tarotCard && tarotReversed !== null
-      ? tarotReversed
-        ? TAROT[tarotCard].reversed
-        : TAROT[tarotCard].upright
+    tarotEntry && tarotReversed !== null
+      ? tarotReversed ? tarotEntry.reversed : tarotEntry.upright
       : null;
   const suitVal = pcSuit ? SUIT_VALENCE[pcSuit] : null;
   const tarotHit = tarotVal !== null ? dirHit(tarotVal, stateValence) : null;
