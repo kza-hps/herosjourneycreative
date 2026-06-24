@@ -1,0 +1,537 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Te Aho Matatū — σ-Correspondence Live Test</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --field:#13141c;        /* Ψ — the field of potential (background) */
+    --surface:#1b1d28;      /* lifted panel */
+    --surface-2:#232634;
+    --line:#2f3342;
+    --ink:#ece7dd;          /* warm off-white text */
+    --muted:#8a8c9c;
+    --thread:#e0a55e;       /* coherent ∑Mi↑ — the focused thread, kauri/amber */
+    --scatter:#6f8794;      /* incoherent ∑Mi↓ — cool slate */
+    --pounamu:#5fb8a6;      /* match / positive accent */
+    --warn:#d98d6a;
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;background:var(--field);color:var(--ink);
+    font-family:Inter,system-ui,sans-serif;line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1040px;margin:0 auto;padding:32px 20px 80px}
+  .eyebrow{font-family:"Space Mono",monospace;font-size:12px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--muted)}
+  h1{font-family:Spectral,serif;font-weight:600;font-size:clamp(30px,5vw,46px);
+    line-height:1.05;margin:.3em 0 .15em;letter-spacing:-.01em}
+  h1 .tr{color:var(--thread)}
+  .formula{font-family:"Space Mono",monospace;font-size:14px;color:var(--muted);
+    margin:6px 0 0;letter-spacing:.02em}
+  .lede{max-width:62ch;color:#cfcabf;margin:18px 0 0;font-size:16px}
+  .lede b{color:var(--ink);font-weight:600}
+
+  .panel{background:var(--surface);border:1px solid var(--line);
+    border-radius:var(--radius);padding:22px}
+  .grid{display:grid;gap:18px}
+  @media(min-width:860px){.split{grid-template-columns:1fr 1fr}}
+
+  h2{font-family:Spectral,serif;font-weight:600;font-size:20px;margin:0 0 4px}
+  .sub{color:var(--muted);font-size:13px;margin:0 0 18px}
+
+  /* ---- session runner ---- */
+  .step{border-top:1px solid var(--line);padding:16px 0}
+  .step:first-of-type{border-top:0;padding-top:4px}
+  .steplabel{font-family:"Space Mono",monospace;font-size:11px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+
+  .coin{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  .cond-pill{font-family:Spectral,serif;font-size:22px;padding:8px 18px;border-radius:999px;
+    border:1px solid var(--line);min-width:150px;text-align:center}
+  .cond-up{color:var(--thread);border-color:var(--thread);background:rgba(224,165,94,.08)}
+  .cond-down{color:var(--scatter);border-color:var(--scatter);background:rgba(111,135,148,.10)}
+  .cond-idle{color:var(--muted)}
+
+  .prompt{font-size:14px;color:#cfcabf;margin-top:10px;min-height:1.4em}
+
+  .slider-row{display:flex;align-items:center;gap:12px}
+  input[type=range]{flex:1;accent-color:var(--thread);height:4px}
+  .mood-val{font-family:"Space Mono",monospace;font-size:20px;width:46px;text-align:center}
+  .scale{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);
+    font-family:"Space Mono",monospace;margin-top:2px}
+
+  .drawrow{display:grid;gap:12px}
+  @media(min-width:520px){.drawrow{grid-template-columns:1fr 1fr}}
+  label.field{display:block;font-size:12px;color:var(--muted);margin-bottom:5px}
+  select,input[type=url],input[type=text]{
+    width:100%;background:var(--surface-2);color:var(--ink);border:1px solid var(--line);
+    border-radius:9px;padding:9px 10px;font-family:Inter,sans-serif;font-size:14px}
+  select:focus,input:focus,button:focus-visible{outline:2px solid var(--thread);outline-offset:1px}
+  .twocol{display:grid;grid-template-columns:1fr 80px;gap:8px}
+
+  .scorechip{display:inline-flex;align-items:center;gap:7px;font-size:13px;
+    font-family:"Space Mono",monospace;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+    margin-right:8px;margin-top:6px}
+  .hit{color:var(--pounamu);border-color:rgba(95,184,166,.5);background:rgba(95,184,166,.08)}
+  .miss{color:var(--muted)}
+
+  .btn{font-family:Inter,sans-serif;font-weight:600;font-size:14px;cursor:pointer;
+    border-radius:10px;padding:11px 18px;border:1px solid var(--line);
+    background:var(--surface-2);color:var(--ink);transition:transform .06s ease,background .15s}
+  .btn:hover{background:#2b2f3e}
+  .btn:active{transform:translateY(1px)}
+  .btn-primary{background:var(--thread);color:#241a0d;border-color:var(--thread)}
+  .btn-primary:hover{background:#ecb775}
+  .btn-ghost{background:transparent}
+  .btnrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+
+  /* ---- dashboard / thread-gap signature ---- */
+  .hero{margin:26px 0 0}
+  .deckblock{padding:18px 0;border-top:1px solid var(--line)}
+  .deckblock:first-child{border-top:0}
+  .deckhead{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px}
+  .deckname{font-family:Spectral,serif;font-size:17px}
+  .gapnum{font-family:"Space Mono",monospace;font-size:15px}
+  .gap-pos{color:var(--pounamu)} .gap-neg{color:var(--warn)} .gap-zero{color:var(--muted)}
+  .threadwrap{position:relative;height:84px}
+  .axis{position:absolute;left:0;right:0;top:50%;height:1px;background:var(--line)}
+  .ticklbl{position:absolute;font-family:"Space Mono",monospace;font-size:10px;color:var(--muted)}
+  .arm{position:absolute;height:14px;border-radius:8px;display:flex;align-items:center;
+    transition:width .5s cubic-bezier(.4,0,.2,1)}
+  .arm-up{background:linear-gradient(90deg,rgba(224,165,94,.25),var(--thread));top:18px}
+  .arm-down{background:linear-gradient(90deg,rgba(111,135,148,.25),var(--scatter));top:50px}
+  .arm .cap{position:absolute;right:-2px;transform:translateX(100%);padding-left:8px;
+    font-family:"Space Mono",monospace;font-size:12px;white-space:nowrap}
+  .arm-up .cap{color:var(--thread)} .arm-down .cap{color:var(--scatter)}
+  .armlbl{position:absolute;left:0;font-size:11px;color:var(--muted);font-family:"Space Mono",monospace}
+  .nnote{font-size:12px;color:var(--muted);margin-top:8px;font-family:"Space Mono",monospace}
+
+  .verdict{margin-top:22px;padding:16px;border-radius:12px;border:1px solid var(--line);
+    background:var(--surface-2);font-size:14px;color:#cfcabf}
+  .verdict b{color:var(--ink)}
+
+  /* ---- log table ---- */
+  .tablewrap{overflow-x:auto;margin-top:8px}
+  table{border-collapse:collapse;width:100%;font-size:13px}
+  th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+  th{font-family:"Space Mono",monospace;font-size:11px;letter-spacing:.06em;color:var(--muted);
+    text-transform:uppercase;font-weight:400}
+  td.mono{font-family:"Space Mono",monospace}
+  .tag{font-family:"Space Mono",monospace;font-size:11px;padding:2px 7px;border-radius:6px}
+  .tag-up{color:var(--thread);background:rgba(224,165,94,.1)}
+  .tag-down{color:var(--scatter);background:rgba(111,135,148,.12)}
+  .dot{color:var(--pounamu)} .dotmiss{color:#555a68}
+  .empty{color:var(--muted);font-size:14px;padding:18px 0}
+  a.vid{color:var(--pounamu);text-decoration:none;border-bottom:1px solid rgba(95,184,166,.4)}
+
+  .foot{margin-top:14px;color:var(--muted);font-size:12.5px}
+  .demo-banner{font-family:"Space Mono",monospace;font-size:12px;color:var(--warn);
+    border:1px dashed rgba(217,141,106,.5);border-radius:8px;padding:8px 12px;margin-top:16px;display:none}
+
+  @media (prefers-reduced-motion: reduce){.arm{transition:none}}
+
+  /* print blank log */
+  @media print{
+    body{background:#fff;color:#000}
+    .noprint{display:none!important}
+    .printonly{display:block!important}
+  }
+  .printonly{display:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow">Hero's Journey Creative · Human-centred AI experiments</div>
+    <h1>Te Aho <span class="tr">Matatū</span> — the σ test</h1>
+    <p class="formula">Ψ → ∑Mi(↑/↓) ⇄ σ(ϕ) → ϕ</p>
+    <p class="lede">A live, falsifiable test of one claim: that the symbol a participant draws (<b>ϕ</b>)
+      corresponds to their inner state <b>more when they are coherent (∑Mi↑) than when scattered (∑Mi↓)</b>.
+      The result is the <b>gap between those two arms</b> — scored by rule, logged including misses, and reported either way.
+      A second deck of plain playing cards runs in parallel, to test whether the tarot's symbols matter or only its structure does.</p>
+    <div class="demo-banner" id="demoBanner">Demo mode — sessions are kept only for this view and won't persist. On your own site, wire saveSession() to your backend.</div>
+  </header>
+
+  <!-- ============ RUNNER + DASHBOARD ============ -->
+  <div class="grid split" style="margin-top:26px">
+
+    <!-- RUNNER -->
+    <section class="panel noprint">
+      <h2>Run a session</h2>
+      <p class="sub">One card per deck. Log your state <i>before</i> you draw. Don't interpret — just record.</p>
+
+      <div class="step">
+        <div class="steplabel">1 · Condition (coin decides, not you)</div>
+        <div class="coin">
+          <div class="cond-pill cond-idle" id="condPill">— flip —</div>
+          <button class="btn" id="flipBtn">Flip the coin</button>
+        </div>
+        <div class="prompt" id="condPrompt"></div>
+      </div>
+
+      <div class="step">
+        <div class="steplabel">2 · Your state right now (before drawing)</div>
+        <div class="slider-row">
+          <span class="mood-val" id="moodOut">0</span>
+          <input type="range" id="mood" min="-5" max="5" value="0" step="1">
+        </div>
+        <div class="scale"><span>−5 rough</span><span>0</span><span>+5 great</span></div>
+      </div>
+
+      <div class="step">
+        <div class="steplabel">3 · Draw, then record both cards</div>
+        <div class="drawrow">
+          <div>
+            <label class="field" for="tarot">Tarot card drawn</label>
+            <select id="tarot"><option value="">Select…</option></select>
+          </div>
+          <div>
+            <label class="field">Playing card drawn</label>
+            <div class="twocol">
+              <select id="pcRank"><option value="">Rank…</option></select>
+              <select id="pcSuit"><option value="">Suit…</option></select>
+            </div>
+          </div>
+        </div>
+        <div id="scoreLine"></div>
+      </div>
+
+      <div class="step">
+        <div class="steplabel">4 · Optional — link the clip & a note</div>
+        <div class="drawrow">
+          <input type="url" id="vid" placeholder="https://… video of this session">
+          <input type="text" id="note" placeholder="Note (optional)">
+        </div>
+      </div>
+
+      <div class="btnrow">
+        <button class="btn btn-primary" id="saveBtn">Save session</button>
+        <button class="btn btn-ghost" id="clearForm">Reset form</button>
+      </div>
+    </section>
+
+    <!-- DASHBOARD -->
+    <section class="panel">
+      <h2>The thread gap</h2>
+      <p class="sub">σ shows itself only if the gold thread (coherent) sits ahead of the slate one (scattered).</p>
+
+      <div class="hero" id="hero">
+        <!-- deck blocks injected -->
+      </div>
+
+      <div class="verdict" id="verdict"></div>
+      <p class="nnote" id="counts"></p>
+    </section>
+  </div>
+
+  <!-- ============ LOG ============ -->
+  <section class="panel" style="margin-top:18px">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px">
+      <div><h2>Session record</h2><p class="sub" style="margin:0">Every session, hits and misses. The log is the evidence.</p></div>
+      <div class="btnrow noprint" style="margin:0">
+        <button class="btn" id="csvBtn">Export CSV</button>
+        <button class="btn btn-ghost" id="printBtn">Print blank log</button>
+        <button class="btn btn-ghost" id="resetBtn">Clear all</button>
+      </div>
+    </div>
+    <div class="tablewrap">
+      <table id="logTable">
+        <thead><tr>
+          <th>ID</th><th>When</th><th>∑Mi</th><th>State</th>
+          <th>Tarot</th><th>val</th><th>dir</th>
+          <th>Playing</th><th>val</th><th>dir</th><th>Clip</th>
+        </tr></thead>
+        <tbody id="logBody"></tbody>
+      </table>
+    </div>
+    <p class="empty" id="emptyMsg">No sessions yet. Flip the coin and run your first one.</p>
+    <p class="foot">Scoring rule (frozen): a <b>directional hit</b> = the card's pre-assigned valence has the same sign as your logged state.
+      Tarot valences below are a Rider–Waite–Smith starter set — replace with your published, pre-registered reference before any real run.
+      Playing cards: red = +, black = −.</p>
+  </section>
+
+  <!-- printable blank log -->
+  <section class="printonly">
+    <h2 style="font-family:Spectral,serif">Te Aho Matatū — blank session log</h2>
+    <table border="1" cellpadding="6" style="width:100%;border-collapse:collapse;font-size:12px">
+      <thead><tr><th>#</th><th>Coin (Calm/Scattered)</th><th>State −5…+5</th><th>Tarot card</th><th>Playing card</th><th>Dir hit? (T / P)</th><th>Clip / note</th></tr></thead>
+      <tbody>
+        <!-- 14 blank rows -->
+        <tr><td>1</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>2</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>3</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>4</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>5</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>6</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>7</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>8</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>9</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>10</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+</div>
+
+<script>
+/* ---------- frozen valence tables (editable: replace with your pre-registered reference) ---------- */
+const TAROT = {
+  "The Fool":1,"The Magician":2,"The High Priestess":1,"The Empress":2,"The Emperor":1,
+  "The Hierophant":0,"The Lovers":2,"The Chariot":1,"Strength":2,"The Hermit":0,
+  "Wheel of Fortune":1,"Justice":0,"The Hanged Man":-1,"Death":-1,"Temperance":1,
+  "The Devil":-2,"The Tower":-2,"The Star":2,"The Moon":-1,"The Sun":2,"Judgement":1,"The World":2,
+  "Ace of Wands":2,"Two of Wands":1,"Three of Wands":1,"Four of Wands":2,"Five of Wands":-1,
+  "Six of Wands":2,"Seven of Wands":0,"Eight of Wands":1,"Nine of Wands":0,"Ten of Wands":-1,
+  "Page of Wands":1,"Knight of Wands":1,"Queen of Wands":1,"King of Wands":1,
+  "Ace of Cups":2,"Two of Cups":2,"Three of Cups":2,"Four of Cups":-1,"Five of Cups":-2,
+  "Six of Cups":1,"Seven of Cups":-1,"Eight of Cups":-1,"Nine of Cups":2,"Ten of Cups":2,
+  "Page of Cups":1,"Knight of Cups":1,"Queen of Cups":1,"King of Cups":1,
+  "Ace of Swords":1,"Two of Swords":-1,"Three of Swords":-2,"Four of Swords":0,"Five of Swords":-2,
+  "Six of Swords":0,"Seven of Swords":-1,"Eight of Swords":-2,"Nine of Swords":-2,"Ten of Swords":-2,
+  "Page of Swords":0,"Knight of Swords":0,"Queen of Swords":0,"King of Swords":1,
+  "Ace of Pentacles":2,"Two of Pentacles":0,"Three of Pentacles":1,"Four of Pentacles":-1,"Five of Pentacles":-2,
+  "Six of Pentacles":1,"Seven of Pentacles":0,"Eight of Pentacles":1,"Nine of Pentacles":2,"Ten of Pentacles":2,
+  "Page of Pentacles":1,"Knight of Pentacles":0,"Queen of Pentacles":1,"King of Pentacles":1
+};
+const RANKS=["A","2","3","4","5","6","7","8","9","10","J","Q","K"];
+const SUITS={ "♥ Hearts":1,"♦ Diamonds":1,"♣ Clubs":-1,"♠ Spades":-1 };
+
+/* ---------- storage (window.storage in artifacts; in-memory fallback elsewhere) ---------- */
+const KEY="tam_sessions";
+const hasStore = (typeof window!=="undefined" && window.storage && typeof window.storage.get==="function");
+let mem=[];
+async function loadSessions(){
+  if(!hasStore){document.getElementById("demoBanner").style.display="block";return mem;}
+  try{const r=await window.storage.get(KEY);return r&&r.value?JSON.parse(r.value):[];}
+  catch(e){return [];}
+}
+async function persist(arr){
+  if(!hasStore){mem=arr;return;}
+  try{await window.storage.set(KEY,JSON.stringify(arr));}catch(e){mem=arr;}
+}
+
+/* ---------- state ---------- */
+let sessions=[];
+let condition=null; // 'up' | 'down'
+
+/* ---------- populate selects ---------- */
+const tSel=document.getElementById("tarot");
+Object.keys(TAROT).forEach(c=>{const o=document.createElement("option");o.value=c;o.textContent=c;tSel.appendChild(o);});
+const rSel=document.getElementById("pcRank");
+RANKS.forEach(r=>{const o=document.createElement("option");o.value=r;o.textContent=r;rSel.appendChild(o);});
+const sSel=document.getElementById("pcSuit");
+Object.keys(SUITS).forEach(s=>{const o=document.createElement("option");o.value=s;o.textContent=s;sSel.appendChild(o);});
+
+/* ---------- runner interactions ---------- */
+const mood=document.getElementById("mood"), moodOut=document.getElementById("moodOut");
+mood.addEventListener("input",()=>{moodOut.textContent=(mood.value>0?"+":"")+mood.value;updateScoreLine();});
+
+const condPill=document.getElementById("condPill"), condPrompt=document.getElementById("condPrompt");
+document.getElementById("flipBtn").addEventListener("click",()=>{
+  const reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const settle=(c)=>{
+    condition=c;
+    condPill.className="cond-pill "+(c==="up"?"cond-up":"cond-down");
+    condPill.textContent=c==="up"?"Coherent ∑Mi↑":"Scattered ∑Mi↓";
+    condPrompt.textContent=c==="up"
+      ? "Attune. Breathe, settle, hold your real state for a couple of minutes — then draw."
+      : "Stay scattered. Count down from 100 by 7s, rushed and distracted, while you shuffle — then draw.";
+  };
+  if(reduce){settle(Math.random()<.5?"up":"down");return;}
+  let n=0;const iv=setInterval(()=>{
+    condPill.className="cond-pill cond-idle";
+    condPill.textContent=(n%2)?"Coherent ∑Mi↑":"Scattered ∑Mi↓";
+    if(++n>7){clearInterval(iv);settle(Math.random()<.5?"up":"down");}
+  },70);
+});
+
+[tSel,rSel,sSel].forEach(el=>el.addEventListener("change",updateScoreLine));
+function dirHit(cardVal,moodVal){
+  if(moodVal===0||cardVal===0) return null;       // no direction to test
+  return (cardVal>0)===(moodVal>0);
+}
+function updateScoreLine(){
+  const m=parseInt(mood.value,10);
+  const tv= tSel.value? TAROT[tSel.value] : null;
+  const suitVal = SUITS[sSel.value];
+  const pv = (rSel.value&&sSel.value)? suitVal : null;
+  const th = (tv!==null)? dirHit(tv,m):null;
+  const ph = (pv!==null&&pv!==undefined)? dirHit(pv,m):null;
+  const line=document.getElementById("scoreLine");
+  let html="";
+  if(tv!==null) html+=`<span class="scorechip ${th?'hit':'miss'}">tarot ${tv>0?'+':''}${tv} · ${th===null?'—':th?'hit':'miss'}</span>`;
+  if(pv!==null&&pv!==undefined) html+=`<span class="scorechip ${ph?'hit':'miss'}">playing ${pv>0?'+':''}${pv} · ${ph===null?'—':ph?'hit':'miss'}</span>`;
+  line.innerHTML=html;
+}
+
+/* ---------- save ---------- */
+document.getElementById("saveBtn").addEventListener("click",async()=>{
+  if(!condition){flash("Flip the coin to set the condition first.");return;}
+  if(!tSel.value){flash("Record the tarot card you drew.");return;}
+  if(!rSel.value||!sSel.value){flash("Record the playing card you drew.");return;}
+  const m=parseInt(mood.value,10);
+  const tv=TAROT[tSel.value], pv=SUITS[sSel.value];
+  const s={
+    id:"TAM-"+Date.now().toString(36).toUpperCase().slice(-6),
+    ts:new Date().toISOString(),
+    cond:condition, mood:m,
+    tarot:tSel.value, tval:tv, thit:dirHit(tv,m),
+    playing:rSel.value+" "+sSel.value.split(" ")[0], pval:pv, phit:dirHit(pv,m),
+    vid:document.getElementById("vid").value.trim(),
+    note:document.getElementById("note").value.trim()
+  };
+  sessions.unshift(s);
+  await persist(sessions);
+  render();
+  resetForm();
+});
+
+function resetForm(){
+  condition=null;
+  condPill.className="cond-pill cond-idle";condPill.textContent="— flip —";condPrompt.textContent="";
+  mood.value=0;moodOut.textContent="0";
+  tSel.value="";rSel.value="";sSel.value="";
+  document.getElementById("vid").value="";document.getElementById("note").value="";
+  document.getElementById("scoreLine").innerHTML="";
+}
+document.getElementById("clearForm").addEventListener("click",resetForm);
+
+function flash(msg){
+  const v=document.getElementById("verdict");
+  const prev=v.innerHTML;v.innerHTML=`<b style="color:var(--warn)">${msg}</b>`;
+  setTimeout(()=>render(),1600);
+}
+
+/* ---------- stats ---------- */
+function rate(arr,deck){ // deck: 'thit' | 'phit' ; ignores null (no-direction) sessions
+  const valid=arr.filter(s=>s[deck]!==null);
+  if(!valid.length) return {n:0,p:null};
+  const hits=valid.filter(s=>s[deck]===true).length;
+  return {n:valid.length,p:hits/valid.length,hits};
+}
+// one-sided two-proportion z (normal approx) for up>down
+function zTest(up,down){
+  if(up.n<2||down.n<2||up.p===null||down.p===null) return null;
+  const x1=up.hits,n1=up.n,x2=down.hits,n2=down.n;
+  const pp=(x1+x2)/(n1+n2);
+  const se=Math.sqrt(pp*(1-pp)*(1/n1+1/n2));
+  if(se===0) return null;
+  const z=(up.p-down.p)/se;
+  // one-sided p from z (survival of normal)
+  const p=0.5*erfc(z/Math.SQRT2);
+  return {z,p};
+}
+function erfc(x){ // Abramowitz-Stegun 7.1.26
+  const t=1/(1+0.3275911*Math.abs(x));
+  const y=1-(((((1.061405429*t-1.453152027)*t)+1.421413741)*t-0.284496736)*t+0.254829592)*t*Math.exp(-x*x);
+  return x>=0?1-y:1+y;
+}
+
+/* ---------- render ---------- */
+function render(){
+  // dashboard
+  const decks=[
+    {key:"thit",name:"Tarot",label:"symbolic deck"},
+    {key:"phit",name:"Playing cards",label:"plain deck — structure-only control"}
+  ];
+  let hero="";
+  const results={};
+  decks.forEach(d=>{
+    const up=rate(sessions.filter(s=>s.cond==="up"),d.key);
+    const dn=rate(sessions.filter(s=>s.cond==="down"),d.key);
+    results[d.key]={up,dn};
+    const gap=(up.p!==null&&dn.p!==null)?(up.p-dn.p):null;
+    const gapTxt=gap===null?"—":`${gap>=0?'+':''}${Math.round(gap*100)}%`;
+    const gapCls=gap===null?'gap-zero':(gap>0.0001?'gap-pos':(gap<-0.0001?'gap-neg':'gap-zero'));
+    const upW=up.p===null?2:Math.max(2,Math.round(up.p*100));
+    const dnW=dn.p===null?2:Math.max(2,Math.round(dn.p*100));
+    hero+=`<div class="deckblock">
+      <div class="deckhead">
+        <div class="deckname">${d.name} <span style="color:var(--muted);font-size:12px">· ${d.label}</span></div>
+        <div class="gapnum ${gapCls}">gap ${gapTxt}</div>
+      </div>
+      <div class="threadwrap">
+        <div class="axis"></div>
+        <div class="armlbl" style="top:2px">∑Mi↑ coherent</div>
+        <div class="arm arm-up" style="width:${upW}%"><span class="cap">${up.p===null?'n/a':Math.round(up.p*100)+'%'} ·${up.n}</span></div>
+        <div class="arm arm-down" style="width:${dnW}%"><span class="cap">${dn.p===null?'n/a':Math.round(dn.p*100)+'%'} ·${dn.n}</span></div>
+        <div class="armlbl" style="top:68px">∑Mi↓ scattered</div>
+      </div>
+    </div>`;
+  });
+  document.getElementById("hero").innerHTML=hero;
+
+  // verdict
+  const tz=zTest(results.thit.up,results.thit.dn);
+  const tGap=(results.thit.up.p!==null&&results.thit.dn.p!==null)?results.thit.up.p-results.thit.dn.p:null;
+  const pGap=(results.phit.up.p!==null&&results.phit.dn.p!==null)?results.phit.up.p-results.phit.dn.p:null;
+  const v=document.getElementById("verdict");
+  const totalValid=sessions.filter(s=>s.thit!==null).length;
+  if(totalValid<6){
+    v.innerHTML=`<b>Preliminary.</b> Too few scored sessions to read anything (${totalValid} so far). This is a warm-up — run the full pre-registered N before drawing any conclusion.`;
+  }else{
+    let parts=[];
+    if(tz){
+      parts.push(`Tarot ∑Mi↑ vs ∑Mi↓: gap <b>${tGap>=0?'+':''}${Math.round(tGap*100)}%</b>, one-sided p ≈ <b>${tz.p<0.001?'<0.001':tz.p.toFixed(3)}</b> (small-N, indicative only).`);
+    }
+    if(tGap!==null&&pGap!==null){
+      const symbolsMatter=tGap-pGap;
+      parts.push(symbolsMatter>0.05
+        ? `Tarot gap exceeds the plain-deck gap by ${Math.round(symbolsMatter*100)}% — a hint the <b>symbols</b>, not just the structure, are doing something.`
+        : `Tarot and plain-deck gaps are close — so far the <b>structure</b>, not the symbolic content, explains any effect (which loops back toward the RNG result).`);
+    }
+    v.innerHTML=parts.join(" ")+` <span style="color:var(--muted)">Honour whatever this becomes at full N — a flat result is a real finding.</span>`;
+  }
+
+  document.getElementById("counts").textContent=
+    `Sessions: ${sessions.length} · coherent ${sessions.filter(s=>s.cond==='up').length} · scattered ${sessions.filter(s=>s.cond==='down').length}`;
+
+  // table
+  const body=document.getElementById("logBody");
+  document.getElementById("emptyMsg").style.display=sessions.length?"none":"block";
+  body.innerHTML=sessions.map(s=>{
+    const when=new Date(s.ts).toLocaleString([], {month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'});
+    const dirT=s.thit===null?'<span class="dotmiss">—</span>':(s.thit?'<span class="dot">●</span>':'<span class="dotmiss">○</span>');
+    const dirP=s.phit===null?'<span class="dotmiss">—</span>':(s.phit?'<span class="dot">●</span>':'<span class="dotmiss">○</span>');
+    const vid=s.vid?`<a class="vid" href="${s.vid}" target="_blank" rel="noopener">clip</a>`:'';
+    return `<tr>
+      <td class="mono">${s.id}</td><td>${when}</td>
+      <td><span class="tag ${s.cond==='up'?'tag-up':'tag-down'}">${s.cond==='up'?'∑Mi↑':'∑Mi↓'}</span></td>
+      <td class="mono">${s.mood>0?'+':''}${s.mood}</td>
+      <td>${s.tarot}</td><td class="mono">${s.tval>0?'+':''}${s.tval}</td><td>${dirT}</td>
+      <td class="mono">${s.playing}</td><td class="mono">${s.pval>0?'+':''}${s.pval}</td><td>${dirP}</td>
+      <td>${vid}</td>
+    </tr>`;
+  }).join("");
+}
+
+/* ---------- export / reset / print ---------- */
+document.getElementById("csvBtn").addEventListener("click",()=>{
+  if(!sessions.length)return;
+  const head=["id","timestamp","condition","state","tarot","tarot_val","tarot_dir_hit","playing","playing_val","playing_dir_hit","video","note"];
+  const rows=sessions.map(s=>[s.id,s.ts,s.cond,s.mood,s.tarot,s.tval,s.thit,s.playing,s.pval,s.phit,s.vid,(s.note||"").replace(/"/g,'""')]
+    .map(x=>`"${x??''}"`).join(","));
+  const blob=new Blob([head.join(",")+"\n"+rows.join("\n")],{type:"text/csv"});
+  const a=document.createElement("a");a.href=URL.createObjectURL(blob);
+  a.download="te-aho-matatu-sessions.csv";a.click();
+});
+document.getElementById("printBtn").addEventListener("click",()=>window.print());
+document.getElementById("resetBtn").addEventListener("click",async()=>{
+  if(!sessions.length)return;
+  if(confirm("Clear all logged sessions? This can't be undone.")){sessions=[];await persist(sessions);render();}
+});
+
+/* ---------- boot ---------- */
+(async()=>{ sessions=await loadSessions(); render(); })();
+</script>
+</body>
+</html>

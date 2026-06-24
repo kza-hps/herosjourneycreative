@@ -1,0 +1,189 @@
+"use client";
+
+import type { TamSession } from "@/lib/tam/frozen";
+
+interface Props {
+  sessions: TamSession[];
+}
+
+type ArmStats = { n: number; hits: number; p: number | null };
+
+function armStats(sessions: TamSession[], deck: "tarot_dir_hit" | "playing_dir_hit", cond: "up" | "down"): ArmStats {
+  const arm = sessions.filter((s) => s.condition === cond && s[deck] !== null);
+  if (!arm.length) return { n: 0, hits: 0, p: null };
+  const hits = arm.filter((s) => s[deck] === true).length;
+  return { n: arm.length, hits, p: hits / arm.length };
+}
+
+function erfc(x: number): number {
+  const t = 1 / (1 + 0.3275911 * Math.abs(x));
+  const y =
+    1 -
+    ((((1.061405429 * t - 1.453152027) * t + 1.421413741) * t - 0.284496736) * t + 0.254829592) *
+      t *
+      Math.exp(-x * x);
+  return x >= 0 ? 1 - y : 1 + y;
+}
+
+function zTest(up: ArmStats, dn: ArmStats): { z: number; p: number } | null {
+  if (up.n < 2 || dn.n < 2 || up.p === null || dn.p === null) return null;
+  const pp = (up.hits + dn.hits) / (up.n + dn.n);
+  const se = Math.sqrt(pp * (1 - pp) * (1 / up.n + 1 / dn.n));
+  if (se === 0) return null;
+  const z = (up.p - dn.p) / se;
+  const p = 0.5 * erfc(z / Math.SQRT2);
+  return { z, p };
+}
+
+function pct(n: number | null): string {
+  if (n === null) return "n/a";
+  return Math.round(n * 100) + "%";
+}
+
+function gapStr(gap: number | null): string {
+  if (gap === null) return "—";
+  return (gap >= 0 ? "+" : "") + Math.round(gap * 100) + "%";
+}
+
+interface DeckBlockProps {
+  name: string;
+  label: string;
+  up: ArmStats;
+  dn: ArmStats;
+}
+
+function DeckBlock({ name, label, up, dn }: DeckBlockProps) {
+  const gap = up.p !== null && dn.p !== null ? up.p - dn.p : null;
+  const gapCls = gap === null ? "var(--tam-muted)" : gap > 0.0001 ? "var(--tam-pounamu)" : gap < -0.0001 ? "var(--tam-warn)" : "var(--tam-muted)";
+  const upW = up.p === null ? 2 : Math.max(2, Math.round(up.p * 100));
+  const dnW = dn.p === null ? 2 : Math.max(2, Math.round(dn.p * 100));
+
+  return (
+    <div style={{ paddingTop: 18, paddingBottom: 18, borderTop: "1px solid var(--tam-line)" }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 10 }}>
+        <div style={{ fontFamily: "var(--font-spectral)", fontSize: 17 }}>
+          {name}{" "}
+          <span style={{ color: "var(--tam-muted)", fontSize: 12 }}>· {label}</span>
+        </div>
+        <div style={{ fontFamily: "var(--font-space-mono)", fontSize: 15, color: gapCls }}>
+          gap {gapStr(gap)}
+        </div>
+      </div>
+
+      <div style={{ position: "relative", height: 84 }}>
+        <div style={{ position: "absolute", left: 0, right: 0, top: "50%", height: 1, background: "var(--tam-line)" }} />
+
+        <div style={{ position: "absolute", left: 0, top: 2, fontFamily: "var(--font-space-mono)", fontSize: 11, color: "var(--tam-muted)" }}>
+          ∑Mi↑ coherent
+        </div>
+        <div
+          className="tam-arm tam-arm-up"
+          style={{ width: `${upW}%`, top: 18 }}
+        >
+          <span className="tam-arm-cap" style={{ color: "var(--tam-thread)" }}>
+            {pct(up.p)} ·{up.n}
+          </span>
+        </div>
+
+        <div
+          className="tam-arm tam-arm-dn"
+          style={{ width: `${dnW}%`, top: 50 }}
+        >
+          <span className="tam-arm-cap" style={{ color: "var(--tam-scatter)" }}>
+            {pct(dn.p)} ·{dn.n}
+          </span>
+        </div>
+        <div style={{ position: "absolute", left: 0, top: 68, fontFamily: "var(--font-space-mono)", fontSize: 11, color: "var(--tam-muted)" }}>
+          ∑Mi↓ scattered
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default function ThreadGap({ sessions }: Props) {
+  const tarotUp = armStats(sessions, "tarot_dir_hit", "up");
+  const tarotDn = armStats(sessions, "tarot_dir_hit", "down");
+  const playUp = armStats(sessions, "playing_dir_hit", "up");
+  const playDn = armStats(sessions, "playing_dir_hit", "down");
+
+  const tGap = tarotUp.p !== null && tarotDn.p !== null ? tarotUp.p - tarotDn.p : null;
+  const pGap = playUp.p !== null && playDn.p !== null ? playUp.p - playDn.p : null;
+  const tz = zTest(tarotUp, tarotDn);
+
+  const totalValid = sessions.filter((s) => s.tarot_dir_hit !== null).length;
+
+  let verdict: React.ReactNode;
+  if (totalValid < 6) {
+    verdict = (
+      <>
+        <b>Preliminary.</b> Too few scored sessions to read anything ({totalValid} so far). This is a warm-up — run the full pre-registered N before drawing any conclusion.
+      </>
+    );
+  } else {
+    const parts: React.ReactNode[] = [];
+    if (tz && tGap !== null) {
+      parts.push(
+        <span key="z">
+          Tarot ∑Mi↑ vs ∑Mi↓: gap <b>{gapStr(tGap)}</b>, one-sided p ≈{" "}
+          <b>{tz.p < 0.001 ? "<0.001" : tz.p.toFixed(3)}</b> (small-N, indicative only).{" "}
+        </span>
+      );
+    }
+    if (tGap !== null && pGap !== null) {
+      const diff = tGap - pGap;
+      parts.push(
+        diff > 0.05 ? (
+          <span key="sym">
+            Tarot gap exceeds the plain-deck gap by {Math.round(diff * 100)}% — a hint the <b>symbols</b>, not just the structure, are doing something.{" "}
+          </span>
+        ) : (
+          <span key="sym">
+            Tarot and plain-deck gaps are close — so far the <b>structure</b>, not the symbolic content, explains any effect (which loops back toward the RNG result).{" "}
+          </span>
+        )
+      );
+    }
+    verdict = (
+      <>
+        {parts}
+        <span style={{ color: "var(--tam-muted)" }}>Honour whatever this becomes at full N — a flat result is a real finding.</span>
+      </>
+    );
+  }
+
+  return (
+    <section className="tam-panel" style={{ marginTop: 0 }}>
+      <h2 style={{ fontFamily: "var(--font-spectral)", fontWeight: 600, fontSize: 20, margin: "0 0 4px" }}>
+        The thread gap
+      </h2>
+      <p style={{ color: "var(--tam-muted)", fontSize: 13, margin: "0 0 4px" }}>
+        σ shows itself only if the gold thread (coherent) sits ahead of the slate one (scattered).
+      </p>
+
+      <div style={{ marginTop: 4 }}>
+        <DeckBlock name="Tarot" label="symbolic deck" up={tarotUp} dn={tarotDn} />
+        <DeckBlock name="Playing cards" label="plain deck — structure-only control" up={playUp} dn={playDn} />
+      </div>
+
+      <div
+        style={{
+          marginTop: 22,
+          padding: 16,
+          borderRadius: 12,
+          border: "1px solid var(--tam-line)",
+          background: "var(--tam-surface-2)",
+          fontSize: 14,
+          color: "#cfcabf",
+          lineHeight: 1.55,
+        }}
+      >
+        {verdict}
+      </div>
+
+      <p style={{ fontSize: 12, color: "var(--tam-muted)", marginTop: 8, fontFamily: "var(--font-space-mono)" }}>
+        Sessions: {sessions.length} · coherent {sessions.filter((s) => s.condition === "up").length} · scattered {sessions.filter((s) => s.condition === "down").length}
+      </p>
+    </section>
+  );
+}

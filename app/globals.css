@@ -444,3 +444,79 @@ img { display: block; }
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ============================================================
+   TE AHO MATATŪ — Showcase page design tokens
+   Scoped to .tam-shell so they don't bleed into the site shell.
+   ============================================================ */
+
+.tam-shell {
+  --tam-field:     #13141c;
+  --tam-surface:   #1b1d28;
+  --tam-surface-2: #232634;
+  --tam-line:      #2f3342;
+  --tam-ink:       #ece7dd;
+  --tam-muted:     #8a8c9c;
+  --tam-thread:    #e0a55e;
+  --tam-scatter:   #6f8794;
+  --tam-pounamu:   #5fb8a6;
+  --tam-warn:      #d98d6a;
+  --tam-radius:    14px;
+
+  background: var(--tam-field);
+  color: var(--tam-ink);
+  font-family: Inter, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
+}
+
+.tam-panel {
+  background: var(--tam-surface);
+  border: 1px solid var(--tam-line);
+  border-radius: var(--tam-radius);
+  padding: 22px;
+  margin-top: 18px;
+}
+
+/* Thread-gap arms */
+.tam-arm {
+  position: absolute;
+  height: 14px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tam-arm-up {
+  background: linear-gradient(90deg, rgba(224, 165, 94, 0.25), var(--tam-thread));
+}
+
+.tam-arm-dn {
+  background: linear-gradient(90deg, rgba(111, 135, 148, 0.25), var(--tam-scatter));
+}
+
+.tam-arm-cap {
+  position: absolute;
+  right: -2px;
+  transform: translateX(100%);
+  padding-left: 8px;
+  font-family: var(--font-space-mono);
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+/* Focus styles for TAM interactive elements */
+.tam-shell select:focus,
+.tam-shell input:focus,
+.tam-shell button:focus-visible {
+  outline: 2px solid var(--tam-thread);
+  outline-offset: 1px;
+}
+
+/* Disable animations when user prefers reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .tam-arm {
+    transition: none;
+  }
+}

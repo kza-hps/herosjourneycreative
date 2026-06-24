@@ -1,8 +1,13 @@
 import type { Metadata } from "next";
-import { Anton, Spectral, Space_Mono } from "next/font/google";
+import { Anton, Inter, Spectral, Space_Mono } from "next/font/google";
 import "./globals.css";
 import SiteHeader from "@/components/site-header";
 import SiteFooter from "@/components/site-footer";
+
+const inter = Inter({
+  variable: "--font-inter",
+  subsets: ["latin"],
+});
 
 const anton = Anton({
   variable: "--font-anton",
@@ -63,7 +68,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${anton.variable} ${spectral.variable} ${spaceMono.variable} h-full antialiased`}
+      className={`${inter.variable} ${anton.variable} ${spectral.variable} ${spaceMono.variable} h-full antialiased`}
     >
       <body className="min-h-screen flex flex-col">
         <SiteHeader />
