@@ -291,8 +291,8 @@ export default function OperatorRunner({ isOperator }: Props) {
     }
 
     const saved = await res.json();
-    setLastSaved(saved.id as string);
     resetForm();
+    setLastSaved(saved.id as string);
     router.refresh();
   }
 
