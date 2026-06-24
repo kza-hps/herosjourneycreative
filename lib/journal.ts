@@ -207,9 +207,11 @@ function isLikelyChapterSubtitle(value: string): boolean {
 
 function isChapterTitleParagraph(text: string): boolean {
   const upper = text.toUpperCase();
-  if (!upper.startsWith(CHAPTER_PREFIX)) return false;
+  // Allow a single stray leading character before "CHAPTER " (e.g. "pCHAPTER ONE")
+  const chapterStart = upper.indexOf(CHAPTER_PREFIX);
+  if (chapterStart < 0 || chapterStart > 1) return false;
 
-  const afterPrefix = text.slice(CHAPTER_PREFIX.length).trim();
+  const afterPrefix = text.slice(chapterStart + CHAPTER_PREFIX.length).trim();
   const sepIndex = separatorIndex(afterPrefix);
 
   if (sepIndex >= 0) {
