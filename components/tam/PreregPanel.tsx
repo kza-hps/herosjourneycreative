@@ -1,22 +1,31 @@
 "use client";
 
 import { useState } from "react";
-import { TAROT_VALENCE, SUIT_VALENCE } from "@/lib/tam/frozen";
+import { TAROT, SUIT_VALENCE } from "@/lib/tam/frozen";
 
 interface Props {
   prereg: {
     committedNPerArm: number;
     scoringRule: string;
+    orientationRule: string;
     registeredOn: string;
     configHash: string;
   };
+}
+
+function fmtVal(v: number) {
+  return (v > 0 ? "+" : "") + v;
+}
+
+function valColor(v: number) {
+  return v > 0 ? "var(--tam-thread)" : v < 0 ? "var(--tam-warn)" : "var(--tam-muted)";
 }
 
 export default function PreregPanel({ prereg }: Props) {
   const [codebookOpen, setCodebookOpen] = useState(false);
 
   const suitEntries = Object.entries(SUIT_VALENCE);
-  const tarotEntries = Object.entries(TAROT_VALENCE);
+  const tarotEntries = Object.entries(TAROT);
 
   return (
     <section className="tam-panel">
@@ -53,6 +62,15 @@ export default function PreregPanel({ prereg }: Props) {
           </div>
           <p style={{ fontSize: 14, color: "#cfcabf", margin: 0, lineHeight: 1.55 }}>
             {prereg.scoringRule}
+          </p>
+        </div>
+
+        <div>
+          <div style={{ fontFamily: "var(--font-space-mono)", fontSize: 11, color: "var(--tam-muted)", textTransform: "uppercase", letterSpacing: "0.12em", marginBottom: 6 }}>
+            Orientation rule
+          </div>
+          <p style={{ fontSize: 14, color: "#cfcabf", margin: 0, lineHeight: 1.55 }}>
+            {prereg.orientationRule}
           </p>
         </div>
 
@@ -120,45 +138,50 @@ export default function PreregPanel({ prereg }: Props) {
                         color: val > 0 ? "var(--tam-thread)" : "var(--tam-scatter)",
                       }}
                     >
-                      {suit} {val > 0 ? "+" : ""}{val}
+                      {suit} {fmtVal(val)}
                     </span>
                   ))}
                 </div>
               </div>
 
               <div>
-                <div style={{ fontFamily: "var(--font-space-mono)", fontSize: 11, color: "var(--tam-muted)", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 8 }}>
-                  Tarot ({tarotEntries.length} cards)
+                <div style={{ fontFamily: "var(--font-space-mono)", fontSize: 11, color: "var(--tam-muted)", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 6 }}>
+                  Tarot ({tarotEntries.length} cards — upright / reversed)
                 </div>
+
+                {/* Column headers */}
+                <div style={{ display: "grid", gridTemplateColumns: "1fr auto auto", gap: "0 12px", fontFamily: "var(--font-space-mono)", fontSize: 10, color: "var(--tam-muted)", paddingBottom: 4, marginBottom: 2, borderBottom: "1px solid var(--tam-line)" }}>
+                  <span />
+                  <span style={{ textAlign: "right" }}>↑ up</span>
+                  <span style={{ textAlign: "right" }}>↓ rev</span>
+                </div>
+
                 <div
                   style={{
-                    display: "grid",
-                    gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
-                    gap: "4px 16px",
                     maxHeight: 280,
                     overflowY: "auto",
                   }}
                 >
-                  {tarotEntries.map(([card, val]) => (
+                  {tarotEntries.map(([card, vals]) => (
                     <div
                       key={card}
                       style={{
-                        display: "flex",
-                        justifyContent: "space-between",
+                        display: "grid",
+                        gridTemplateColumns: "1fr auto auto",
+                        gap: "0 12px",
                         fontFamily: "var(--font-space-mono)",
                         fontSize: 11,
                         padding: "3px 0",
                         borderBottom: "1px solid var(--tam-line)",
+                        alignItems: "center",
                       }}
                     >
                       <span style={{ color: "var(--tam-muted)" }}>{card}</span>
-                      <span
-                        style={{
-                          color: val > 0 ? "var(--tam-thread)" : val < 0 ? "var(--tam-warn)" : "var(--tam-muted)",
-                          marginLeft: 8,
-                        }}
-                      >
-                        {val > 0 ? "+" : ""}{val}
+                      <span style={{ color: valColor(vals.upright), textAlign: "right", minWidth: 28 }}>
+                        {fmtVal(vals.upright)}
+                      </span>
+                      <span style={{ color: valColor(vals.reversed), textAlign: "right", minWidth: 28 }}>
+                        {fmtVal(vals.reversed)}
                       </span>
                     </div>
                   ))}

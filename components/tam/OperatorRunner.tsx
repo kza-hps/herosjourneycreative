@@ -2,13 +2,21 @@
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { TAROT_VALENCE, SUIT_VALENCE, RANKS, SUITS, dirHit } from "@/lib/tam/frozen";
+import { TAROT, SUIT_VALENCE, RANKS, SUITS, dirHit, tarotValence } from "@/lib/tam/frozen";
 
 interface Props {
   isOperator: boolean;
 }
 
-const TAROT_CARDS = Object.keys(TAROT_VALENCE);
+const TAROT_CARDS = Object.keys(TAROT);
+
+function valColor(v: number) {
+  return v > 0 ? "var(--tam-thread)" : v < 0 ? "var(--tam-warn)" : "var(--tam-muted)";
+}
+
+function fmtVal(v: number) {
+  return (v > 0 ? "+" : "") + v;
+}
 
 function scoreChip(label: string, val: number, hit: boolean | null) {
   const isHit = hit === true;
@@ -30,13 +38,13 @@ function scoreChip(label: string, val: number, hit: boolean | null) {
         marginTop: 6,
       }}
     >
-      {label} {val > 0 ? "+" : ""}{val} · {hit === null ? "—" : hit ? "hit" : "miss"}
+      {label} {fmtVal(val)} · {hit === null ? "—" : hit ? "hit" : "miss"}
     </span>
   );
 }
 
 function CardReference() {
-  const tarotEntries = Object.entries(TAROT_VALENCE);
+  const tarotEntries = Object.entries(TAROT);
   const suitEntries = Object.entries(SUIT_VALENCE);
 
   return (
@@ -71,7 +79,7 @@ function CardReference() {
           <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
             {suitEntries.map(([suit, val]) => (
               <span key={suit} style={{ fontFamily: "var(--font-space-mono)", fontSize: 13, color: val > 0 ? "var(--tam-thread)" : "var(--tam-scatter)" }}>
-                {suit} {val > 0 ? "+" : ""}{val}
+                {suit} {fmtVal(val)}
               </span>
             ))}
           </div>
@@ -80,35 +88,40 @@ function CardReference() {
           </div>
         </div>
 
-        {/* Tarot valences */}
-        <div style={{ fontFamily: "var(--font-space-mono)", fontSize: 10, color: "var(--tam-muted)", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 6 }}>
+        {/* Tarot valences — upright + reversed columns */}
+        <div style={{ fontFamily: "var(--font-space-mono)", fontSize: 10, color: "var(--tam-muted)", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 4 }}>
           Tarot — {tarotEntries.length} cards (pre-registered RWS valences)
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr auto auto", gap: "1px 10px", fontFamily: "var(--font-space-mono)", fontSize: 10, color: "var(--tam-muted)", marginBottom: 4, paddingBottom: 4, borderBottom: "1px solid var(--tam-line)" }}>
+          <span />
+          <span style={{ textAlign: "right" }}>↑ up</span>
+          <span style={{ textAlign: "right" }}>↓ rev</span>
         </div>
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(180px, 1fr))",
-            gap: "3px 12px",
-            maxHeight: 220,
+            gap: "2px 0",
+            maxHeight: 240,
             overflowY: "auto",
           }}
         >
-          {tarotEntries.map(([card, val]) => (
+          {tarotEntries.map(([card, vals]) => (
             <div
               key={card}
               style={{
-                display: "flex",
-                justifyContent: "space-between",
+                display: "grid",
+                gridTemplateColumns: "1fr auto auto",
+                gap: "0 10px",
                 fontFamily: "var(--font-space-mono)",
                 fontSize: 11,
                 padding: "2px 0",
                 borderBottom: "1px solid var(--tam-line)",
+                alignItems: "center",
               }}
             >
               <span style={{ color: "var(--tam-muted)" }}>{card}</span>
-              <span style={{ color: val > 0 ? "var(--tam-thread)" : val < 0 ? "var(--tam-warn)" : "var(--tam-muted)", marginLeft: 6 }}>
-                {val > 0 ? "+" : ""}{val}
-              </span>
+              <span style={{ color: valColor(vals.upright), textAlign: "right", minWidth: 28 }}>{fmtVal(vals.upright)}</span>
+              <span style={{ color: valColor(vals.reversed), textAlign: "right", minWidth: 28 }}>{fmtVal(vals.reversed)}</span>
             </div>
           ))}
         </div>
@@ -196,6 +209,7 @@ export default function OperatorRunner({ isOperator }: Props) {
   const [flipLabel, setFlipLabel] = useState("— flip —");
   const [stateValence, setStateValence] = useState(0);
   const [tarotCard, setTarotCard] = useState("");
+  const [tarotReversed, setTarotReversed] = useState<boolean | null>(null);
   const [pcRank, setPcRank] = useState("");
   const [pcSuit, setPcSuit] = useState<string>("");
   const [youtubeUrl, setYoutubeUrl] = useState("");
@@ -235,6 +249,7 @@ export default function OperatorRunner({ isOperator }: Props) {
     setFlipLabel("— flip —");
     setStateValence(0);
     setTarotCard("");
+    setTarotReversed(null);
     setPcRank("");
     setPcSuit("");
     setYoutubeUrl("");
@@ -246,6 +261,7 @@ export default function OperatorRunner({ isOperator }: Props) {
   async function save() {
     if (!condition) { setSaveError("Flip the coin to set the condition first."); return; }
     if (!tarotCard) { setSaveError("Record the tarot card you drew."); return; }
+    if (tarotReversed === null) { setSaveError("Select the card orientation (Upright or Reversed) as seen by the camera."); return; }
     if (!pcRank || !pcSuit) { setSaveError("Record the playing card you drew."); return; }
 
     setSaving(true);
@@ -258,6 +274,7 @@ export default function OperatorRunner({ isOperator }: Props) {
         condition,
         state_valence: stateValence,
         tarot_card: tarotCard,
+        tarot_reversed: tarotReversed,
         pc_rank: pcRank,
         pc_suit: pcSuit,
         youtube_url: youtubeUrl || undefined,
@@ -274,13 +291,16 @@ export default function OperatorRunner({ isOperator }: Props) {
     }
 
     const saved = await res.json();
-    setLastSaved(saved.id as string);
     resetForm();
+    setLastSaved(saved.id as string);
     router.refresh();
   }
 
   // Live score preview
-  const tarotVal = tarotCard ? TAROT_VALENCE[tarotCard] : null;
+  const tarotVal =
+    tarotCard && tarotReversed !== null
+      ? tarotValence(tarotCard, tarotReversed)
+      : null;
   const suitVal = pcSuit ? SUIT_VALENCE[pcSuit] : null;
   const tarotHit = tarotVal !== null ? dirHit(tarotVal, stateValence) : null;
   const playHit = suitVal !== null ? dirHit(suitVal, stateValence) : null;
@@ -412,6 +432,7 @@ export default function OperatorRunner({ isOperator }: Props) {
                 <CardReference />
               </div>
               <div style={{ display: "grid", gap: 12, gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))" }}>
+                {/* Tarot card + orientation */}
                 <div>
                   <label style={{ display: "block", fontSize: 12, color: "var(--tam-muted)", marginBottom: 5 }} htmlFor="tarot-select">
                     Tarot card drawn
@@ -436,7 +457,54 @@ export default function OperatorRunner({ isOperator }: Props) {
                       <option key={c} value={c}>{c}</option>
                     ))}
                   </select>
+
+                  {/* Orientation toggle — required, defaults to unselected */}
+                  <div style={{ marginTop: 8 }}>
+                    <div style={{ fontSize: 11, color: "var(--tam-muted)", fontFamily: "var(--font-space-mono)", marginBottom: 5 }}>
+                      Orientation — as seen by the camera
+                    </div>
+                    <div style={{ display: "flex", gap: 6 }}>
+                      <button
+                        type="button"
+                        onClick={() => setTarotReversed(false)}
+                        disabled={!tarotCard}
+                        style={{
+                          padding: "6px 14px",
+                          borderRadius: 8,
+                          border: `1px solid ${tarotReversed === false ? "var(--tam-thread)" : "var(--tam-line)"}`,
+                          background: tarotReversed === false ? "rgba(224,165,94,.12)" : "transparent",
+                          color: tarotReversed === false ? "var(--tam-thread)" : "var(--tam-muted)",
+                          fontFamily: "var(--font-space-mono)",
+                          fontSize: 12,
+                          cursor: !tarotCard ? "not-allowed" : "pointer",
+                          opacity: !tarotCard ? 0.4 : 1,
+                        }}
+                      >
+                        ↑ Upright
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setTarotReversed(true)}
+                        disabled={!tarotCard}
+                        style={{
+                          padding: "6px 14px",
+                          borderRadius: 8,
+                          border: `1px solid ${tarotReversed === true ? "var(--tam-warn)" : "var(--tam-line)"}`,
+                          background: tarotReversed === true ? "rgba(211,91,91,.08)" : "transparent",
+                          color: tarotReversed === true ? "var(--tam-warn)" : "var(--tam-muted)",
+                          fontFamily: "var(--font-space-mono)",
+                          fontSize: 12,
+                          cursor: !tarotCard ? "not-allowed" : "pointer",
+                          opacity: !tarotCard ? 0.4 : 1,
+                        }}
+                      >
+                        ↓ Reversed
+                      </button>
+                    </div>
+                  </div>
                 </div>
+
+                {/* Playing card */}
                 <div>
                   <label style={{ display: "block", fontSize: 12, color: "var(--tam-muted)", marginBottom: 5 }}>
                     Playing card drawn
@@ -478,7 +546,11 @@ export default function OperatorRunner({ isOperator }: Props) {
                 </div>
               </div>
               <div style={{ marginTop: 8 }}>
-                {tarotVal !== null && scoreChip(`tarot ${tarotCard}`, tarotVal, tarotHit)}
+                {tarotVal !== null && scoreChip(
+                  `tarot ${tarotCard} ${tarotReversed ? "↓rev" : "↑up"}`,
+                  tarotVal,
+                  tarotHit
+                )}
                 {suitVal !== null && scoreChip(`playing ${pcSuit}`, suitVal, playHit)}
               </div>
             </div>

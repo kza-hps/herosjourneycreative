@@ -2,9 +2,10 @@ import { cookies } from "next/headers";
 import type { NextRequest } from "next/server";
 import { getDb } from "@/lib/tam/neon";
 import {
-  TAROT_VALENCE,
+  TAROT,
   SUIT_VALENCE,
   dirHit,
+  tarotValence,
   parseYoutubeId,
   type TamSession,
 } from "@/lib/tam/frozen";
@@ -41,6 +42,7 @@ export async function POST(request: NextRequest) {
     condition?: string;
     state_valence?: number;
     tarot_card?: string;
+    tarot_reversed?: boolean;
     pc_rank?: string;
     pc_suit?: string;
     youtube_url?: string;
@@ -53,7 +55,7 @@ export async function POST(request: NextRequest) {
     return Response.json({ error: "Invalid request body." }, { status: 400 });
   }
 
-  const { condition, state_valence, tarot_card, pc_rank, pc_suit, youtube_url, note } = body;
+  const { condition, state_valence, tarot_card, tarot_reversed, pc_rank, pc_suit, youtube_url, note } = body;
 
   if (condition !== "up" && condition !== "down") {
     return Response.json({ error: "condition must be 'up' or 'down'." }, { status: 400 });
@@ -61,14 +63,17 @@ export async function POST(request: NextRequest) {
   if (typeof state_valence !== "number" || state_valence < -5 || state_valence > 5) {
     return Response.json({ error: "state_valence must be −5..+5." }, { status: 400 });
   }
-  if (!tarot_card || !(tarot_card in TAROT_VALENCE)) {
+  if (!tarot_card || !(tarot_card in TAROT)) {
     return Response.json({ error: "Unknown tarot card." }, { status: 400 });
+  }
+  if (typeof tarot_reversed !== "boolean") {
+    return Response.json({ error: "tarot_reversed must be true or false." }, { status: 400 });
   }
   if (!pc_rank || !pc_suit || !(pc_suit in SUIT_VALENCE)) {
     return Response.json({ error: "Invalid playing card." }, { status: 400 });
   }
 
-  const tarot_valence = TAROT_VALENCE[tarot_card];
+  const tarot_valence = tarotValence(tarot_card, tarot_reversed);
   const playing_valence = SUIT_VALENCE[pc_suit];
   const playing_card = `${pc_rank} ${pc_suit}`;
 
@@ -90,6 +95,7 @@ export async function POST(request: NextRequest) {
     condition,
     state_valence,
     tarot_card,
+    tarot_reversed,
     tarot_valence,
     tarot_dir_hit: dirHit(tarot_valence, state_valence),
     playing_card,
@@ -104,11 +110,11 @@ export async function POST(request: NextRequest) {
     const sql = getDb();
     await sql`
       INSERT INTO tam_sessions
-        (id, created_at, condition, state_valence, tarot_card, tarot_valence, tarot_dir_hit,
+        (id, created_at, condition, state_valence, tarot_card, tarot_reversed, tarot_valence, tarot_dir_hit,
          playing_card, playing_valence, playing_dir_hit, youtube_url, youtube_id, note)
       VALUES
         (${session.id}, ${session.created_at}, ${session.condition}, ${session.state_valence},
-         ${session.tarot_card}, ${session.tarot_valence}, ${session.tarot_dir_hit},
+         ${session.tarot_card}, ${session.tarot_reversed}, ${session.tarot_valence}, ${session.tarot_dir_hit},
          ${session.playing_card}, ${session.playing_valence}, ${session.playing_dir_hit},
          ${session.youtube_url}, ${session.youtube_id}, ${session.note})
     `;

@@ -1,7 +1,10 @@
 import valences from "./valences.json";
 import { CONFIG_HASH } from "./generated-hash";
 
-export const TAROT_VALENCE: Record<string, number> = valences.tarot;
+export type Valence = -2 | -1 | 0 | 1 | 2;
+export interface CardValence { upright: Valence; reversed: Valence; }
+
+export const TAROT: Record<string, CardValence> = valences.tarot as Record<string, CardValence>;
 export const SUIT_VALENCE: Record<string, number> = valences.suit;
 
 export const RANKS = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"] as const;
@@ -10,7 +13,13 @@ export type Suit = (typeof SUITS)[number];
 
 export function dirHit(cardVal: number, stateVal: number): boolean | null {
   if (stateVal === 0 || cardVal === 0) return null;
-  return cardVal > 0 === stateVal > 0;
+  return (cardVal > 0) === (stateVal > 0);
+}
+
+export function tarotValence(card: string, reversed: boolean): Valence {
+  const c = TAROT[card];
+  if (!c) throw new Error(`Unknown tarot card: "${card}"`);
+  return reversed ? c.reversed : c.upright;
 }
 
 export function parseYoutubeId(url: string): string | null {
@@ -46,6 +55,8 @@ export const PREREG = {
   committedNPerArm: 60,
   scoringRule:
     "Directional hit = card valence and logged state share a sign. Metric = (∑Mi↑ hit-rate) − (∑Mi↓ hit-rate).",
+  orientationRule:
+    "A tarot card's upright/reversed state is defined relative to the fixed observer camera (mounted on the monitor opposite the experimenter, pointed down at the table). The experimenter's seated viewpoint is irrelevant to scoring. Camera frame is canonical for every draw.",
   registeredOn: "2026-06-24",
   configHash: CONFIG_HASH,
 } as const;
@@ -56,6 +67,7 @@ export type TamSession = {
   condition: "up" | "down";
   state_valence: number;
   tarot_card: string;
+  tarot_reversed: boolean;
   tarot_valence: number;
   tarot_dir_hit: boolean | null;
   playing_card: string;
