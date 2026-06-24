@@ -23,11 +23,21 @@ type PublicSession = {
 };
 
 function isValidSession(s: unknown): s is PublicSession {
+  if (s === null || typeof s !== "object") return false;
+  const sess = s as Record<string, unknown>;
   return (
-    s !== null &&
-    typeof s === "object" &&
-    typeof (s as PublicSession).id === "string" &&
-    ((s as PublicSession).cond === "up" || (s as PublicSession).cond === "down")
+    typeof sess.id === "string" &&
+    typeof sess.ts === "string" &&
+    (sess.cond === "up" || sess.cond === "down") &&
+    typeof sess.mood === "number" &&
+    typeof sess.tarot === "string" &&
+    typeof sess.tarot_reversed === "boolean" &&
+    typeof sess.tval === "number" &&
+    (sess.thit === null || typeof sess.thit === "boolean") &&
+    typeof sess.pc === "string" &&
+    typeof sess.pval === "number" &&
+    (sess.phit === null || typeof sess.phit === "boolean") &&
+    (sess.note === undefined || typeof sess.note === "string")
   );
 }
 
