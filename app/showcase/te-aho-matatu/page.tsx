@@ -229,6 +229,26 @@ export default async function TamShowcasePage() {
 
         <hr style={{ border: "none", borderTop: "1px solid var(--rule)", margin: "60px 0 0" }} />
 
+        {/* ── The question this started from ── */}
+        {detail.introQuestion && (
+          <Section title="The question this started from">
+            <p
+              style={{
+                fontFamily: "var(--font-serif)",
+                fontSize: "var(--step-body)",
+                lineHeight: 1.7,
+                color: "var(--fg2)",
+                maxWidth: "68ch",
+                margin: 0,
+              }}
+            >
+              {detail.introQuestion}
+            </p>
+          </Section>
+        )}
+
+        <hr style={{ border: "none", borderTop: "1px solid var(--rule)", margin: "0" }} />
+
         {/* ── Project Summary ── */}
         <Section title="Project Summary">
           <div className="grid grid-cols-3 gap-6 max-[880px]:grid-cols-1">
