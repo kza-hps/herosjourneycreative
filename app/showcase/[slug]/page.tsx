@@ -10,8 +10,11 @@ import VideoPlaceholder from "@/components/video-placeholder";
 
 export const dynamicParams = false;
 
+// te-aho-matatu has its own dedicated route at app/showcase/te-aho-matatu/
+const DEDICATED_ROUTES = new Set(["te-aho-matatu"]);
+
 export async function generateStaticParams() {
-  return SHOWCASE_ITEMS.filter((item) => !item.hidden).map((item) => ({ slug: item.slug }));
+  return SHOWCASE_ITEMS.filter((item) => !item.hidden && !DEDICATED_ROUTES.has(item.slug)).map((item) => ({ slug: item.slug }));
 }
 
 export async function generateMetadata({
