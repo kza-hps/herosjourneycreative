@@ -1,0 +1,1506 @@
+{
+  "title": "Ho and the Baby Eater: Glossary and Pronunciation Guide",
+  "description": "A spoiler-light reader aid for recurring names, atua, places, peoples, Polynesian terms, and in-world words from Ho & the Baby Eater.",
+  "authorNote": [
+    "The language choices in this manuscript are governed, where possible, by POLLEX, the Polynesian Lexicon Project Online: a comparative dictionary of Polynesian languages that gathers cognates, reflexes, and reconstructed older forms. My aim is not to decorate English prose with isolated Polynesian words, but to make the world think, name, worship, judge, remember, and misunderstand itself through language closer to pre-colonial contact.",
+    "That choice is deliberate and carries a cost. A modern English-language novelist has access to a vast working inheritance: major dictionaries record hundreds of thousands of English words and phrases, and an educated adult writer can draw on tens of thousands of known words before even reaching for specialist vocabulary. POLLEX is invaluable, but it is a narrower tool for a different job. Once forms are filtered for pre-contact plausibility, cultural fit, part of speech, semantic precision, sound, and story context, the usable pool of nouns and verbs becomes much smaller.",
+    "This limitation shaped the prose. Sometimes a scene could not simply use the first English word that came to mind; it had to be rebuilt around a concept that had an older Polynesian pathway, or around a moral category that belonged more naturally to the world of the story. Terms such as mana, tapu, utu, wairua, atua, rohe, and rāhui are therefore not interchangeable ornaments. They are part of the book’s architecture: its cosmology, belief system, social order, ethics, and sense of consequence.",
+    "Note: This is a story-facing language note, not a formal linguistic apparatus. Pronunciation guidance is approximate and designed to help global readers move through the journal chapters with confidence."
+  ],
+  "pronunciationGuide": [
+    {
+      "title": "Vowels",
+      "body": [
+        "Māori and most Polynesian languages share a consistent vowel system. Once the sounds below are learned, any word in this glossary can be sounded out more reliably.",
+        "a — as in father",
+        "e — as in bed",
+        "i — as in feet, but shorter",
+        "o — as in core",
+        "u — as in moon, but shorter"
+      ]
+    },
+    {
+      "title": "Macrons (ā ē ī ō ū)",
+      "body": [
+        "A macron lengthens the vowel. It roughly doubles the duration without changing the vowel quality: ā is a held “ah.” Ō is a held “oh,” sounding like “awe” as in awestruck.",
+        "Macrons can change meaning as well as pronunciation, so they are part of the word rather than decoration."
+      ]
+    },
+    {
+      "title": "Diphthongs",
+      "body": [
+        "Two vowels blend smoothly together without a break.",
+        "ae → ah-eh ai → ah-ee ao → ah-oh au → ah-oo",
+        "ei → eh-ee oe → oh-eh oi → oh-ee ou → oh-oo"
+      ]
+    },
+    {
+      "title": "Consonants",
+      "body": [
+        "Most consonants are close to English, with three key differences:",
+        "r — a light flap, closer to the r in Spanish pero than the English r",
+        "ng — always the sound in singing, never as in finger; it can begin a syllable",
+        "wh — pronounced as f in most Māori dialects, as in whakapapa → fah-kah-PAH-pah"
+      ]
+    },
+    {
+      "title": "Stress",
+      "body": [
+        "Stress generally falls on the first syllable. Macronned vowels draw additional weight wherever they appear.",
+        "The pronunciations in brackets use a plain-English respelling. Syllables are separated by hyphens and stressed syllables appear in CAPS."
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "id": "core-kupu",
+      "title": "Core Kupu (vocabulary), Cultural Terms, and Material Culture",
+      "entries": [
+        {
+          "term": "āe",
+          "slug": "ae",
+          "pronunciation": "ah-EH",
+          "meaning": "Yes; an affirmation.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "ariki",
+          "slug": "ariki",
+          "pronunciation": "ah-REE-kee",
+          "meaning": "Person of high rank or chiefly/noble status.",
+          "story": "Often tied to bloodline, prestige, and political standing.",
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "atua",
+          "slug": "atua",
+          "pronunciation": "ah-TOO-ah",
+          "meaning": "Divine or supernatural being.",
+          "story": "In this story, atua include gods and powerful ancestral forces who govern parts of the world.",
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "auē",
+          "slug": "aue",
+          "pronunciation": "ow-EH",
+          "meaning": "Exclamation of distress, grief, surprise, or emphasis. Appears both sincerely and mockingly.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "hā",
+          "slug": "ha",
+          "pronunciation": "HAH",
+          "meaning": "Breath, vital breath, or life force.",
+          "story": "Used in the manuscript in divine conception/life-force language.",
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "hapū",
+          "slug": "hapu",
+          "pronunciation": "hah-POO",
+          "meaning": "Kinship group or sub-tribe.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "harakeke",
+          "slug": "harakeke",
+          "pronunciation": "hah-rah-KEH-keh",
+          "meaning": "New Zealand flax; used for cord, lashings, kete, and woven objects.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "hika",
+          "slug": "hika",
+          "pronunciation": "HEE-kah",
+          "meaning": "The act of fire-making by friction; rubbing a hardened pointed stick against a grooved board to generate an ember.",
+          "story": "Used in the manuscript in the phrase “rub of hika to mahoe.”",
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "hoe",
+          "slug": "hoe",
+          "pronunciation": "HOH-eh",
+          "meaning": "Paddle; also the action or command to paddle.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "hua",
+          "slug": "hua",
+          "pronunciation": "HOO-ah",
+          "meaning": "Fruit, produce, result; in wider usage, the yield of any effort. In the manuscript used colloquially for brains or mind: “this cursed island has scooped out my hua—now I’m only the shell.”",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "kaihautū",
+          "slug": "kaihautu",
+          "pronunciation": "kai-how-TOO",
+          "meaning": "Canoe leader, caller, or timekeeper who helps coordinate paddling and rhythm.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "karaka",
+          "slug": "karaka",
+          "pronunciation": "kah-RAH-kah",
+          "meaning": "A coastal tree with glossy leaves and orange fruit.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "kauri",
+          "slug": "kauri",
+          "pronunciation": "KOW-ree",
+          "meaning": "Large native forest tree. In the manuscript it can also appear in elevated or personified chant contexts.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "kava",
+          "slug": "kava",
+          "pronunciation": "KAH-vah",
+          "meaning": "Ceremonial/drink plant preparation used across parts of Polynesia; in the manuscript it appears as a drink shared in ritual/social settings.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "kete",
+          "slug": "kete",
+          "pronunciation": "KEH-teh",
+          "meaning": "Woven basket, pouch, or kit.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "kōhū",
+          "slug": "kohu",
+          "pronunciation": "KOH-hoo",
+          "meaning": "In-world medicinal salve or herb used against fever.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "kūmara",
+          "slug": "kumara",
+          "pronunciation": "KOO-mah-rah",
+          "meaning": "Sweet potato.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "lavālava",
+          "slug": "lavalava",
+          "pronunciation": "lah-VAH-lah-vah",
+          "meaning": "Wrapped cloth garment.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "mahoe",
+          "slug": "mahoe",
+          "pronunciation": "mah-HOH-eh",
+          "meaning": "A fast-growing native tree whose soft wood traditionally serves as the base board in hika fire-making.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "mākutu",
+          "slug": "makutu",
+          "pronunciation": "MAH-koo-too",
+          "meaning": "Magic, curse, or ritual harm.",
+          "story": "Appears in the phrase tohunga mākutu.",
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "mana",
+          "slug": "mana",
+          "pronunciation": "MAH-nah",
+          "meaning": "Magical power; spiritual energy; the force that allows divine, ancestral, or ritual acts to take effect.",
+          "story": "Mana fuels magical spells and ritual acts. It can sit beneath the skin, gather through bloodline or divine force, and be expended in moments of transformation, power, or danger.",
+          "wider": "mana can also mean prestige, authority, status, spiritual force, or personal power.",
+          "featured": true,
+          "tags": []
+        },
+        {
+          "term": "maro",
+          "slug": "maro",
+          "pronunciation": "MAH-roh",
+          "meaning": "Loincloth or waist garment;.",
+          "story": "Appears in clothing descriptions.",
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "miro",
+          "slug": "miro",
+          "pronunciation": "MEE-roh",
+          "meaning": "A native forest tree bearing bright red berries;.",
+          "story": "Appears in jungle and forest-path descriptions in the manuscript.",
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "moa",
+          "slug": "moa",
+          "pronunciation": "MOH-ah",
+          "meaning": "Large flightless bird; in the manuscript also a significant food/ride/gift animal.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "moai",
+          "slug": "moai",
+          "pronunciation": "MOH-ai",
+          "meaning": "The monumental stone statues of Rapa Nui (Easter Island).",
+          "story": "Used in the manuscript as a simile for crushing, immovable weight.",
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "moi",
+          "slug": "moi",
+          "pronunciation": "MOH-ee",
+          "meaning": "Threadfin fish; a valued Pacific food fish. The first named creature in the novel, dying on the end of Ho’s spear in the opening scene.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "motu",
+          "slug": "motu",
+          "pronunciation": "MOH-too",
+          "meaning": "Island.",
+          "story": "Appears in Kafiki Motu.",
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "muka",
+          "slug": "muka",
+          "pronunciation": "MOO-kah",
+          "meaning": "Prepared flax fibre, used for weaving.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "namu",
+          "slug": "namu",
+          "pronunciation": "NAH-moo",
+          "meaning": "Sandfly/gnat-based insult or in-world slang.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "ngeri",
+          "slug": "ngeri",
+          "pronunciation": "NGEH-ree",
+          "meaning": "Short chant or haka-like performance.",
+          "story": "In the manuscript, used for rhythmic chant and battle/ritual expression.",
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "ōtaha",
+          "slug": "otaha",
+          "pronunciation": "OH-tah-hah",
+          "meaning": "Frigate bird; a large seabird that soars effortlessly on thermals. In the manuscript one is struck from the air by a falling stone egg during the sky-tear event.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "pā",
+          "slug": "pa",
+          "pronunciation": "PAH",
+          "meaning": "Fortified settlement or village enclosure.",
+          "story": "In manuscript context, may also be used more generally for settlement/place.",
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "pākē",
+          "slug": "pake",
+          "pronunciation": "PAH-keh",
+          "meaning": "Rough cape or rain cape made from undressed leaves or flax.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "paoa",
+          "slug": "paoa",
+          "pronunciation": "pah-OH-ah",
+          "meaning": "In-world medicinal salve or herb used against fever.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "paru",
+          "slug": "paru",
+          "pronunciation": "PAH-roo",
+          "meaning": "Mud, mire; ruined or not working.",
+          "story": "Used in the manuscript as colloquial slang for something broken or out of use: “Patu gone paru.”",
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "patu",
+          "slug": "patu",
+          "pronunciation": "PAH-too",
+          "meaning": "Short-handled striking weapon; a Māori hand-club used in close combat. Also used in colloquial and literary contexts as a euphemism for the penis.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "patupaiarehe",
+          "slug": "patupaiarehe",
+          "pronunciation": "pah-too-pai-ah-REH-heh",
+          "meaning": "Fairy folk; fair-skinned supernatural people associated with bush, mountains, mist, and avoidance of fire.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "pāua",
+          "slug": "paua",
+          "pronunciation": "PAH-oo-ah",
+          "meaning": "Abalone/paua shell, often valued for its iridescence.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "poerava",
+          "slug": "poerava",
+          "pronunciation": "poh-EH-rah-vah",
+          "meaning": "Tahitian black pearl.",
+          "story": "In the manuscript, black pearl ornaments worn ceremonially, later used figuratively for a small dark glint of hope beneath the surface.",
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "pōhutukawa",
+          "slug": "pohutukawa",
+          "pronunciation": "POH-hoo-too-KAH-wah",
+          "meaning": "Coastal tree with red flowers.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "Pouākai",
+          "slug": "pouakai",
+          "pronunciation": "poh-AH-kai",
+          "meaning": "Giant mythic/extinct bird of prey.",
+          "story": "In manuscript context, associated with Autara eagle hunters or tracker-hunters.",
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "pounamu",
+          "slug": "pounamu",
+          "pronunciation": "poh-NAH-moo",
+          "meaning": "Greenstone, nephrite, or jade; something precious, beautiful, and deeply valued.",
+          "story": "Also used as Selai's private pet name, carrying connotations of beauty, value, and preciousness.",
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "puaka",
+          "slug": "puaka",
+          "pronunciation": "poo-AH-kah",
+          "meaning": "Pig.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "puga",
+          "slug": "puga",
+          "pronunciation": "POO-gah",
+          "meaning": "In-world substance, drink, powder, or crushed-coral preparation with intoxicating or ritual effects.",
+          "story": "Used in ceremonial, altered-state, or power-adjacent contexts.",
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "rāhui / rahui",
+          "slug": "rahui-rahui",
+          "pronunciation": "RAH-hwee",
+          "meaning": "Temporary restriction, prohibition, or sacred ban placed over an area or resource.",
+          "story": "The manuscript includes both macron and non-macron forms, depending on context and draft usage.",
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "rangatahi",
+          "slug": "rangatahi",
+          "pronunciation": "rang-ah-TAH-hee",
+          "meaning": "Young people; youth. Used as a descriptor in the manuscript: atua rangatahi, young divine offspring of mixed descent.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "rauhā-tangi",
+          "slug": "rauha-tangi",
+          "pronunciation": "row-HAH-tahng-ee",
+          "meaning": "In-world herb used to sharpen inner sight and widen perception.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "rohe",
+          "slug": "rohe",
+          "pronunciation": "ROH-heh",
+          "meaning": "Boundary, territory, region, or district. Often used for tribal land/area of authority.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "tāhei",
+          "slug": "tahei",
+          "pronunciation": "TAH-heh-ee",
+          "meaning": "Necklace or ornament worn at the chest/neck.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "tāmure",
+          "slug": "tamure",
+          "pronunciation": "TAH-moo-reh",
+          "meaning": "Snapper/fish.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "tāniko",
+          "slug": "taniko",
+          "pronunciation": "TAH-nee-koh",
+          "meaning": "Decorative woven border or patterned weaving.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "taniwha",
+          "slug": "taniwha",
+          "pronunciation": "tah-NEE-fah",
+          "meaning": "Supernatural creature associated with deep water; powerful and often dangerous beings that inhabit rivers, lakes, and the sea.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "taonga",
+          "slug": "taonga",
+          "pronunciation": "tah-ONG-ah",
+          "meaning": "Treasure, prized object, valued resource, or anything held precious.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "tapa",
+          "slug": "tapa",
+          "pronunciation": "TAH-pah",
+          "meaning": "Barkcloth.",
+          "story": "In the manuscript, appears as mat, cord, and cloth material.",
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "tapu",
+          "slug": "tapu",
+          "pronunciation": "TAH-poo",
+          "meaning": "Sacred, restricted, forbidden, taboo, or set apart.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "taro",
+          "slug": "taro",
+          "pronunciation": "TAH-roh",
+          "meaning": "Root crop/staple food.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "tī",
+          "slug": "ti",
+          "pronunciation": "TEE",
+          "meaning": "Cabbage tree; leaves may be used for skirts, coverings, or other material culture.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "tika",
+          "slug": "tika",
+          "pronunciation": "TEE-kah",
+          "meaning": "Correct, right, proper, just, or fitting.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "toetoe",
+          "slug": "toetoe",
+          "pronunciation": "TOH-eh-TOH-eh",
+          "meaning": "Reed/grass-like plant or thatch material; in context, sharp blades cut the hand.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "tohunga",
+          "slug": "tohunga",
+          "pronunciation": "toh-HUNG-ah",
+          "meaning": "Expert, priest, healer, ritual specialist, or keeper of sacred knowledge.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "tōtara",
+          "slug": "totara",
+          "pronunciation": "TOH-tah-rah",
+          "meaning": "Native tree;.",
+          "story": "Appears in forest/clearing scenes.",
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "tūrama",
+          "slug": "turama",
+          "pronunciation": "TOO-rah-mah",
+          "meaning": "In-world yellow dye or plant-dye source used for bright garments.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "utu",
+          "slug": "utu",
+          "pronunciation": "OO-too",
+          "meaning": "Reciprocity, payment, compensation, revenge, or balancing response. In the story it often carries the weight of blood debt and moral balancing.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "vokai",
+          "slug": "vokai",
+          "pronunciation": "VOH-kai",
+          "meaning": "The Fijian Vokai iguana; a critically endangered tree-dwelling lizard native to Fiji, known for vibrant emerald green colouring with white and black banding. Can darken its skin to near-black when stressed or threatened.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "wairua",
+          "slug": "wairua",
+          "pronunciation": "wai-ROO-ah",
+          "meaning": "Spirit or soul.",
+          "story": "In the manuscript, often used when body, memory, and spiritual self separate or return.",
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "waka",
+          "slug": "waka",
+          "pronunciation": "WAH-kah",
+          "meaning": "Canoe or vessel. Central to travel, exile, return, and ocean navigation.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "whakapapa",
+          "slug": "whakapapa",
+          "pronunciation": "fah-kah-PAH-pah",
+          "meaning": "Genealogy; the layering of one generation upon another. Recitation of ancestral lineage establishes identity, standing, and spiritual connection. Ho’s uncertainty about his whakapapa is central to his crisis of belonging.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "whakataukī",
+          "slug": "whakatauki",
+          "pronunciation": "fah-kah-TOW-kee",
+          "meaning": "Proverb or proverbial saying.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "whāriki",
+          "slug": "whariki",
+          "pronunciation": "FAH-ree-kee",
+          "meaning": "Woven mat.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "atua",
+      "title": "Atua, Supernatural Figures, and Cosmological Names",
+      "entries": [
+        {
+          "term": "Ārohirohi",
+          "slug": "arohirohi",
+          "pronunciation": "AH-roh-hee-roh-hee",
+          "meaning": "Goddess of the lake in Matavai origin story.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "Feke",
+          "slug": "feke",
+          "pronunciation": "FEH-keh",
+          "meaning": "Ho's adopted island/tribal power and a divine/guardian presence in the manuscript.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "Feke and Rapa-Iti",
+          "slug": "feke-and-rapa-iti",
+          "pronunciation": "FEH-keh and RAH-pah-EE-tee",
+          "meaning": "Taniwha gods named as awakening powers.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "Haronga",
+          "slug": "haronga",
+          "pronunciation": "hah-RONG-ah",
+          "meaning": "Dawn god; atua of warmth and the first light of day.",
+          "story": "In the manuscript, Ho wonders whether Haronga has opened his eyes to witness the tears in the sky—unsettled to be watched by a god he had barely considered.",
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "Io",
+          "slug": "io",
+          "pronunciation": "EE-oh",
+          "meaning": "Supreme divine figure referenced as a creator/source above other atua.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "Mailagu",
+          "slug": "mailagu",
+          "pronunciation": "mai-LAH-goo",
+          "meaning": "Sky/blue-veil goddess in the manuscript.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "Mārama",
+          "slug": "marama",
+          "pronunciation": "MAH-rah-mah",
+          "meaning": "Moon goddess in the manuscript's ritual context.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "Māui",
+          "slug": "maui",
+          "pronunciation": "MAH-oo-ee",
+          "meaning": "Culture hero referenced through comparison and memory.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "Papatūānuku",
+          "slug": "papatuanuku",
+          "pronunciation": "pah-pah-TOO-AH-noo-koo",
+          "meaning": "Earth mother.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "Rā",
+          "slug": "ra",
+          "pronunciation": "RAH",
+          "meaning": "Sun or sun-associated deity.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "Ranginui",
+          "slug": "ranginui",
+          "pronunciation": "RANG-ee-noo-ee",
+          "meaning": "Sky father.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "Rongo",
+          "slug": "rongo",
+          "pronunciation": "RONG-oh",
+          "meaning": "Peace, agriculture, and fertile garden-associated atua.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "Takali Foto",
+          "slug": "takali-foto",
+          "pronunciation": "tah-KAH-lee FOH-toh",
+          "meaning": "Volcano god/mountain; a place, a divine presence, and a prophetic threat.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "Takaroa",
+          "slug": "takaroa",
+          "pronunciation": "tah-kah-ROH-ah",
+          "meaning": "Sea/ocean god associated with Ho, the ocean, and divine ancestry.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "Tāne / Tāne-Mahuta",
+          "slug": "tane-tane-mahuta",
+          "pronunciation": "TAH-neh / TAH-neh-mah-HOO-tah",
+          "meaning": "Forest god; associated with trees and the living forest.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "Tāwhiri / Tāwhirimātea",
+          "slug": "tawhiri-tawhirimatea",
+          "pronunciation": "TAH-fee-ree / TAH-fee-ree-MAH-teh-ah",
+          "meaning": "Wind or storm god. Tāwhirimātea is the fuller Māori deity name; manuscript also uses shortened Tāwhiri.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "Tū",
+          "slug": "tu",
+          "pronunciation": "TOO",
+          "meaning": "War/humankind-associated atua, invoked among Ho's carved gods.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "Wātea",
+          "slug": "watea",
+          "pronunciation": "WAH-teh-ah",
+          "meaning": "God of the cosmos; Teā's claimed divine father.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "peoples-tribes-and-places",
+      "title": "Peoples, Tribes, and Places",
+      "entries": [
+        {
+          "term": "Ahukai",
+          "slug": "ahukai",
+          "pronunciation": "ah-HOO-kai",
+          "meaning": "Tribe associated with Sukey and Faturaki.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "Autara",
+          "slug": "autara",
+          "pronunciation": "ow-TAH-rah",
+          "meaning": "Tribe that enslaved Ho as a child and remains politically important.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "Feke",
+          "slug": "feke",
+          "pronunciation": "FEH-keh",
+          "meaning": "Ho's adopted home/tribal identity off Kafiki.",
+          "story": "Also appears with divine force.",
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "Ho's atoll",
+          "slug": "hos-atoll",
+          "pronunciation": "HOH's ah-TOL",
+          "meaning": "Ho's isolated place of exile after leaving Kafiki.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "Kafiki",
+          "slug": "kafiki",
+          "pronunciation": "kah-FEE-kee",
+          "meaning": "Main island/world of the tribes; Ho's homeland context before exile.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "Kafiki Motu",
+          "slug": "kafiki-motu",
+          "pronunciation": "kah-FEE-kee MOH-too",
+          "meaning": "The island of Kafiki; motu means island.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "Lapita",
+          "slug": "lapita",
+          "pronunciation": "lah-PEE-tah",
+          "meaning": "The Lapita people; ancient seafarers whose distinctive pottery tradition marks the earliest known settlement of western Polynesia, c. 1600–500 BCE.",
+          "story": "Referenced in the manuscript as a historical antecedent to the world of Kafiki.",
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "Lidopo",
+          "slug": "lidopo",
+          "pronunciation": "lee-DOH-poh",
+          "meaning": "Place/people named in later intertribal context.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "Mahana",
+          "slug": "mahana",
+          "pronunciation": "mah-HAH-nah",
+          "meaning": "Ranges/area named in Matavai geography.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "Makateā",
+          "slug": "makatea",
+          "pronunciation": "mah-kah-TEH-ah",
+          "meaning": "Distant people or tribe associated with Rapa-Iti.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "Makateān",
+          "slug": "makatean",
+          "pronunciation": "mah-kah-TEH-an",
+          "meaning": "Adjectival form referring to the Makateā people or their motifs.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "Matalagi",
+          "slug": "matalagi",
+          "pronunciation": "mah-tah-LAH-gee",
+          "meaning": "Great meeting fale; glossed in manuscript as Beautiful Cloak.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "Matavai",
+          "slug": "matavai",
+          "pronunciation": "mah-tah-VAI",
+          "meaning": "Powerful tribe/rohe tied to Chief Kuanua, Selai, Teā, and the Waimate River.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "Na-Mala-o-Kala‘i",
+          "slug": "na-mala-o-kalai",
+          "pronunciation": "nah-MAH-lah-oh-kah-LAH-ee",
+          "meaning": "Goddess of Water and the Sea who gives Ho knowledge of the mana beneath his skin.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "Nasara",
+          "slug": "nasara",
+          "pronunciation": "nah-SAH-rah",
+          "meaning": "Place name appearing later in the manuscript.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "Rapa-Iti",
+          "slug": "rapa-iti",
+          "pronunciation": "RAH-pah-EE-tee",
+          "meaning": "Distant place/people; also.",
+          "story": "Appears in supernatural/taniwha-god references.",
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "Takaroans",
+          "slug": "takaroans",
+          "pronunciation": "tah-kah-ROH-anz",
+          "meaning": "People of Feke Motu associated with Feke and the Takaroa/Feke tradition.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "Tuakau",
+          "slug": "tuakau",
+          "pronunciation": "too-AH-kow",
+          "meaning": "Village/place reached during tracking scenes.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "Tumutumu",
+          "slug": "tumutumu",
+          "pronunciation": "too-moo-TOO-moo",
+          "meaning": "One of the Kafiki tribes named in tribal gatherings/prophecy.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "Ulu Waimate",
+          "slug": "ulu-waimate",
+          "pronunciation": "OO-loo wai-MAH-teh",
+          "meaning": "Falls/landmark central to Teā, Kura, and the Baby Eater thread.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "Unusi",
+          "slug": "unusi",
+          "pronunciation": "oo-NOO-see",
+          "meaning": "One of the Kafiki tribes named in tribal gatherings/prophecy.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "Vanua",
+          "slug": "vanua",
+          "pronunciation": "VAH-noo-ah",
+          "meaning": "Place/people term appearing later in the manuscript; in wider Polynesian usage often relates to land/people/place.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "Waimate River",
+          "slug": "waimate-river",
+          "pronunciation": "wai-MAH-teh",
+          "meaning": "River and rohe marker in Matavai territory.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "characters",
+      "title": "Main Characters, Recurring Names, and Objects",
+      "entries": [
+        {
+          "term": "Ailani",
+          "slug": "ailani",
+          "pronunciation": "ai-LAH-nee",
+          "meaning": "Recurring named figure in later chapters.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "Arahuta",
+          "slug": "arahuta",
+          "pronunciation": "ah-rah-HOO-tah",
+          "meaning": "Loha's companion in Ho's early encounter.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "Baby Eater",
+          "slug": "baby-eater",
+          "pronunciation": "BAY-bee EE-ter",
+          "meaning": "Child-taking monster/demon whose threat draws Ho back toward Kafiki.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "Chief Kuanua",
+          "slug": "chief-kuanua",
+          "pronunciation": "koo-AH-noo-ah",
+          "meaning": "Chief of Matavai and Selai's husband.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "Dark Flame",
+          "slug": "dark-flame",
+          "pronunciation": "English",
+          "meaning": "Title/name for the masked tohunga or ritual figure at Takali Foto.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "Faturaki",
+          "slug": "faturaki",
+          "pronunciation": "fah-too-RAH-kee",
+          "meaning": "Elder tohunga, navigator/prophet figure, and Ho's adoptive father.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "Galaiga",
+          "slug": "galaiga",
+          "pronunciation": "gah-LAI-gah",
+          "meaning": "Crew/warrior figure in Faturaki's party.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "Gundaidhar",
+          "slug": "gundaidhar",
+          "pronunciation": "gun-DYE-dar",
+          "meaning": "Supernatural/ritual figure appearing late in the manuscript.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "Hina",
+          "slug": "hina",
+          "pronunciation": "HEE-nah",
+          "meaning": "Named figure appearing late in the manuscript.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "Ho",
+          "slug": "ho",
+          "pronunciation": "HOH",
+          "meaning": "Exiled warrior, monster-hunter, and central protagonist.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "Hōkūleʻa",
+          "slug": "hokulea",
+          "pronunciation": "HOH-koo-LEH-ah",
+          "meaning": "Navigational star reference.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "Hōkūpaʻa",
+          "slug": "hokupaa",
+          "pronunciation": "HOH-koo-PAH-ah",
+          "meaning": "Navigational star reference.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "Iwa",
+          "slug": "iwa",
+          "pronunciation": "EE-wah",
+          "meaning": "Autara hunter/warrior figure.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "Kalapa",
+          "slug": "kalapa",
+          "pronunciation": "kah-LAH-pah",
+          "meaning": "Carved/voiced presence connected to Ho's solitude and spirit-world chorus.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "Kanopolu",
+          "slug": "kanopolu",
+          "pronunciation": "kah-noh-POH-loo",
+          "meaning": "Named figure in the Feke/forest/tracking sections.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "Kura",
+          "slug": "kura",
+          "pronunciation": "KOO-rah",
+          "meaning": "Companion/friend connected to Teā and the Ulu Waimate thread.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "Loha",
+          "slug": "loha",
+          "pronunciation": "LOH-hah",
+          "meaning": "One of the sky-fallen/divine-feeling figures Ho encounters early.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "Makosai",
+          "slug": "makosai",
+          "pronunciation": "mah-KOH-sai",
+          "meaning": "Named figure associated with Kanopolu and provisions/weapons.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "Manōkalanipō",
+          "slug": "manokalanipo",
+          "pronunciation": "mah-NOH-kah-lah-nee-POH",
+          "meaning": "Star/navigation name referenced by Ho.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "Paiʻea",
+          "slug": "paiea",
+          "pronunciation": "pai-EH-ah",
+          "meaning": "Musician of Ahukai.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "Pakuu",
+          "slug": "pakuu",
+          "pronunciation": "pah-KOO-oo",
+          "meaning": "Speaker/authority figure in Matavai-related scenes.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "Pataru",
+          "slug": "pataru",
+          "pronunciation": "pah-TAH-roo",
+          "meaning": "Recurring named figure in later chapters.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "Pounamu",
+          "slug": "pounamu",
+          "pronunciation": "poh-NAH-moo",
+          "meaning": "Selai's private pet name used by Ho; literally greenstone or precious stone.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "Selai",
+          "slug": "selai",
+          "pronunciation": "SEH-lai",
+          "meaning": "Teā's mother; emotionally central to Ho and Matavai.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "Sere",
+          "slug": "sere",
+          "pronunciation": "SEH-reh",
+          "meaning": "Elder or older woman figure connected to Matavai/Selai scenes.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "Sukey",
+          "slug": "sukey",
+          "pronunciation": "SOO-kee",
+          "meaning": "Ahukai girl/woman of ariki blood tied to Teā's early storyline.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "Teā",
+          "slug": "tea",
+          "pronunciation": "TEH-ah",
+          "meaning": "Son of Selai, believed by some to be a child of Wātea.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "Totokona",
+          "slug": "totokona",
+          "pronunciation": "toh-toh-KOH-nah",
+          "meaning": "Ho's famous weapon, carved by him and repeatedly associated with his legend.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "Tufukia",
+          "slug": "tufukia",
+          "pronunciation": "too-foo-KEE-ah",
+          "meaning": "Matavai warrior/brother figure.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "Turuturu",
+          "slug": "turuturu",
+          "pronunciation": "too-roo-TOO-roo",
+          "meaning": "Recurring named figure in later chapters.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "Tuʻunaga",
+          "slug": "tuunaga",
+          "pronunciation": "too-oo-NAH-gah",
+          "meaning": "Matavai warrior/brother figure.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        },
+        {
+          "term": "Waru",
+          "slug": "waru",
+          "pronunciation": "WAH-roo",
+          "meaning": "Autara hunter/warrior figure.",
+          "story": null,
+          "wider": null,
+          "featured": false,
+          "tags": []
+        }
+      ]
+    }
+  ],
+  "_meta": {
+    "generated": "2026-06-24T00:53:35.574Z",
+    "sourceFile": "Ho and the Baby Eater - Glossary Publication.docx",
+    "sections": 4,
+    "totalEntries": 142
+  }
+}

@@ -101,6 +101,14 @@ export default function JournalPage() {
                 <a href="#chapters" className="hjc-btn hjc-btn-ghost">
                   View Chapters
                 </a>
+                {book.glossarySourceFile && (
+                  <Link
+                    href="/journal/ho-and-the-baby-eater/glossary"
+                    className="hjc-btn hjc-btn-ghost"
+                  >
+                    Glossary
+                  </Link>
+                )}
               </div>
             </div>
 

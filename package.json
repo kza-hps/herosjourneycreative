@@ -5,6 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "prebuild": "node scripts/build-glossary-from-docx.mjs",
+    "glossary:build": "node scripts/build-glossary-from-docx.mjs",
     "journal:sync": "node scripts/sync-journal.mjs",
     "start": "next start",
     "lint": "eslint"

@@ -1,8 +1,26 @@
+import fs from "fs";
+import path from "path";
 import Link from "next/link";
 import type { Metadata } from "next";
-import { getBook, renderGlossaryDocx } from "@/lib/journal";
+import { getBook } from "@/lib/journal";
 import ReturnToReading from "./return-to-reading";
+import GlossaryClient, { type GlossarySection } from "./glossary-client";
 import styles from "./glossary.module.css";
+
+type PronGuideSection = { title: string; body: string[] };
+
+type GlossaryData = {
+  title: string;
+  description: string;
+  authorNote: string[];
+  pronunciationGuide: PronGuideSection[];
+  sections: GlossarySection[];
+};
+
+function getGlossaryData(): GlossaryData {
+  const file = path.join(process.cwd(), "lib", "generated", "ho-baby-eater-glossary.json");
+  return JSON.parse(fs.readFileSync(file, "utf-8")) as GlossaryData;
+}
 
 export async function generateMetadata(): Promise<Metadata> {
   const book = getBook();
@@ -12,15 +30,9 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default async function GlossaryPage() {
+export default function GlossaryPage() {
   const book = getBook();
-  const title = book.glossaryTitle ?? `${book.title}: Glossary`;
-
-  if (!book.glossarySourceFile) {
-    throw new Error("book.json: missing glossarySourceFile");
-  }
-
-  const glossaryHtml = await renderGlossaryDocx(book.glossarySourceFile, title);
+  const data = getGlossaryData();
 
   return (
     <div
@@ -43,46 +55,42 @@ export default async function GlossaryPage() {
         <article className="chapter-reader-page">
           <span className="hjc-kick block mb-[16px]">{book.title}</span>
 
-          <h1
-            style={{
-              fontFamily: "var(--font-serif)",
-              fontWeight: 600,
-              fontSize: "clamp(1.8rem, 4vw, 2.8rem)",
-              lineHeight: 1.12,
-              color: "var(--fg1)",
-              margin: "0 0 20px",
-            }}
-          >
-            {title}
-          </h1>
+          <h1 className={styles.pageTitle}>{data.title}</h1>
 
-          {book.glossaryDescription && (
-            <p
-              style={{
-                fontFamily: "var(--font-serif)",
-                fontStyle: "italic",
-                fontSize: "1.05rem",
-                lineHeight: 1.6,
-                color: "var(--fg2)",
-                margin: "0 0 40px",
-              }}
-            >
-              {book.glossaryDescription}
-            </p>
+          {data.description && (
+            <p className={styles.pageSubtitle}>{data.description}</p>
           )}
 
-          <hr
-            style={{
-              border: "none",
-              borderTop: "1px solid var(--rule)",
-              margin: "0 0 40px",
-            }}
-          />
+          <hr className={styles.rule} />
 
-          <div
-            className={styles.body}
-            dangerouslySetInnerHTML={{ __html: glossaryHtml }}
-          />
+          {data.authorNote.length > 0 && (
+            <section className={styles.authorNote}>
+              <h2 className={styles.noteHeading}>Author&rsquo;s Note on Language</h2>
+              {data.authorNote.map((para, i) => (
+                <p key={i} className={styles.notePara}>{para}</p>
+              ))}
+            </section>
+          )}
+
+          {data.pronunciationGuide.length > 0 && (
+            <section className={styles.pronGuide}>
+              <h2 className={styles.noteHeading}>Pronunciation Guide</h2>
+              {data.pronunciationGuide.map((sub, i) => (
+                <div key={i} className={styles.pronSection}>
+                  {sub.title && (
+                    <h3 className={styles.pronSectionTitle}>{sub.title}</h3>
+                  )}
+                  {sub.body.map((para, j) => (
+                    <p key={j} className={styles.pronPara}>{para}</p>
+                  ))}
+                </div>
+              ))}
+            </section>
+          )}
+
+          <hr className={styles.rule} />
+
+          <GlossaryClient sections={data.sections} />
         </article>
       </main>
     </div>
