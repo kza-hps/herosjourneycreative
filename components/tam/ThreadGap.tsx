@@ -41,7 +41,7 @@ function pct(n: number | null): string {
 }
 
 function gapStr(gap: number | null): string {
-  if (gap === null) return "—";
+  if (gap === null) return "n/a";
   return (gap >= 0 ? "+" : "") + Math.round(gap * 100) + "%";
 }
 
@@ -60,7 +60,7 @@ function DeckBlock({ name, label, up, dn }: DeckBlockProps) {
 
   return (
     <div style={{ paddingTop: 18, paddingBottom: 18, borderTop: "1px solid var(--tam-line)" }}>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 10 }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 14 }}>
         <div style={{ fontFamily: "var(--font-spectral)", fontSize: 17 }}>
           {name}{" "}
           <span style={{ color: "var(--tam-muted)", fontSize: 12 }}>· {label}</span>
@@ -70,32 +70,65 @@ function DeckBlock({ name, label, up, dn }: DeckBlockProps) {
         </div>
       </div>
 
-      <div style={{ position: "relative", height: 84 }}>
-        <div style={{ position: "absolute", left: 0, right: 0, top: "50%", height: 1, background: "var(--tam-line)" }} />
-
-        <div style={{ position: "absolute", left: 0, top: 2, fontFamily: "var(--font-space-mono)", fontSize: 11, color: "var(--tam-muted)" }}>
+      {/* Up arm row: label · bar · value all on the same baseline */}
+      <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
+        <span style={{
+          fontFamily: "var(--font-space-mono)",
+          fontSize: 11,
+          color: "var(--tam-muted)",
+          whiteSpace: "nowrap",
+          minWidth: 112,
+        }}>
           ∑Mi↑ coherent
+        </span>
+        <div style={{ flex: 1, height: 14, position: "relative" }}>
+          <div
+            className="tam-arm tam-arm-up"
+            style={{ width: `${upW}%`, position: "absolute", left: 0, top: 0, height: "100%" }}
+          />
         </div>
-        <div
-          className="tam-arm tam-arm-up"
-          style={{ width: `${upW}%`, top: 18 }}
-        >
-          <span className="tam-arm-cap" style={{ color: "var(--tam-thread)" }}>
-            {pct(up.p)} ·{up.n}
-          </span>
-        </div>
+        <span style={{
+          fontFamily: "var(--font-space-mono)",
+          fontSize: 12,
+          color: "var(--tam-thread)",
+          whiteSpace: "nowrap",
+          minWidth: 72,
+          textAlign: "right",
+        }}>
+          {pct(up.p)} · {up.n}
+        </span>
+      </div>
 
-        <div
-          className="tam-arm tam-arm-dn"
-          style={{ width: `${dnW}%`, top: 50 }}
-        >
-          <span className="tam-arm-cap" style={{ color: "var(--tam-scatter)" }}>
-            {pct(dn.p)} ·{dn.n}
-          </span>
-        </div>
-        <div style={{ position: "absolute", left: 0, top: 68, fontFamily: "var(--font-space-mono)", fontSize: 11, color: "var(--tam-muted)" }}>
+      {/* Midline separator */}
+      <div style={{ height: 1, background: "var(--tam-line)", margin: "2px 0 10px" }} />
+
+      {/* Dn arm row */}
+      <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+        <span style={{
+          fontFamily: "var(--font-space-mono)",
+          fontSize: 11,
+          color: "var(--tam-muted)",
+          whiteSpace: "nowrap",
+          minWidth: 112,
+        }}>
           ∑Mi↓ scattered
+        </span>
+        <div style={{ flex: 1, height: 14, position: "relative" }}>
+          <div
+            className="tam-arm tam-arm-dn"
+            style={{ width: `${dnW}%`, position: "absolute", left: 0, top: 0, height: "100%" }}
+          />
         </div>
+        <span style={{
+          fontFamily: "var(--font-space-mono)",
+          fontSize: 12,
+          color: "var(--tam-scatter)",
+          whiteSpace: "nowrap",
+          minWidth: 72,
+          textAlign: "right",
+        }}>
+          {pct(dn.p)} · {dn.n}
+        </span>
       </div>
     </div>
   );
@@ -135,11 +168,11 @@ export default function ThreadGap({ sessions }: Props) {
       parts.push(
         diff > 0.05 ? (
           <span key="sym">
-            Tarot gap exceeds the plain-deck gap by {Math.round(diff * 100)}% — a hint the <b>symbols</b>, not just the structure, are doing something.{" "}
+            Tarot gap exceeds the plain-deck gap by {Math.round(diff * 100)}% — suggestive that <b>symbols</b> (not just structure) are doing something, though the decks differ in size so treat this as indicative only.{" "}
           </span>
         ) : (
           <span key="sym">
-            Tarot and plain-deck gaps are close — so far the <b>structure</b>, not the symbolic content, explains any effect (which loops back toward the RNG result).{" "}
+            Tarot and plain-deck gaps are close — so far <b>structure</b>, not symbolic content, explains any effect. Deck sizes differ, so treat this secondary comparison as suggestive only.{" "}
           </span>
         )
       );

@@ -31,6 +31,7 @@ function exportCsv(sessions: TamSession[]) {
     "condition",
     "state_valence",
     "tarot_card",
+    "tarot_reversed",
     "tarot_valence",
     "tarot_dir_hit",
     "playing_card",
@@ -46,6 +47,7 @@ function exportCsv(sessions: TamSession[]) {
       s.condition,
       s.state_valence,
       s.tarot_card,
+      s.tarot_reversed,
       s.tarot_valence,
       s.tarot_dir_hit,
       s.playing_card,
@@ -193,7 +195,10 @@ export default function SessionTable({ sessions }: Props) {
                     {s.state_valence > 0 ? "+" : ""}{s.state_valence}
                   </td>
                   <td style={{ padding: "8px 10px", borderBottom: "1px solid var(--tam-line)", whiteSpace: "nowrap" }}>
-                    {s.tarot_card}
+                    {s.tarot_card}{" "}
+                    <span style={{ fontFamily: "var(--font-space-mono)", fontSize: 10, color: "var(--tam-muted)" }}>
+                      {s.tarot_reversed ? "↓" : "↑"}
+                    </span>
                   </td>
                   <td
                     style={{

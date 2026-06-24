@@ -1,7 +1,7 @@
 import valences from "./valences.json";
 import { CONFIG_HASH } from "./generated-hash";
 
-export const TAROT_VALENCE: Record<string, number> = valences.tarot;
+export const TAROT: Record<string, { upright: number; reversed: number }> = valences.tarot;
 export const SUIT_VALENCE: Record<string, number> = valences.suit;
 
 export const RANKS = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"] as const;
@@ -46,6 +46,8 @@ export const PREREG = {
   committedNPerArm: 60,
   scoringRule:
     "Directional hit = card valence and logged state share a sign. Metric = (∑Mi↑ hit-rate) − (∑Mi↓ hit-rate).",
+  orientationRule:
+    "A tarot card's upright/reversed state is defined relative to the fixed observer camera (mounted on the monitor opposite the experimenter, pointed down at the table). The experimenter's seated viewpoint is irrelevant to scoring. Camera frame is canonical for every draw.",
   registeredOn: "2026-06-24",
   configHash: CONFIG_HASH,
 } as const;
@@ -56,6 +58,7 @@ export type TamSession = {
   condition: "up" | "down";
   state_valence: number;
   tarot_card: string;
+  tarot_reversed: boolean;
   tarot_valence: number;
   tarot_dir_hit: boolean | null;
   playing_card: string;
