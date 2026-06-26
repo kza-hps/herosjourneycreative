@@ -1027,6 +1027,7 @@ export default function FreeWebsitePreviewPage() {
               <thead>
                 <tr>
                   <th
+                    scope="col"
                     style={{
                       textAlign: "left",
                       padding: "10px 14px",
@@ -1045,6 +1046,7 @@ export default function FreeWebsitePreviewPage() {
                   {PLANS.map((p) => (
                     <th
                       key={p.name}
+                      scope="col"
                       style={{
                         textAlign: "center",
                         padding: "10px 10px",
@@ -1227,6 +1229,7 @@ export default function FreeWebsitePreviewPage() {
             {FAQS.map(({ q, a }) => (
               <details
                 key={q}
+                className="group"
                 style={{ borderBottom: "1px solid var(--rule)" }}
               >
                 <summary
@@ -1254,7 +1257,8 @@ export default function FreeWebsitePreviewPage() {
                       color: "var(--fg3)",
                     }}
                   >
-                    +
+                    <span className="group-open:hidden">+</span>
+                    <span className="hidden group-open:inline">−</span>
                   </span>
                 </summary>
                 <div
