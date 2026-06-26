@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Anton, Inter, Spectral, Space_Mono } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import SiteHeader from "@/components/site-header";
 import SiteFooter from "@/components/site-footer";
@@ -71,6 +72,15 @@ export default function RootLayout({
       className={`${inter.variable} ${anton.variable} ${spectral.variable} ${spaceMono.variable} h-full antialiased`}
     >
       <body className="min-h-screen flex flex-col">
+        <Script src="https://www.googletagmanager.com/gtag/js?id=G-EVYZBQFRR2" strategy="afterInteractive" />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-EVYZBQFRR2');
+          `}
+        </Script>
         <SiteHeader />
         <main className="flex-grow flex flex-col">{children}</main>
         <SiteFooter />
