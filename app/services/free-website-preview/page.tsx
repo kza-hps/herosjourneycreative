@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import SectionHeading from "@/components/section-heading";
 
 const isProduction = process.env.VERCEL_ENV === "production";
@@ -687,13 +688,15 @@ export default function FreeWebsitePreviewPage() {
                     overflow: "hidden",
                     aspectRatio: "16 / 10",
                     background: "var(--surface-inset)",
+                    position: "relative",
                   }}
                 >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
+                  <Image
                     src={src}
                     alt={alt}
-                    style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top" }}
+                    fill
+                    sizes="(max-width: 640px) 100vw, 50vw"
+                    style={{ objectFit: "cover", objectPosition: "top" }}
                   />
                 </div>
                 <div
@@ -1069,16 +1072,19 @@ export default function FreeWebsitePreviewPage() {
               <tbody>
                 {COMPARISON_ROWS.map((row, ri) => (
                   <tr key={row.feature}>
-                    <td
+                    <th
+                      scope="row"
                       style={{
                         padding: "9px 14px",
                         border: "1px solid var(--rule)",
                         color: "var(--fg2)",
                         background: ri % 2 === 0 ? "var(--hjc-warm-white)" : "var(--surface-inset)",
+                        textAlign: "left",
+                        fontWeight: "normal",
                       }}
                     >
                       {row.feature}
-                    </td>
+                    </th>
                     {row.values.map((val, vi) => (
                       <td
                         key={vi}
