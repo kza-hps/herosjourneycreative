@@ -42,9 +42,11 @@ function resolveFormDefaults(interest: string | undefined, pkg: string | undefin
 export default async function ContactPage({
   searchParams,
 }: {
-  searchParams: Promise<{ interest?: string; package?: string }>;
+  searchParams: Promise<{ interest?: string | string[]; package?: string | string[] }>;
 }) {
-  const { interest, package: pkg } = await searchParams;
+  const resolvedParams = await searchParams;
+  const interest = Array.isArray(resolvedParams.interest) ? resolvedParams.interest[0] : resolvedParams.interest;
+  const pkg = Array.isArray(resolvedParams.package) ? resolvedParams.package[0] : resolvedParams.package;
   const { initialLane, notePlaceholder, initialPkg } = resolveFormDefaults(interest, pkg);
   return (
     <div

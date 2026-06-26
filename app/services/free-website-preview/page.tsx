@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   title: "Free Website Refresh Preview for Local Businesses | Hero's Journey Creative",
   description:
     "Get a free interactive homepage refresh preview for your small business website. Fixed-price website refresh packages from $300, with SEO foundation and AI Search Readiness included.",
-  alternates: { canonical: "https://www.herosjourneycreative.co.nz/services/free-website-preview" },
+  alternates: { canonical: "/services/free-website-preview" },
   robots: isProduction ? undefined : { index: false, follow: false },
   openGraph: {
     title: "Free Website Refresh Preview for Local Businesses",
@@ -64,7 +64,7 @@ const PLANS: Plan[] = [
     examplePages: null,
     turnaround: "Fast concept",
     cta: "Request a Free Preview",
-    ctaHref: "/contact?interest=website-refresh",
+    ctaHref: "/contact?interest=free-preview",
     highlight: false,
     free: true,
   },
@@ -328,7 +328,6 @@ function PricingCard({ plan }: { plan: Plan }) {
     <div
       className={`wrf-plan-card${plan.highlight ? " wrf-plan-card--popular" : ""}`}
       style={{
-        border: plan.highlight ? "2px solid var(--hjc-black)" : "1px solid var(--rule)",
         borderRadius: "8px",
         background: "var(--hjc-warm-white)",
         display: "flex",
@@ -598,7 +597,7 @@ export default function FreeWebsitePreviewPage() {
             simple fixed-price packages starting from $300.
           </p>
           <div style={{ display: "flex", flexWrap: "wrap", gap: "14px" }}>
-            <Link href="/contact?interest=website-refresh" className="hjc-btn hjc-btn-yellow">
+            <Link href="/contact?interest=free-preview" className="hjc-btn hjc-btn-yellow">
               Request a Free Preview
             </Link>
             <Link href="/contact?interest=preview-followup" className="hjc-btn hjc-btn-ghost-ink">
@@ -1325,7 +1324,7 @@ export default function FreeWebsitePreviewPage() {
             before choosing a fixed-price refresh package.
           </p>
           <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "14px" }}>
-            <Link href="/contact?interest=website-refresh" className="hjc-btn hjc-btn-dark">
+            <Link href="/contact?interest=free-preview" className="hjc-btn hjc-btn-dark">
               Request a Free Preview
             </Link>
             <Link href="/contact?interest=preview-followup" className="hjc-btn hjc-btn-ghost">
