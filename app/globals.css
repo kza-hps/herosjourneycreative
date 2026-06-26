@@ -445,6 +445,11 @@ img { display: block; }
   }
 }
 
+/* Hide Safari's default disclosure triangle on FAQ summary elements */
+summary::-webkit-details-marker {
+  display: none;
+}
+
 /* ============================================================
    WEBSITE REFRESH — Plan cards
    ============================================================ */
