@@ -75,7 +75,7 @@ export default async function ContactPage({
           className="grid grid-cols-[1.4fr_1fr] gap-14 max-[880px]:grid-cols-1 max-[880px]:gap-10"
         >
           {/* Form */}
-          <ContactForm initialLane={initialLane} notePlaceholder={notePlaceholder} initialPkg={initialPkg} />
+          <ContactForm key={`${initialLane}-${initialPkg}`} initialLane={initialLane} notePlaceholder={notePlaceholder} initialPkg={initialPkg} />
 
           {/* Contact info aside — 2px yellow left rule */}
           <aside className="hjc-cinfo">

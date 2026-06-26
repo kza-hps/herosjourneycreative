@@ -322,34 +322,6 @@ function Check({ dark }: { dark?: boolean }) {
   );
 }
 
-function CheckItem({ children }: { children: React.ReactNode }) {
-  return (
-    <li
-      style={{
-        display: "flex",
-        alignItems: "flex-start",
-        gap: "12px",
-        fontFamily: "var(--font-serif)",
-        fontSize: "var(--step-body)",
-        lineHeight: 1.55,
-        color: "var(--fg2)",
-      }}
-    >
-      <span
-        aria-hidden="true"
-        style={{
-          display: "inline-block",
-          width: "18px",
-          height: "2px",
-          background: "var(--hjc-yellow)",
-          flexShrink: 0,
-          marginTop: "0.65em",
-        }}
-      />
-      {children}
-    </li>
-  );
-}
 
 function PricingCard({ plan }: { plan: Plan }) {
   return (

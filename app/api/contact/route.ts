@@ -39,7 +39,7 @@ export async function POST(request: Request) {
   const email = asString(payload.email);
   const lane = asString(payload.lane);
   const note = asString(payload.note);
-  const pkg = asString(payload.pkg);
+  const pkg = lane === "Website Refresh" ? asString(payload.pkg) : "";
 
   if (!name || !email || !lane) {
     return NextResponse.json({ message: "Please include your name, email, and enquiry lane." }, { status: 400 });

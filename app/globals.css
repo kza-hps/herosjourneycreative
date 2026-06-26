@@ -450,7 +450,6 @@ img { display: block; }
    ============================================================ */
 
 .wrf-plan-card {
-  cursor: pointer;
   transition:
     transform var(--dur) var(--ease),
     box-shadow var(--dur) var(--ease),
