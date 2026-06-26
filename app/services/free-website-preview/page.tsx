@@ -55,7 +55,7 @@ const PLANS: Plan[] = [
     examplePages: null,
     turnaround: "Fast concept",
     cta: "Request a Free Preview",
-    ctaHref: "/contact?interest=free-preview",
+    ctaHref: "/contact?interest=website-refresh",
     highlight: false,
     free: true,
   },
@@ -77,7 +77,7 @@ const PLANS: Plan[] = [
     examplePages: "Home, Services, Contact",
     turnaround: "3–5 days",
     cta: "Choose Starter",
-    ctaHref: "/contact?interest=starter",
+    ctaHref: "/contact?interest=website-refresh",
     highlight: false,
     free: false,
   },
@@ -99,7 +99,7 @@ const PLANS: Plan[] = [
     examplePages: "Home, About, Services, Gallery or Testimonials, Contact",
     turnaround: "5–7 days",
     cta: "Choose Local",
-    ctaHref: "/contact?interest=local",
+    ctaHref: "/contact?interest=website-refresh",
     highlight: true,
     free: false,
   },
@@ -121,7 +121,7 @@ const PLANS: Plan[] = [
     examplePages: "Home, About, Services, 3 service pages, Gallery or Testimonials, Contact",
     turnaround: "7–10 days",
     cta: "Choose Growth",
-    ctaHref: "/contact?interest=growth",
+    ctaHref: "/contact?interest=website-refresh",
     highlight: false,
     free: false,
   },
@@ -143,7 +143,7 @@ const PLANS: Plan[] = [
     examplePages: null,
     turnaround: "10–15 days",
     cta: "Choose Full",
-    ctaHref: "/contact?interest=full",
+    ctaHref: "/contact?interest=website-refresh",
     highlight: false,
     free: false,
   },
@@ -546,12 +546,12 @@ export default function FreeWebsitePreviewPage() {
             simple fixed-price packages starting from $300.
           </p>
           <div style={{ display: "flex", flexWrap: "wrap", gap: "14px" }}>
-            <Link href="/contact?interest=free-preview" className="hjc-btn hjc-btn-yellow">
+            <Link href="/contact?interest=website-refresh" className="hjc-btn hjc-btn-yellow">
               Request a Free Preview
             </Link>
-            <a href="#received-preview" className="hjc-btn hjc-btn-ghost-ink">
+            <Link href="/contact?interest=preview-followup" className="hjc-btn hjc-btn-ghost-ink">
               I Received a Preview
-            </a>
+            </Link>
           </div>
         </div>
       </section>
@@ -1142,7 +1142,7 @@ export default function FreeWebsitePreviewPage() {
                 Domain access recovery is available as a fixed-price add-on. If the setup is
                 complex, we confirm the cost before doing the work.
               </p>
-              <Link href="/contact?interest=domain-recovery" className="hjc-btn hjc-btn-ghost" style={{ display: "inline-flex" }}>
+              <Link href="/contact?interest=website-refresh" className="hjc-btn hjc-btn-ghost" style={{ display: "inline-flex" }}>
                 Ask about domain recovery
               </Link>
             </div>
@@ -1268,12 +1268,12 @@ export default function FreeWebsitePreviewPage() {
             before choosing a fixed-price refresh package.
           </p>
           <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "14px" }}>
-            <Link href="/contact?interest=free-preview" className="hjc-btn hjc-btn-dark">
+            <Link href="/contact?interest=website-refresh" className="hjc-btn hjc-btn-dark">
               Request a Free Preview
             </Link>
-            <a href="#received-preview" className="hjc-btn hjc-btn-ghost">
+            <Link href="/contact?interest=preview-followup" className="hjc-btn hjc-btn-ghost">
               I Received a Preview
-            </a>
+            </Link>
           </div>
         </div>
       </section>

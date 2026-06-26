@@ -1,6 +1,40 @@
 import ContactForm from "@/components/contact-form";
 
-export default function ContactPage() {
+const WEBSITE_REFRESH_INTERESTS = new Set([
+  "website-refresh",
+  "free-preview",
+  "preview-followup",
+  "starter",
+  "local",
+  "growth",
+  "full",
+  "domain-recovery",
+]);
+
+function resolveFormDefaults(interest: string | undefined): {
+  initialLane: string;
+  notePlaceholder: string;
+} {
+  if (!interest) return { initialLane: "Workshops", notePlaceholder: "A memoir, a cohort, a story world, an archive..." };
+
+  if (WEBSITE_REFRESH_INTERESTS.has(interest)) {
+    const notePlaceholder =
+      interest === "preview-followup"
+        ? "Paste your preview link here, or tell us which business the preview was created for."
+        : "Tell us your current website address and what kind of refresh you are interested in.";
+    return { initialLane: "Website Refresh", notePlaceholder };
+  }
+
+  return { initialLane: "Workshops", notePlaceholder: "A memoir, a cohort, a story world, an archive..." };
+}
+
+export default async function ContactPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ interest?: string }>;
+}) {
+  const { interest } = await searchParams;
+  const { initialLane, notePlaceholder } = resolveFormDefaults(interest);
   return (
     <div
       className="hjc-fade flex-1"
@@ -30,7 +64,7 @@ export default function ContactPage() {
           className="grid grid-cols-[1.4fr_1fr] gap-14 max-[880px]:grid-cols-1 max-[880px]:gap-10"
         >
           {/* Form */}
-          <ContactForm />
+          <ContactForm initialLane={initialLane} notePlaceholder={notePlaceholder} />
 
           {/* Contact info aside — 2px yellow left rule */}
           <aside className="hjc-cinfo">
