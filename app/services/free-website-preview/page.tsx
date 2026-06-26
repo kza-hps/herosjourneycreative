@@ -291,6 +291,7 @@ function CheckItem({ children }: { children: React.ReactNode }) {
 function PricingCard({ plan }: { plan: Plan }) {
   return (
     <div
+      className={`wrf-plan-card${plan.highlight ? " wrf-plan-card--popular" : ""}`}
       style={{
         border: plan.highlight ? "2px solid var(--hjc-black)" : "1px solid var(--rule)",
         borderRadius: "8px",
@@ -298,7 +299,6 @@ function PricingCard({ plan }: { plan: Plan }) {
         display: "flex",
         flexDirection: "column",
         overflow: "hidden",
-        boxShadow: plan.highlight ? "6px 6px 0 0 var(--hjc-yellow)" : "none",
         flex: "1",
         minWidth: "210px",
         position: "relative",
@@ -906,14 +906,14 @@ export default function FreeWebsitePreviewPage() {
             No surprise hourly billing. No changes to your live website until you approve the final version.
           </p>
 
-          {/* Cards — horizontal scroll on narrow screens */}
-          <div style={{ overflowX: "auto", paddingBottom: "8px", margin: "0 -8px" }}>
+          {/* Cards — horizontal scroll on narrow screens; extra vertical padding for lift+shadow */}
+          <div style={{ overflowX: "auto", padding: "12px 0 24px", margin: "0 -8px" }}>
             <div
               style={{
                 display: "grid",
                 gridTemplateColumns: "repeat(5, minmax(210px, 1fr))",
                 gap: "16px",
-                padding: "0 8px 8px",
+                padding: "0 8px",
                 minWidth: "700px",
               }}
             >

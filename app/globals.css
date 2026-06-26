@@ -446,6 +446,36 @@ img { display: block; }
 }
 
 /* ============================================================
+   WEBSITE REFRESH — Plan cards
+   ============================================================ */
+
+.wrf-plan-card {
+  cursor: pointer;
+  transition:
+    transform var(--dur) var(--ease),
+    box-shadow var(--dur) var(--ease),
+    border-color var(--dur) var(--ease);
+}
+.wrf-plan-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.1);
+  border-color: var(--hjc-charcoal) !important;
+}
+.wrf-plan-card--popular {
+  box-shadow: 5px 5px 0 0 var(--hjc-yellow);
+}
+.wrf-plan-card--popular:hover {
+  transform: translateY(-6px);
+  box-shadow: 8px 8px 0 0 var(--hjc-yellow), 0 16px 40px rgba(0, 0, 0, 0.08);
+  border-color: var(--hjc-black) !important;
+}
+.wrf-plan-card:hover .hjc-btn-ghost {
+  background: var(--hjc-yellow);
+  border-color: var(--hjc-black);
+  color: var(--hjc-black);
+}
+
+/* ============================================================
    TE AHO MATATŪ — Showcase page design tokens
    Scoped to .tam-shell so they don't bleed into the site shell.
    ============================================================ */
