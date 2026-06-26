@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: "https://herosjourneycreative.co.nz/sitemap.xml",
+    sitemap: "https://www.herosjourneycreative.co.nz/sitemap.xml",
   };
 }

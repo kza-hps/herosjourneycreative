@@ -10,6 +10,7 @@ type ContactPayload = {
   lane?: unknown;
   note?: unknown;
   website?: unknown;
+  pkg?: unknown;
 };
 
 function asString(value: unknown) {
@@ -38,6 +39,7 @@ export async function POST(request: Request) {
   const email = asString(payload.email);
   const lane = asString(payload.lane);
   const note = asString(payload.note);
+  const pkg = lane === "Website Refresh" ? asString(payload.pkg) : "";
 
   if (!name || !email || !lane) {
     return NextResponse.json({ message: "Please include your name, email, and enquiry lane." }, { status: 400 });
@@ -66,11 +68,12 @@ export async function POST(request: Request) {
       from: CONTACT_FROM_EMAIL,
       to: CONTACT_TO_EMAIL,
       reply_to: email,
-      subject: `New Hero's Journey Creative enquiry: ${lane}`,
+      subject: `New Hero's Journey Creative enquiry: ${lane}${pkg ? ` — ${pkg}` : ""}`,
       text: [
         `Name: ${name}`,
         `Email: ${email}`,
         `Lane: ${lane}`,
+        ...(pkg ? [`Package: ${pkg}`] : []),
         "",
         "Message:",
         note || "(No message supplied.)",

@@ -43,6 +43,21 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Website Refresh promo strip */}
+      <div style={{ background: "var(--hjc-yellow)", borderTop: "1px solid var(--hjc-black)", borderBottom: "1px solid var(--hjc-black)", padding: "20px 0" }}>
+        <div className="max-w-[1200px] mx-auto px-8 max-[880px]:px-5" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "16px", flexWrap: "wrap" }}>
+          <div>
+            <span style={{ fontFamily: "var(--font-mono)", fontSize: "9px", letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--hjc-black)", display: "block", marginBottom: "3px" }}>New service</span>
+            <p style={{ fontFamily: "var(--font-serif)", fontSize: "var(--step-body-lg)", color: "var(--hjc-black)", margin: 0 }}>
+              Free website refresh preview for local businesses.
+            </p>
+          </div>
+          <Link href="/services/free-website-preview" className="hjc-btn hjc-btn-dark" style={{ flexShrink: 0 }}>
+            See how it works →
+          </Link>
+        </div>
+      </div>
+
       {/* Manifesto band — black, cinematic breathing room */}
       <section style={{ background: "var(--hjc-black)", color: "var(--hjc-warm-white)", padding: "96px 0" }}>
         <div className="max-w-[1200px] mx-auto px-8 max-[880px]:px-5">

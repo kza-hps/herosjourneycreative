@@ -5,10 +5,20 @@ import { useState } from "react";
 
 const contactEmail = "kauri@herosjourneycreative.co.nz";
 
-export default function ContactForm() {
+interface ContactFormProps {
+  initialLane?: string;
+  notePlaceholder?: string;
+  initialPkg?: string;
+}
+
+export default function ContactForm({
+  initialLane = "Workshops",
+  notePlaceholder = "A memoir, a cohort, a story world, an archive...",
+  initialPkg = "",
+}: ContactFormProps) {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [message, setMessage] = useState("");
-  const [form, setForm] = useState({ name: "", email: "", lane: "Workshops", note: "", website: "" });
+  const [form, setForm] = useState({ name: "", email: "", lane: initialLane, note: "", website: "", pkg: initialPkg });
 
   const set = (k: string) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) =>
     setForm((f) => ({ ...f, [k]: e.target.value }));
@@ -155,6 +165,7 @@ export default function ContactForm() {
           Which lane?
         </label>
         <select id="contact-lane" name="lane" className="hjc-input" value={form.lane} onChange={set("lane")}>
+          <option>Website Refresh</option>
           <option>Workshops</option>
           <option>Legacy &amp; Personal Story</option>
           <option>Personal Myth Authoring</option>
@@ -180,7 +191,7 @@ export default function ContactForm() {
           id="contact-note"
           name="note"
           className="hjc-input"
-          placeholder="A memoir, a cohort, a story world, an archive..."
+          placeholder={notePlaceholder}
           value={form.note}
           onChange={set("note")}
           rows={5}

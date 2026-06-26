@@ -445,6 +445,42 @@ img { display: block; }
   }
 }
 
+/* Hide Safari's default disclosure triangle on FAQ summary elements */
+summary::-webkit-details-marker {
+  display: none;
+}
+
+/* ============================================================
+   WEBSITE REFRESH — Plan cards
+   ============================================================ */
+
+.wrf-plan-card {
+  border: 1px solid var(--rule);
+  transition:
+    transform var(--dur) var(--ease),
+    box-shadow var(--dur) var(--ease),
+    border-color var(--dur) var(--ease);
+}
+.wrf-plan-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.1);
+  border-color: var(--hjc-charcoal);
+}
+.wrf-plan-card--popular {
+  border: 2px solid var(--hjc-black);
+  box-shadow: 5px 5px 0 0 var(--hjc-yellow);
+}
+.wrf-plan-card--popular:hover {
+  transform: translateY(-6px);
+  box-shadow: 8px 8px 0 0 var(--hjc-yellow), 0 16px 40px rgba(0, 0, 0, 0.08);
+  border-color: var(--hjc-black);
+}
+.wrf-plan-card:hover .hjc-btn-ghost {
+  background: var(--hjc-yellow);
+  border-color: var(--hjc-black);
+  color: var(--hjc-black);
+}
+
 /* ============================================================
    TE AHO MATATŪ — Showcase page design tokens
    Scoped to .tam-shell so they don't bleed into the site shell.
