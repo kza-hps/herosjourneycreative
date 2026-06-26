@@ -678,8 +678,8 @@ export default function FreeWebsitePreviewPage() {
           </p>
           <div className="grid grid-cols-2 gap-5 max-[640px]:grid-cols-1" style={{ marginBottom: "12px" }}>
             {[
-              { src: "/website-refresh/Before_Website_Example.png", label: "Before: existing website", alt: "Before screenshot of an older local business website homepage before a website refresh" },
-              { src: "/website-refresh/After_Website_Example.png", label: "After: free homepage refresh preview", alt: "After screenshot of a modern website refresh preview for a local business homepage" },
+              { src: "/website-refresh/before-website-example.png", label: "Before: existing website", alt: "Before screenshot of an older local business website homepage before a website refresh" },
+              { src: "/website-refresh/after-website-example.png", label: "After: free homepage refresh preview", alt: "After screenshot of a modern website refresh preview for a local business homepage" },
             ].map(({ src, label, alt }) => (
               <div key={label}>
                 <div
