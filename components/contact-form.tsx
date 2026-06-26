@@ -8,15 +8,17 @@ const contactEmail = "kauri@herosjourneycreative.co.nz";
 interface ContactFormProps {
   initialLane?: string;
   notePlaceholder?: string;
+  initialPkg?: string;
 }
 
 export default function ContactForm({
   initialLane = "Workshops",
   notePlaceholder = "A memoir, a cohort, a story world, an archive...",
+  initialPkg = "",
 }: ContactFormProps) {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [message, setMessage] = useState("");
-  const [form, setForm] = useState({ name: "", email: "", lane: initialLane, note: "", website: "" });
+  const [form, setForm] = useState({ name: "", email: "", lane: initialLane, note: "", website: "", pkg: initialPkg });
 
   const set = (k: string) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) =>
     setForm((f) => ({ ...f, [k]: e.target.value }));

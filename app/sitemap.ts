@@ -2,12 +2,13 @@ import type { MetadataRoute } from "next";
 import { getPublishedChapters } from "@/lib/journal";
 import { SHOWCASE_ITEMS } from "@/lib/site-content";
 
-const baseUrl = "https://herosjourneycreative.co.nz";
+const baseUrl = "https://www.herosjourneycreative.co.nz";
 
 const routes = [
   "",
   "/about",
   "/workshops",
+  "/services/free-website-preview",
   "/legacy-writing",
   "/personal-myth-authoring",
   "/journal",
@@ -25,7 +26,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [...routes, ...journalRoutes].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
-    changeFrequency: route === "" ? "monthly" : "yearly",
-    priority: route === "" ? 1 : 0.7,
+    changeFrequency: route === "" || route === "/services/free-website-preview" ? "monthly" : "yearly",
+    priority: route === "" ? 1 : route === "/services/free-website-preview" ? 0.8 : 0.7,
   }));
 }

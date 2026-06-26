@@ -30,7 +30,7 @@ const spaceMono = Space_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://herosjourneycreative.co.nz"),
+  metadataBase: new URL("https://www.herosjourneycreative.co.nz"),
   title: "Hero's Journey Creative | Writing, Workshops, Story Worlds",
   description: "A creative studio for writing, workshops, legacy story services, and human-centred AI experiments based in Aotearoa New Zealand.",
   alternates: {

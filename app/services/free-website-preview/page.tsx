@@ -2,19 +2,28 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import SectionHeading from "@/components/section-heading";
 
+const isProduction = process.env.VERCEL_ENV === "production";
+
 export const metadata: Metadata = {
-  title: "Free Website Refresh Preview | Hero's Journey Creative",
+  title: "Free Website Refresh Preview for Local Businesses | Hero's Journey Creative",
   description:
-    "Free interactive homepage refresh previews for selected local businesses. Fixed-price website refresh packages from $300. See what your website could look like before paying for a rebuild.",
-  alternates: { canonical: "/services/free-website-preview" },
+    "Get a free interactive homepage refresh preview for your small business website. Fixed-price website refresh packages from $300, with SEO foundation and AI Search Readiness included.",
+  alternates: { canonical: "https://www.herosjourneycreative.co.nz/services/free-website-preview" },
+  robots: isProduction ? undefined : { index: false, follow: false },
   openGraph: {
-    title: "Free Website Refresh Preview | Hero's Journey Creative",
+    title: "Free Website Refresh Preview for Local Businesses",
     description:
-      "See what your website could look like — before paying for a rebuild. Fixed-price packages from $300.",
-    url: "https://herosjourneycreative.co.nz/services/free-website-preview",
+      "See what your website could look like before paying for a rebuild. Free homepage preview for selected local businesses. Fixed-price packages from $300.",
+    url: "https://www.herosjourneycreative.co.nz/services/free-website-preview",
     siteName: "Hero's Journey Creative",
     locale: "en_NZ",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Free Website Refresh Preview for Local Businesses",
+    description:
+      "See what your website could look like before paying for a rebuild. Fixed-price packages from $300.",
   },
 };
 
@@ -77,7 +86,7 @@ const PLANS: Plan[] = [
     examplePages: "Home, Services, Contact",
     turnaround: "3–5 days",
     cta: "Choose Starter",
-    ctaHref: "/contact?interest=website-refresh",
+    ctaHref: "/contact?interest=website-refresh&package=starter",
     highlight: false,
     free: false,
   },
@@ -99,7 +108,7 @@ const PLANS: Plan[] = [
     examplePages: "Home, About, Services, Gallery or Testimonials, Contact",
     turnaround: "5–7 days",
     cta: "Choose Local",
-    ctaHref: "/contact?interest=website-refresh",
+    ctaHref: "/contact?interest=website-refresh&package=local",
     highlight: true,
     free: false,
   },
@@ -121,7 +130,7 @@ const PLANS: Plan[] = [
     examplePages: "Home, About, Services, 3 service pages, Gallery or Testimonials, Contact",
     turnaround: "7–10 days",
     cta: "Choose Growth",
-    ctaHref: "/contact?interest=website-refresh",
+    ctaHref: "/contact?interest=website-refresh&package=growth",
     highlight: false,
     free: false,
   },
@@ -143,7 +152,7 @@ const PLANS: Plan[] = [
     examplePages: null,
     turnaround: "10–15 days",
     cta: "Choose Full",
-    ctaHref: "/contact?interest=website-refresh",
+    ctaHref: "/contact?interest=website-refresh&package=full",
     highlight: false,
     free: false,
   },
@@ -209,6 +218,60 @@ const FAQS: { q: string; a: string }[] = [
   {
     q: "Do you guarantee Google rankings or AI recommendations?",
     a: "No. We do not promise rankings or instant AI recommendations. We structure your website so it is clearer, cleaner, and easier for customers, search engines, and AI-powered tools to understand.",
+  },
+];
+
+// ── structured data ────────────────────────────────────────────────────────────
+
+const JSON_LD = [
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.herosjourneycreative.co.nz" },
+      { "@type": "ListItem", "position": 2, "name": "Website Refresh", "item": "https://www.herosjourneycreative.co.nz/services/free-website-preview" },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Hero’s Journey Creative",
+    "url": "https://www.herosjourneycreative.co.nz",
+    "email": "kauri@herosjourneycreative.co.nz",
+    "areaServed": ["Auckland", "New Zealand"],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Free Website Refresh Preview",
+    "description": "A free interactive homepage refresh preview for selected local businesses, followed by fixed-price website refresh packages with SEO foundation and AI Search Readiness.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Hero’s Journey Creative",
+      "url": "https://www.herosjourneycreative.co.nz",
+    },
+    "areaServed": ["Auckland", "New Zealand"],
+    "serviceType": "Website refresh, small business web design, SEO, AI Search Readiness",
+    "offers": {
+      "@type": "OfferCatalog",
+      "name": "Website Refresh Packages",
+      "itemListElement": [
+        { "@type": "Offer", "name": "Free Preview", "price": "0", "priceCurrency": "NZD", "description": "Homepage concept preview. No obligation." },
+        { "@type": "Offer", "name": "Starter Refresh", "price": "300", "priceCurrency": "NZD", "description": "3-page website refresh with SEO foundation and AI Search Readiness." },
+        { "@type": "Offer", "name": "Local Business Refresh", "price": "500", "priceCurrency": "NZD", "description": "5-page website refresh for most local businesses." },
+        { "@type": "Offer", "name": "Growth Refresh", "price": "800", "priceCurrency": "NZD", "description": "8-page website refresh for businesses with multiple services." },
+        { "@type": "Offer", "name": "Full Refresh", "price": "1200", "priceCurrency": "NZD", "description": "12-page website refresh for larger local businesses." },
+      ],
+    },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": FAQS.map(({ q, a }) => ({
+      "@type": "Question",
+      "name": q,
+      "acceptedAnswer": { "@type": "Answer", "text": a },
+    })),
   },
 ];
 
@@ -472,7 +535,12 @@ function PricingCard({ plan }: { plan: Plan }) {
 
 export default function FreeWebsitePreviewPage() {
   return (
-    <div className="hjc-fade flex-1" style={{ background: "var(--bg)" }}>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }}
+      />
+      <div className="hjc-fade flex-1" style={{ background: "var(--bg)" }}>
 
       {/* ── 1. Hero ──────────────────────────────────────────────────────────── */}
       <section style={{ padding: "72px 0 68px", background: "var(--hjc-black)" }}>
@@ -485,11 +553,11 @@ export default function FreeWebsitePreviewPage() {
               fontSize: "var(--step-display)",
               lineHeight: 0.94,
               color: "var(--hjc-warm-white)",
-              margin: "0 0 22px",
+              margin: "0 0 18px",
               maxWidth: "860px",
             }}
           >
-            See what your website could look like — before paying for a rebuild.
+            Free Website Refresh Preview for Local Businesses
           </h1>
           <p
             style={{
@@ -497,6 +565,18 @@ export default function FreeWebsitePreviewPage() {
               fontStyle: "italic",
               fontSize: "var(--step-body-lg)",
               lineHeight: 1.5,
+              color: "var(--fg-on-ink-2)",
+              maxWidth: "640px",
+              margin: "0 0 16px",
+            }}
+          >
+            See what your website could look like before paying for a rebuild.
+          </p>
+          <p
+            style={{
+              fontFamily: "var(--font-serif)",
+              fontSize: "var(--step-body)",
+              lineHeight: 1.6,
               color: "var(--fg-on-ink-2)",
               maxWidth: "640px",
               margin: "0 0 16px",
@@ -626,9 +706,9 @@ export default function FreeWebsitePreviewPage() {
           </p>
           <div className="grid grid-cols-2 gap-5 max-[640px]:grid-cols-1" style={{ marginBottom: "12px" }}>
             {[
-              { src: "/website-refresh/Before_Website_Example.png", label: "Before: existing website" },
-              { src: "/website-refresh/After_Website_Example.png", label: "After: free homepage refresh preview" },
-            ].map(({ src, label }) => (
+              { src: "/website-refresh/Before_Website_Example.png", label: "Before: existing website", alt: "Before screenshot of an older local business website homepage before a website refresh" },
+              { src: "/website-refresh/After_Website_Example.png", label: "After: free homepage refresh preview", alt: "After screenshot of a modern website refresh preview for a local business homepage" },
+            ].map(({ src, label, alt }) => (
               <div key={label}>
                 <div
                   style={{
@@ -641,7 +721,7 @@ export default function FreeWebsitePreviewPage() {
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={src}
-                    alt={label}
+                    alt={alt}
                     style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top" }}
                   />
                 </div>
@@ -768,9 +848,14 @@ export default function FreeWebsitePreviewPage() {
                 where you operate, who you help, what services you offer, why customers should
                 trust you, and how customers can contact or book with you.
               </p>
-              <p style={{ fontFamily: "var(--font-serif)", fontSize: "var(--step-body)", lineHeight: 1.65, color: "var(--fg2)", margin: 0 }}>
+              <p style={{ fontFamily: "var(--font-serif)", fontSize: "var(--step-body)", lineHeight: 1.65, color: "var(--fg2)", margin: "0 0 14px" }}>
                 We do not promise rankings or instant AI recommendations. We help make your
                 website clearer, cleaner, and easier to understand.
+              </p>
+              <p style={{ fontFamily: "var(--font-serif)", fontSize: "var(--step-body)", lineHeight: 1.65, color: "var(--fg2)", margin: 0 }}>
+                AI Search Readiness is sometimes called Generative Engine Optimisation, or GEO.
+                For us, it means making your website clearer, better structured, and easier for
+                search engines and AI-powered tools to understand.
               </p>
             </div>
             <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
@@ -817,7 +902,7 @@ export default function FreeWebsitePreviewPage() {
         {/* ── 6. How it works ──────────────────────────────────────────────────── */}
         <section>
           <SectionHeading
-            title="Free preview first. Fixed-price build after that."
+            title="How the website refresh process works"
             subtitle="Your current website stays live while the refresh is prepared. Nothing changes on your real domain until you approve it."
           />
           <div style={{ marginTop: "28px", display: "flex", flexDirection: "column", gap: "10px" }}>
@@ -1053,7 +1138,7 @@ export default function FreeWebsitePreviewPage() {
         {/* ── 9. Fixed-price add-ons ───────────────────────────────────────────── */}
         <section>
           <SectionHeading
-            title="Fixed-price add-ons"
+            title="Fixed-price website refresh add-ons"
             subtitle="Clear prices before work starts."
           />
           <p style={{ fontFamily: "var(--font-serif)", fontSize: "var(--step-body)", lineHeight: 1.65, color: "var(--fg2)", maxWidth: "580px", margin: "20px 0 28px" }}>
@@ -1160,7 +1245,7 @@ export default function FreeWebsitePreviewPage() {
         }}
       >
         <div className="max-w-[1200px] mx-auto px-8 max-[880px]:px-5">
-          <SectionHeading title="Frequently asked questions" />
+          <SectionHeading title="Website refresh FAQs" />
           <div
             style={{
               marginTop: "32px",
@@ -1277,6 +1362,7 @@ export default function FreeWebsitePreviewPage() {
           </div>
         </div>
       </section>
-    </div>
+      </div>
+    </>
   );
 }

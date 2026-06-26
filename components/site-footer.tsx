@@ -4,6 +4,7 @@ import Image from "next/image";
 const STUDIO_LINKS = [
   { label: "About",                   href: "/about" },
   { label: "Workshops",               href: "/workshops" },
+  { label: "Website Refresh",         href: "/services/free-website-preview" },
   { label: "Legacy Writing",          href: "/legacy-writing" },
   { label: "Personal Myth Authoring", href: "/personal-myth-authoring" },
 ];

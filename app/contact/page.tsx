@@ -11,30 +11,41 @@ const WEBSITE_REFRESH_INTERESTS = new Set([
   "domain-recovery",
 ]);
 
-function resolveFormDefaults(interest: string | undefined): {
+const PACKAGE_LABELS: Record<string, string> = {
+  starter: "Starter package (3 pages, $300)",
+  local: "Local package (5 pages, $500)",
+  growth: "Growth package (8 pages, $800)",
+  full: "Full package (12 pages, $1,200)",
+};
+
+function resolveFormDefaults(interest: string | undefined, pkg: string | undefined): {
   initialLane: string;
   notePlaceholder: string;
+  initialPkg: string;
 } {
-  if (!interest) return { initialLane: "Workshops", notePlaceholder: "A memoir, a cohort, a story world, an archive..." };
+  if (!interest) return { initialLane: "Workshops", notePlaceholder: "A memoir, a cohort, a story world, an archive...", initialPkg: "" };
 
   if (WEBSITE_REFRESH_INTERESTS.has(interest)) {
+    const pkgLabel = pkg ? (PACKAGE_LABELS[pkg] ?? "") : "";
     const notePlaceholder =
       interest === "preview-followup"
         ? "Paste your preview link here, or tell us which business the preview was created for."
+        : pkgLabel
+        ? `I'm interested in the ${pkgLabel}. My current website address is...`
         : "Tell us your current website address and what kind of refresh you are interested in.";
-    return { initialLane: "Website Refresh", notePlaceholder };
+    return { initialLane: "Website Refresh", notePlaceholder, initialPkg: pkg ?? "" };
   }
 
-  return { initialLane: "Workshops", notePlaceholder: "A memoir, a cohort, a story world, an archive..." };
+  return { initialLane: "Workshops", notePlaceholder: "A memoir, a cohort, a story world, an archive...", initialPkg: "" };
 }
 
 export default async function ContactPage({
   searchParams,
 }: {
-  searchParams: Promise<{ interest?: string }>;
+  searchParams: Promise<{ interest?: string; package?: string }>;
 }) {
-  const { interest } = await searchParams;
-  const { initialLane, notePlaceholder } = resolveFormDefaults(interest);
+  const { interest, package: pkg } = await searchParams;
+  const { initialLane, notePlaceholder, initialPkg } = resolveFormDefaults(interest, pkg);
   return (
     <div
       className="hjc-fade flex-1"
@@ -64,7 +75,7 @@ export default async function ContactPage({
           className="grid grid-cols-[1.4fr_1fr] gap-14 max-[880px]:grid-cols-1 max-[880px]:gap-10"
         >
           {/* Form */}
-          <ContactForm initialLane={initialLane} notePlaceholder={notePlaceholder} />
+          <ContactForm initialLane={initialLane} notePlaceholder={notePlaceholder} initialPkg={initialPkg} />
 
           {/* Contact info aside — 2px yellow left rule */}
           <aside className="hjc-cinfo">
