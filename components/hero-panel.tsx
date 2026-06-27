@@ -59,8 +59,7 @@ export default function HeroPanel() {
               marginBottom: "36px",
             }}
           >
-            A studio for writing, workshops, story worlds, and human-centred AI experiments —
-            based in Aotearoa New Zealand.
+            A story-led creative studio for human writing practice, disciplined AI engineering, and careful enquiry into the future of creativity, memory, and technology.
           </p>
 
           {/* CTAs */}

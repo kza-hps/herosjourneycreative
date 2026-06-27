@@ -50,10 +50,7 @@ export default function AboutPage() {
               margin: 0,
             }}
           >
-            We are a creative studio that believes in narrative as the foundational
-            infrastructure of human experience. Our work is split between analog writing
-            practices — journal writing, structural memoir coaching, physical workshops —
-            and digital frontier experiments in human-centred AI collaboration.
+            Hero’s Journey Creative is a story-led creative studio based in Aotearoa New Zealand, working across human writing practice, disciplined AI engineering, and careful enquiry into the cultural implications of emerging technology.
           </p>
           <p
             style={{
@@ -64,9 +61,40 @@ export default function AboutPage() {
               margin: 0,
             }}
           >
-            Our mission is to help individuals and collectives architect story worlds,
-            preserve family histories, and explore their own mythologies through structured
-            creative processes.
+            Our writing work is deliberately human-led. Through workshops, memoir structures, family-history projects, journals, and story-world development, we help people give form to memory, identity, imagination, and lived experience without outsourcing the soul of the work to machines.
+          </p>
+          <p
+            style={{
+              fontFamily: "var(--font-serif)",
+              fontSize: "var(--step-body)",
+              lineHeight: 1.62,
+              color: "var(--fg2)",
+              margin: 0,
+            }}
+          >
+            Alongside that, we build high-quality digital products and web experiences using AI-assisted engineering methods: rapid prototyping, agentic workflows, vibe coding, structured testing, deployment discipline, and human-in-the-loop judgement. The goal is not to replace craft, but to compress the distance between idea, prototype, and production-ready tool.
+          </p>
+          <p
+            style={{
+              fontFamily: "var(--font-serif)",
+              fontSize: "var(--step-body)",
+              lineHeight: 1.62,
+              color: "var(--fg2)",
+              margin: 0,
+            }}
+          >
+            Our work with AI sits between practice and caution. We treat these systems as powerful collaborators that require governance, cultural care, privacy awareness, and respectful enquiry — especially when the subject matter involves story, whakapapa, memory, creativity, and community.
+          </p>
+          <p
+            style={{
+              fontFamily: "var(--font-serif)",
+              fontSize: "var(--step-body)",
+              lineHeight: 1.62,
+              color: "var(--fg2)",
+              margin: 0,
+            }}
+          >
+            At its heart, Hero’s Journey Creative is about helping people and organisations shape what matters into lasting forms: books, workshops, archives, websites, products, frameworks, and creative systems that carry human meaning forward.
           </p>
         </div>
 

@@ -74,12 +74,15 @@ export default function Home() {
               margin: "26px 0 0",
             }}
           >
-            We believe narrative is the{" "}
+            Our mission is to help people, communities, and organisations shape{" "}
             <strong style={{ color: "var(--hjc-yellow)", fontWeight: 400 }}>
-              foundational infrastructure
+              meaningful stories
             </strong>{" "}
-            of human experience — and that everyone carries a story worth structuring,
-            preserving, and telling well.
+            and{" "}
+            <strong style={{ color: "var(--hjc-yellow)", fontWeight: 400 }}>
+              useful digital systems
+            </strong>{" "}
+            through human-led creative practice, disciplined AI-assisted engineering, and careful, respectful enquiry into how emerging technologies should be used.
           </p>
           <div
             style={{

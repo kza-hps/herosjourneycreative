@@ -53,7 +53,7 @@ export const WORKSHOP_PATHWAY_CARDS: WorkshopPathwayCard[] = [
   {
     label: "Corporate / AI Build",
     heading: "AI Engineering: Vibe Coding 101",
-    body: "A hands-on AI engineering workshop where participants are walked through the end-to-end build of a SaaS-style prototype using VouchMeApp as the exemplar. Learn how to move from product brief and user journeys through to AI-assisted coding, testing, deployment, and iteration.",
+    body: "A hands-on AI engineering workshop demonstrating vibe coding with production discipline. Using VouchMeApp as the exemplar, we walk participants through the end-to-end build of a SaaS-style tool: moving from product brief and user journeys through to disciplined AI-assisted engineering, rapid prototyping, structured testing, and deployment.",
     cta: "Enquire About This Workshop",
     href: "/contact?interest=ai-engineering-workshop",
     external: false,
@@ -152,15 +152,15 @@ export const AI_WORKSHOP_COVERS: string[] = [
   "Creating a product requirements document that an AI coding agent can actually use",
   "Using frontier models to generate, review, debug, and improve code",
   "Moving from idea to prototype to deployed web application",
-  "Understanding where AI accelerates development, and where human judgement still matters",
-  "The difference between a quick demo, a prototype, and a product that could become production-ready",
+  "Understanding where AI accelerates development, and where human-in-the-loop judgement remains critical",
+  "The journey from initial prototype to a production-ready tool backed by structured testing and deployment discipline",
 ];
 
 export const AI_WORKSHOP_PREREQUISITES: string[] = [
   "A laptop you can use throughout the session",
   "Access to at least one frontier general-purpose AI model",
   "A modern browser",
-  "Willingness to experiment with product design, prompts, code, and iteration",
+  "Willingness to iterate rapidly across product design, prompts, code, and interfaces",
   "Basic comfort using web apps and copying/pasting structured prompts or code",
 ];
 
@@ -254,7 +254,7 @@ export const NAV_LINKS: NavLink[] = [
 
 export const BRAND_INFO = {
   name: "Hero's Journey Creative",
-  tagline: "A creative studio for writing, workshops, story worlds, and human-centred AI experiments.",
+  tagline: "A story-led creative studio for human writing practice, disciplined AI engineering, and careful enquiry into the future of creativity, memory, and technology.",
   location: "Based in Aotearoa New Zealand. Built for people turning memory, experience, and imagination into story.",
   copyright: "© 2026 Hero's Journey Creative",
   email: "kauri@herosjourneycreative.co.nz",
@@ -281,7 +281,7 @@ export const LANE_ITEMS: LaneItem[] = [
     no: "03",
     id: "journal",
     title: "Journal",
-    description: "Reflections on language, notes from the workshop table, and human-centred AI experiments.",
+    description: "Reflections on language, notes from the workshop table, and careful AI enquiry.",
     href: "/journal",
   },
   {
@@ -314,7 +314,7 @@ export const JOURNAL_ITEMS: JournalItem[] = [
     id: "journal-3",
     title: "Writing with the machine",
     publishedAt: "Field note",
-    excerpt: "Notes from our human-centred AI experiments: collaboration, not replacement.",
+    excerpt: "Notes on writing alongside emerging technology: human craft, collaboration, and caution.",
     slug: "writing-with-the-machine",
     readTime: "8 min",
   },

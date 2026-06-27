@@ -9,7 +9,7 @@ The current repo UI is only a scaffold. Do not treat the current layout, spacing
 | Route | Page | Purpose |
 | :--- | :--- | :--- |
 | `/` | **Home** | The front entry point displaying the primary brand tagline, Kiwi location details, four focus area lanes, and contact CTAs. |
-| `/about` | **About** | Explains the studio's core philosophy (narrative as human infrastructure) and its hybrid focus on analog writing and digital AI experiments. |
+| `/about` | **About** | Explains the studio's core philosophy and its focus on human-led writing practice, disciplined AI engineering, and careful AI enquiry. |
 | `/workshops` | **Workshops** | Showcases standard writing structures (morning journals, mythic world-building cohorts) for community and corporate teams. |
 | `/legacy-writing` | **Legacy Writing** | Describes bespoke archival biography creation, memoirs, and digital porting for private commissions. |
 | `/personal-myth-authoring` | **Personal Myth Authoring** | Details the Campbellian hero's journey consultation framework mapping biography to narrative structures. |

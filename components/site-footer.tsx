@@ -47,8 +47,7 @@ export default function SiteFooter() {
                 margin: 0,
               }}
             >
-              A creative studio for writing, workshops, story worlds, and human-centred AI
-              experiments. Built for people turning memory, experience, and imagination into story.
+              A story-led creative studio for human writing practice, disciplined AI engineering, and careful enquiry into the future of creativity, memory, and technology.
             </p>
           </div>
 

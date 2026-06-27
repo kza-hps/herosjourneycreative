@@ -49,7 +49,7 @@ const WORKSHOP_PATHS = [
     id: "ai-engineering",
     eyebrow: "Corporate / AI Build",
     title: "AI Engineering: Vibe Coding 101",
-    summary: "A hands-on AI engineering workshop where participants are walked through the end-to-end build of a SaaS-style prototype using VouchMeApp as the exemplar.",
+    summary: "A hands-on AI engineering workshop demonstrating vibe coding with production discipline. We walk participants through the build of a SaaS-style tool, using VouchMeApp as the exemplar.",
     cta: "Enquire about this workshop",
     href: "/contact?interest=ai-engineering-workshop",
     external: false,
@@ -681,8 +681,8 @@ export default async function WorkshopsPage({
                     }}
                   >
                     A practical AI engineering workshop for people who want to understand how modern
-                    software products are now being designed, built, tested, and shipped with the help
-                    of frontier AI models.
+                    software products are designed, built, tested, and shipped using disciplined AI-assisted
+                    engineering methods.
                   </p>
                   <p
                     style={{
@@ -695,9 +695,9 @@ export default async function WorkshopsPage({
                     }}
                   >
                     Using VouchMeApp as the real-world exemplar, this workshop walks participants
-                    through the end-to-end build of a SaaS or micro-SaaS product: from problem
-                    framing and user journeys through to product requirements, interface structure,
-                    database design, AI-assisted coding, testing, deployment, and iteration.
+                    through the end-to-end build of a SaaS product: from problem framing and user journeys
+                    to rapid prototyping, database design, vibe coding with production discipline, structured
+                    testing, deployment, and human-in-the-loop judgement.
                   </p>
                   <p
                     style={{

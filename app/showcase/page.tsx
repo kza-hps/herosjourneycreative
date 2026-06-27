@@ -35,7 +35,7 @@ export default function ShowcasePage() {
           }}
         >
           A public archive of finished creative builds, story worlds, research frameworks, and
-          human-centred AI experiments.
+          disciplined AI-assisted engineering.
         </p>
         <p
           style={{
