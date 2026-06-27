@@ -100,13 +100,13 @@ export default function WorkshopsPage() {
       {/* ── Main content ─────────────────────────────────────────────────── */}
       <div className="max-w-[1200px] mx-auto px-8 max-[880px]:px-5" style={{ paddingTop: "68px", paddingBottom: "88px" }}>
 
-        {/* Pathway cards */}
+        {/* Pathway cards — 2×2 grid */}
         <SectionHeading
           title="Choose Your Path"
           subtitle="Public sessions are open-enrolment via Meetup. Private bookings are arranged directly with the studio."
         />
         <div
-          className="grid grid-cols-3 gap-5 max-[880px]:grid-cols-1"
+          className="grid grid-cols-2 gap-5 max-[880px]:grid-cols-1"
           style={{ marginTop: "36px" }}
         >
           {WORKSHOP_PATHWAY_CARDS.map((card) => (
@@ -139,12 +139,26 @@ export default function WorkshopsPage() {
                   fontSize: "var(--step-body)",
                   lineHeight: 1.6,
                   color: "var(--fg2)",
-                  margin: "0 0 24px",
+                  margin: "0 0 20px",
                   flex: 1,
                 }}
               >
                 {card.body}
               </p>
+              {card.price && (
+                <div
+                  style={{
+                    fontFamily: "var(--font-mono)",
+                    fontSize: "11px",
+                    letterSpacing: "0.1em",
+                    textTransform: "uppercase",
+                    color: "var(--fg1)",
+                    marginBottom: "16px",
+                  }}
+                >
+                  {card.price}
+                </div>
+              )}
               {card.external ? (
                 <a
                   href={card.href}
@@ -172,11 +186,11 @@ export default function WorkshopsPage() {
 
         {/* Pricing */}
         <SectionHeading
-          title="Private Workshop Pricing"
+          title="Workshop Pricing"
           subtitle="All prices are GST exclusive. Custom quotes available for larger or specialist engagements."
         />
         <div
-          className="grid grid-cols-2 gap-5 max-[880px]:grid-cols-1"
+          className="grid grid-cols-3 gap-5 max-[1024px]:grid-cols-1"
           style={{ marginTop: "36px" }}
         >
           {WORKSHOP_PRICING.map((tier) => (
@@ -226,6 +240,19 @@ export default function WorkshopsPage() {
         >
           Custom programmes, travel, larger groups, specialist preparation, and sessions
           longer than two hours can be quoted separately.
+        </p>
+        <p
+          style={{
+            fontFamily: "var(--font-mono)",
+            fontSize: "10px",
+            letterSpacing: "0.08em",
+            color: "var(--fg3)",
+            marginTop: "8px",
+            lineHeight: 1.6,
+          }}
+        >
+          Custom AI workshop pricing may vary for larger teams, tailored use cases, travel,
+          discovery, or multi-session delivery.
         </p>
 
         <Rule />
@@ -340,7 +367,6 @@ export default function WorkshopsPage() {
           </div>
 
           {/* What to bring */}
-
           <div
             style={{
               border: "1px solid var(--rule)",
@@ -411,9 +437,9 @@ export default function WorkshopsPage() {
 
         <Rule />
 
-        {/* AI & Product-Building Workshops */}
+        {/* AI Engineering & Product-Building Workshops */}
         <SectionHeading
-          title="AI & Product-Building Workshops"
+          title="AI Engineering & Product-Building Workshops"
           subtitle="Practical, hands-on workshops in AI-assisted product development — for corporate teams, founders, and technically curious professionals."
         />
 
@@ -533,14 +559,14 @@ export default function WorkshopsPage() {
               </ul>
             </div>
 
-            {/* Formats + Prerequisites */}
+            {/* Delivery formats + Prerequisites */}
             <div
               className="grid grid-cols-[1fr_auto] gap-10 max-[880px]:grid-cols-1 max-[880px]:gap-8"
               style={{ alignItems: "start", marginBottom: "32px" }}
             >
               {/* Delivery formats */}
               <div>
-                <MonoLabel>Format &amp; pricing</MonoLabel>
+                <MonoLabel>Delivery options</MonoLabel>
                 <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
                   {AI_WORKSHOP_FORMATS.map((fmt) => (
                     <div

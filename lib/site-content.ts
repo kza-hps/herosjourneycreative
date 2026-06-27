@@ -10,6 +10,7 @@ export interface WorkshopPathwayCard {
   cta: string;
   href: string;
   external?: boolean;
+  price?: string;
 }
 
 export interface WorkshopPricingTier {
@@ -49,18 +50,32 @@ export const WORKSHOP_PATHWAY_CARDS: WorkshopPathwayCard[] = [
     href: "/contact?interest=private-workshop",
     external: false,
   },
+  {
+    label: "Corporate / AI Build",
+    heading: "AI Engineering: Vibe Coding 101",
+    body: "A hands-on AI engineering workshop where participants are walked through the end-to-end build of a SaaS-style prototype using VouchMeApp as the exemplar. Learn how to move from product brief and user journeys through to AI-assisted coding, testing, deployment, and iteration.",
+    cta: "Enquire About This Workshop",
+    href: "/contact?interest=ai-engineering-workshop",
+    external: false,
+    price: "From $2,000 + GST",
+  },
 ];
 
 export const WORKSHOP_PRICING: WorkshopPricingTier[] = [
   {
-    title: "On-site workshop",
+    title: "Writing workshop",
     price: "$350 + GST",
-    detail: "Up to 20 participants, up to 2 hours",
+    detail: "Up to 20 participants, up to 2 hours.",
   },
   {
-    title: "4-workshop bundle",
+    title: "Writing workshop bundle",
     price: "$1,200 + GST",
-    detail: "Save $200, plus a free beta/feedback service",
+    detail: "Four-workshop bundle. Save $200, plus a free beta/feedback service.",
+  },
+  {
+    title: "AI Engineering full-day intensive",
+    price: "From $2,000 + GST",
+    detail: "Full-day corporate intensive. Hands-on SaaS prototype build.",
   },
 ];
 
