@@ -109,6 +109,46 @@ export const WHAT_TO_BRING: string[] = [
   "Nothing else. All prompts and structure are provided.",
 ];
 
+export interface AiWorkshopFormat {
+  label: string;
+  description: string;
+  price?: string;
+}
+
+export const AI_WORKSHOP_FORMATS: AiWorkshopFormat[] = [
+  {
+    label: "Corporate full-day intensive",
+    description: "A full-day session for organisations wanting to understand AI-assisted product development through a practical, end-to-end build.",
+    price: "From $2,000 + GST",
+  },
+  {
+    label: "Zoom cohort workshop",
+    description: "A remote version for individuals, founders, small teams, and Meetup participants. Available by arrangement — being developed for online delivery.",
+  },
+  {
+    label: "Meetup taster session",
+    description: "A shorter introduction to the workflow, designed to demonstrate the method and help participants decide whether they want to join the deeper build workshop.",
+  },
+];
+
+export const AI_WORKSHOP_COVERS: string[] = [
+  "Turning a business problem into a buildable product brief",
+  "Mapping users, roles, permissions, and workflows",
+  "Creating a product requirements document that an AI coding agent can actually use",
+  "Using frontier models to generate, review, debug, and improve code",
+  "Moving from idea to prototype to deployed web application",
+  "Understanding where AI accelerates development, and where human judgement still matters",
+  "The difference between a quick demo, a prototype, and a product that could become production-ready",
+];
+
+export const AI_WORKSHOP_PREREQUISITES: string[] = [
+  "A laptop you can use throughout the session",
+  "Access to at least one frontier general-purpose AI model",
+  "A modern browser",
+  "Willingness to experiment with product design, prompts, code, and iteration",
+  "Basic comfort using web apps and copying/pasting structured prompts or code",
+];
+
 export interface NavLink {
   label: string;
   href: string;

@@ -8,6 +8,9 @@ import {
   PRIVATE_AUDIENCE_GROUPS,
   WHAT_TO_BRING,
   BRAND_INFO,
+  AI_WORKSHOP_FORMATS,
+  AI_WORKSHOP_COVERS,
+  AI_WORKSHOP_PREREQUISITES,
 } from "@/lib/site-content";
 
 // ─── local helpers ────────────────────────────────────────────────────────────
@@ -404,6 +407,290 @@ export default function WorkshopsPage() {
           >
             {BRAND_INFO.email}
           </a>
+        </div>
+
+        <Rule />
+
+        {/* AI & Product-Building Workshops */}
+        <SectionHeading
+          title="AI & Product-Building Workshops"
+          subtitle="Practical, hands-on workshops in AI-assisted product development — for corporate teams, founders, and technically curious professionals."
+        />
+
+        <div
+          style={{
+            border: "1px solid var(--rule)",
+            background: "var(--surface)",
+            marginTop: "36px",
+          }}
+        >
+          <div style={{ height: "3px", background: "var(--hjc-yellow)" }} />
+          <div style={{ padding: "32px 28px 30px" }}>
+
+            <MonoLabel>Corporate / Zoom cohorts / Meetup tasters</MonoLabel>
+            <h3
+              style={{
+                fontFamily: "var(--font-display)",
+                textTransform: "uppercase",
+                fontSize: "clamp(1.4rem, 3vw, 2rem)",
+                lineHeight: 1.05,
+                color: "var(--fg1)",
+                margin: "0 0 8px",
+              }}
+            >
+              AI Engineering Workshop: Vibe Coding 101
+            </h3>
+            <div
+              style={{
+                fontFamily: "var(--font-mono)",
+                fontSize: "11px",
+                letterSpacing: "0.1em",
+                textTransform: "uppercase",
+                color: "var(--fg3)",
+                marginBottom: "22px",
+              }}
+            >
+              Build a SaaS-style prototype in one day
+            </div>
+
+            <p
+              style={{
+                fontFamily: "var(--font-serif)",
+                fontSize: "var(--step-body-lg)",
+                lineHeight: 1.6,
+                color: "var(--fg2)",
+                maxWidth: "800px",
+                margin: "0 0 14px",
+              }}
+            >
+              A practical AI engineering workshop for people who want to understand how modern
+              software products are now being designed, built, tested, and shipped with the help
+              of frontier AI models.
+            </p>
+            <p
+              style={{
+                fontFamily: "var(--font-serif)",
+                fontSize: "var(--step-body)",
+                lineHeight: 1.6,
+                color: "var(--fg2)",
+                maxWidth: "800px",
+                margin: "0 0 14px",
+              }}
+            >
+              Using VouchMeApp as the real-world exemplar, this workshop walks participants
+              through the end-to-end build of a SaaS or micro-SaaS product: from problem
+              framing and user journeys through to product requirements, interface structure,
+              database design, AI-assisted coding, testing, deployment, and iteration.
+            </p>
+            <p
+              style={{
+                fontFamily: "var(--font-serif)",
+                fontStyle: "italic",
+                fontSize: "var(--step-body)",
+                lineHeight: 1.6,
+                color: "var(--fg2)",
+                maxWidth: "800px",
+                margin: "0 0 32px",
+              }}
+            >
+              This is not a passive AI awareness session. It is a guided build workshop.
+            </p>
+
+            {/* What the workshop covers */}
+            <div style={{ marginBottom: "36px" }}>
+              <MonoLabel>The workshop covers</MonoLabel>
+              <ul
+                className="grid grid-cols-2 gap-x-6 gap-y-3 max-[560px]:grid-cols-1"
+                style={{ margin: 0, padding: 0, listStyle: "none" }}
+              >
+                {AI_WORKSHOP_COVERS.map((item) => (
+                  <li
+                    key={item}
+                    style={{
+                      display: "flex",
+                      alignItems: "flex-start",
+                      gap: "10px",
+                      fontFamily: "var(--font-serif)",
+                      fontSize: "var(--step-body)",
+                      color: "var(--fg2)",
+                      lineHeight: 1.5,
+                    }}
+                  >
+                    <span
+                      aria-hidden="true"
+                      style={{
+                        display: "inline-block",
+                        width: "18px",
+                        height: "2px",
+                        background: "var(--hjc-yellow)",
+                        flexShrink: 0,
+                        marginTop: "0.6em",
+                      }}
+                    />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Formats + Prerequisites */}
+            <div
+              className="grid grid-cols-[1fr_auto] gap-10 max-[880px]:grid-cols-1 max-[880px]:gap-8"
+              style={{ alignItems: "start", marginBottom: "32px" }}
+            >
+              {/* Delivery formats */}
+              <div>
+                <MonoLabel>Format &amp; pricing</MonoLabel>
+                <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+                  {AI_WORKSHOP_FORMATS.map((fmt) => (
+                    <div
+                      key={fmt.label}
+                      style={{
+                        border: "1px solid var(--rule)",
+                        padding: "18px 20px",
+                        background: "var(--surface-inset)",
+                      }}
+                    >
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "baseline",
+                          flexWrap: "wrap",
+                          gap: "8px",
+                          marginBottom: "8px",
+                        }}
+                      >
+                        <span
+                          style={{
+                            fontFamily: "var(--font-display)",
+                            fontSize: "1rem",
+                            textTransform: "uppercase",
+                            color: "var(--fg1)",
+                          }}
+                        >
+                          {fmt.label}
+                        </span>
+                        {fmt.price && (
+                          <span
+                            style={{
+                              fontFamily: "var(--font-mono)",
+                              fontSize: "9px",
+                              letterSpacing: "0.12em",
+                              textTransform: "uppercase",
+                              color: "var(--fg3)",
+                            }}
+                          >
+                            {fmt.price}
+                          </span>
+                        )}
+                      </div>
+                      <p
+                        style={{
+                          fontFamily: "var(--font-serif)",
+                          fontSize: "var(--step-body)",
+                          lineHeight: 1.6,
+                          color: "var(--fg2)",
+                          margin: 0,
+                        }}
+                      >
+                        {fmt.description}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Prerequisites */}
+              <div
+                style={{
+                  border: "1px solid var(--rule)",
+                  padding: "26px 24px",
+                  background: "var(--surface-inset)",
+                  minWidth: "300px",
+                }}
+                className="max-[880px]:min-w-0 max-[880px]:w-full"
+              >
+                <MonoLabel>Assumptions and prerequisites</MonoLabel>
+                <ul
+                  style={{
+                    margin: "0 0 18px",
+                    padding: 0,
+                    listStyle: "none",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "10px",
+                  }}
+                >
+                  {AI_WORKSHOP_PREREQUISITES.map((item) => (
+                    <li
+                      key={item}
+                      style={{
+                        fontFamily: "var(--font-serif)",
+                        fontSize: "var(--step-body)",
+                        lineHeight: 1.5,
+                        color: "var(--fg2)",
+                      }}
+                    >
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+                <p
+                  style={{
+                    fontFamily: "var(--font-serif)",
+                    fontWeight: 600,
+                    fontSize: "var(--step-body)",
+                    lineHeight: 1.5,
+                    color: "var(--fg1)",
+                    margin: "0 0 12px",
+                  }}
+                >
+                  Microsoft 365 Copilot on its own is not sufficient for this workshop.
+                </p>
+                <p
+                  style={{
+                    fontFamily: "var(--font-serif)",
+                    fontSize: "var(--step-body)",
+                    lineHeight: 1.5,
+                    color: "var(--fg2)",
+                    margin: 0,
+                  }}
+                >
+                  Participants do not need to be professional developers, but they do need
+                  access to a capable frontier model such as ChatGPT, Claude, Gemini, or an
+                  equivalent coding-capable AI assistant. The workshop is designed for people
+                  who want to learn the build process, not simply watch a presentation about AI.
+                </p>
+              </div>
+            </div>
+
+            {/* Best suited for */}
+            <p
+              style={{
+                fontFamily: "var(--font-serif)",
+                fontSize: "var(--step-body)",
+                lineHeight: 1.6,
+                color: "var(--fg3)",
+                margin: "0 0 28px",
+                maxWidth: "760px",
+              }}
+            >
+              Best suited for founders, product teams, innovation teams, analysts, service
+              designers, business owners, and technically curious professionals who want a
+              grounded view of what AI-assisted software development now makes possible.
+            </p>
+
+            {/* CTA */}
+            <Link
+              href="/contact?interest=ai-engineering-workshop"
+              className="hjc-btn hjc-btn-yellow"
+              style={{ alignSelf: "flex-start" }}
+            >
+              Enquire about this workshop
+            </Link>
+
+          </div>
         </div>
 
         <Rule />
