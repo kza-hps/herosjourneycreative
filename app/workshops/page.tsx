@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { useRouter, usePathname } from "next/navigation";
 import SectionHeading from "@/components/section-heading";
 import {
   WORKSHOPS_MEETUP_URL,
@@ -34,56 +35,43 @@ function MonoLabel({ children }: { children: React.ReactNode }) {
   );
 }
 
-function Rule() {
-  return (
-    <hr style={{ border: "none", borderTop: "1px solid var(--rule)", margin: "60px 0" }} />
-  );
-}
-
 // ─── page ─────────────────────────────────────────────────────────────────────
 
 export default function WorkshopsPage() {
   const [activePath, setActivePath] = useState("auckland-live");
   const selectedTrack = activePath === "ai-engineering" ? "ai" : "writing";
+  const router = useRouter();
+  const pathname = usePathname();
 
   // Support direct linking using query params or hashes
   useEffect(() => {
     const handleLocationCheck = () => {
-      if (typeof window !== "undefined") {
-        const params = new URLSearchParams(window.location.search);
-        const pathParam = params.get("path");
-        const hashParam = window.location.hash.replace("#", "");
-        
-        const targetPath = pathParam || hashParam;
-        if (targetPath) {
-          if (["auckland-live", "zoom-sprint", "private-groups", "ai-engineering"].includes(targetPath)) {
-            setActivePath(targetPath);
-          }
+      const params = new URLSearchParams(window.location.search);
+      const pathParam = params.get("path");
+      const hashParam = window.location.hash.replace("#", "");
+      
+      const targetPath = pathParam || hashParam;
+      if (targetPath) {
+        if (["auckland-live", "zoom-sprint", "private-groups", "ai-engineering"].includes(targetPath)) {
+          setActivePath(targetPath);
         }
       }
     };
 
     handleLocationCheck();
 
-    if (typeof window !== "undefined") {
-      window.addEventListener("popstate", handleLocationCheck);
-      window.addEventListener("hashchange", handleLocationCheck);
-    }
+    window.addEventListener("popstate", handleLocationCheck);
+    window.addEventListener("hashchange", handleLocationCheck);
 
     return () => {
-      if (typeof window !== "undefined") {
-        window.removeEventListener("popstate", handleLocationCheck);
-        window.removeEventListener("hashchange", handleLocationCheck);
-      }
+      window.removeEventListener("popstate", handleLocationCheck);
+      window.removeEventListener("hashchange", handleLocationCheck);
     };
   }, []);
 
   const handlePathChange = (pathId: string) => {
     setActivePath(pathId);
-    if (typeof window !== "undefined") {
-      const newUrl = `${window.location.pathname}?path=${pathId}`;
-      window.history.pushState({ path: pathId }, "", newUrl);
-    }
+    router.push(`${pathname}?path=${pathId}`, { scroll: false });
   };
 
   const workshopPaths = [
@@ -205,7 +193,7 @@ export default function WorkshopsPage() {
                 type="button"
                 role="tab"
                 aria-selected={isActive}
-                aria-controls={`panel-${path.id}`}
+                aria-controls="panel-workshops-content"
                 id={`tab-${path.id}`}
                 onClick={() => handlePathChange(path.id)}
                 style={{
@@ -319,481 +307,242 @@ export default function WorkshopsPage() {
           })}
         </div>
 
-        <Rule />
-
         {/* Selected Content Panel */}
-        {selectedTrack === "writing" && (
-          <div
-            id={`panel-${activePath}`}
-            role="tabpanel"
-            aria-labelledby={`tab-${activePath}`}
-            className="hjc-fade"
-          >
-            {/* Context Heading */}
-            {activePath === "auckland-live" && (
-              <div style={{ marginBottom: "48px" }}>
-                <SectionHeading
-                  title="Auckland Live Sprint Workshops"
-                  subtitle="Drop-in writing sprint sessions held in Auckland. Timed prompts, group energy, and a structured container for stories you haven’t written yet."
-                />
-                <div style={{ marginTop: "24px" }}>
-                  <a
-                    href={WORKSHOPS_MEETUP_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hjc-btn hjc-btn-yellow"
-                  >
-                    Join Auckland Sprint on Meetup
-                  </a>
-                </div>
-                <Rule />
-              </div>
-            )}
-
-            {activePath === "zoom-sprint" && (
-              <div style={{ marginBottom: "48px" }}>
-                <SectionHeading
-                  title="Zoom Sprint Workshops"
-                  subtitle="The same guided sprint format, open to writers anywhere in Aotearoa and internationally. Join live from wherever you write."
-                />
-                <div style={{ marginTop: "24px" }}>
-                  <a
-                    href={WORKSHOPS_MEETUP_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hjc-btn hjc-btn-yellow"
-                  >
-                    Join Zoom Sprint on Meetup
-                  </a>
-                </div>
-                <Rule />
-              </div>
-            )}
-
-            {activePath === "private-groups" && (
-              <div style={{ marginBottom: "48px" }}>
-                <SectionHeading
-                  title="Creative & Legacy Writing Workshops"
-                  subtitle="Bespoke workshops tailored for your team, school, community group, marae, or care setting. We design the session around your people and purpose."
-                />
-                <div style={{ marginTop: "24px" }}>
-                  <Link
-                    href="/contact?interest=private-workshop"
-                    className="hjc-btn hjc-btn-yellow"
-                  >
-                    Enquire about a private workshop
-                  </Link>
-                </div>
-                <Rule />
-              </div>
-            )}
-
-            {/* Pricing */}
-            <SectionHeading
-              title="Workshop Pricing"
-              subtitle="All prices are GST exclusive. Custom quotes available for larger or specialist engagements."
-            />
-            <div
-              className="grid grid-cols-3 gap-5 max-[1024px]:grid-cols-1"
-              style={{ marginTop: "36px" }}
-            >
-              {WORKSHOP_PRICING.map((tier) => (
-                <div
-                  key={tier.title}
-                  style={{
-                    background: "var(--surface-inset)",
-                    border: "1px solid var(--rule)",
-                    padding: "28px 26px",
-                  }}
-                >
-                  <MonoLabel>{tier.title}</MonoLabel>
-                  <div
-                    style={{
-                      fontFamily: "var(--font-display)",
-                      fontSize: "clamp(1.8rem, 3.5vw, 2.6rem)",
-                      lineHeight: 1,
-                      color: "var(--fg1)",
-                      marginBottom: "10px",
-                    }}
-                  >
-                    {tier.price}
+        <div
+          id="panel-workshops-content"
+          role="tabpanel"
+          aria-labelledby={`tab-${activePath}`}
+          className="hjc-fade"
+          key={activePath}
+          style={{ marginTop: "60px" }}
+        >
+          {selectedTrack === "writing" && (
+            <>
+              {/* Context Heading */}
+              {activePath === "auckland-live" && (
+                <div style={{ marginBottom: "48px" }}>
+                  <SectionHeading
+                    title="Auckland Live Sprint Workshops"
+                    subtitle="Drop-in writing sprint sessions held in Auckland. Timed prompts, group energy, and a structured container for stories you haven’t written yet."
+                  />
+                  <div style={{ marginTop: "24px" }}>
+                    <a
+                      href={WORKSHOPS_MEETUP_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hjc-btn hjc-btn-yellow"
+                    >
+                      Join Auckland Sprint on Meetup
+                    </a>
                   </div>
-                  <div
-                    style={{
-                      fontFamily: "var(--font-mono)",
-                      fontSize: "11px",
-                      letterSpacing: "0.1em",
-                      textTransform: "uppercase",
-                      color: "var(--fg3)",
-                    }}
-                  >
-                    {tier.detail}
-                  </div>
+                  <hr style={{ border: "none", borderTop: "1px solid var(--rule)", margin: "48px 0 0" }} />
                 </div>
-              ))}
-            </div>
-            <p
-              style={{
-                fontFamily: "var(--font-mono)",
-                fontSize: "10px",
-                letterSpacing: "0.08em",
-                color: "var(--fg3)",
-                marginTop: "16px",
-                lineHeight: 1.6,
-              }}
-            >
-              Custom programmes, travel, larger groups, specialist preparation, and sessions
-              longer than two hours can be quoted separately.
-            </p>
-            <p
-              style={{
-                fontFamily: "var(--font-mono)",
-                fontSize: "10px",
-                letterSpacing: "0.08em",
-                color: "var(--fg3)",
-                marginTop: "8px",
-                lineHeight: 1.6,
-              }}
-            >
-              Custom AI workshop pricing may vary for larger teams, tailored use cases, travel,
-              discovery, or multi-session delivery.
-            </p>
+              )}
 
-            <Rule />
+              {activePath === "zoom-sprint" && (
+                <div style={{ marginBottom: "48px" }}>
+                  <SectionHeading
+                    title="Zoom Sprint Workshops"
+                    subtitle="The same guided sprint format, open to writers anywhere in Aotearoa and internationally. Join live from wherever you write."
+                  />
+                  <div style={{ marginTop: "24px" }}>
+                    <a
+                      href={WORKSHOPS_MEETUP_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hjc-btn hjc-btn-yellow"
+                    >
+                      Join Zoom Sprint on Meetup
+                    </a>
+                  </div>
+                  <hr style={{ border: "none", borderTop: "1px solid var(--rule)", margin: "48px 0 0" }} />
+                </div>
+              )}
 
-            {/* Sprint format */}
-            <SectionHeading
-              title="The Sprint Format"
-              subtitle="A typical two-hour session — structured, timed, and deliberately simple."
-            />
+              {activePath === "private-groups" && (
+                <div style={{ marginBottom: "48px" }}>
+                  <SectionHeading
+                    title="Creative & Legacy Writing Workshops"
+                    subtitle="Bespoke workshops tailored for your team, school, community group, marae, or care setting. We design the session around your people and purpose."
+                  />
+                  <div style={{ marginTop: "24px" }}>
+                    <Link
+                      href="/contact?interest=private-workshop"
+                      className="hjc-btn hjc-btn-yellow"
+                    >
+                      Enquire about a private workshop
+                    </Link>
+                  </div>
+                  <hr style={{ border: "none", borderTop: "1px solid var(--rule)", margin: "48px 0 0" }} />
+                </div>
+              )}
 
-            <div
-              style={{ marginTop: "28px", display: "flex", flexDirection: "column", gap: "10px" }}
-            >
-              {SPRINT_FORMAT_ROWS.map((row) => (
+              {/* Pricing */}
+              <div style={{ marginTop: "48px" }}>
+                <SectionHeading
+                  title="Workshop Pricing"
+                  subtitle="All prices are GST exclusive. Custom quotes available for larger or specialist engagements."
+                />
                 <div
-                  key={row.session}
-                  style={{
-                    border: "1px solid var(--rule)",
-                    padding: "18px 20px",
-                    background: "var(--surface)",
-                  }}
+                  className="grid grid-cols-3 gap-5 max-[1024px]:grid-cols-1"
+                  style={{ marginTop: "36px" }}
                 >
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "baseline",
-                      marginBottom: "8px",
-                      flexWrap: "wrap",
-                      gap: "8px",
-                    }}
-                  >
-                    <span
+                  {WORKSHOP_PRICING.map((tier) => (
+                    <div
+                      key={tier.title}
                       style={{
-                        fontFamily: "var(--font-display)",
-                        fontSize: "1rem",
-                        textTransform: "uppercase",
-                        color: "var(--fg1)",
+                        background: "var(--surface-inset)",
+                        border: "1px solid var(--rule)",
+                        padding: "28px 26px",
                       }}
                     >
-                      {row.session}
-                    </span>
-                    <span
-                      style={{
-                        fontFamily: "var(--font-mono)",
-                        fontSize: "9px",
-                        letterSpacing: "0.12em",
-                        textTransform: "uppercase",
-                        color: "var(--fg3)",
-                      }}
-                    >
-                      {row.focus}
-                    </span>
-                  </div>
-                  <p
+                      <MonoLabel>{tier.title}</MonoLabel>
+                      <div
+                        style={{
+                          fontFamily: "var(--font-display)",
+                          fontSize: "clamp(1.8rem, 3.5vw, 2.6rem)",
+                          lineHeight: 1,
+                          color: "var(--fg1)",
+                          marginBottom: "10px",
+                        }}
+                      >
+                        {tier.price}
+                      </div>
+                      <div
+                        style={{
+                          fontFamily: "var(--font-mono)",
+                          fontSize: "11px",
+                          letterSpacing: "0.1em",
+                          textTransform: "uppercase",
+                          color: "var(--fg3)",
+                        }}
+                      >
+                        {tier.detail}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <p
+                  style={{
+                    fontFamily: "var(--font-mono)",
+                    fontSize: "10px",
+                    letterSpacing: "0.08em",
+                    color: "var(--fg3)",
+                    marginTop: "16px",
+                    lineHeight: 1.6,
+                  }}
+                >
+                  Custom programmes, travel, larger groups, specialist preparation, and sessions
+                  longer than two hours can be quoted separately.
+                </p>
+                <p
+                  style={{
+                    fontFamily: "var(--font-mono)",
+                    fontSize: "10px",
+                    letterSpacing: "0.08em",
+                    color: "var(--fg3)",
+                    marginTop: "8px",
+                    lineHeight: 1.6,
+                  }}
+                >
+                  Custom AI workshop pricing may vary for larger teams, tailored use cases, travel,
+                  discovery, or multi-session delivery.
+                </p>
+              </div>
+
+              <hr style={{ border: "none", borderTop: "1px solid var(--rule)", margin: "60px 0" }} />
+
+              {/* Sprint format */}
+              <SectionHeading
+                title="The Sprint Format"
+                subtitle="A typical two-hour session — structured, timed, and deliberately simple."
+              />
+
+              <div
+                style={{ marginTop: "28px", display: "flex", flexDirection: "column", gap: "10px" }}
+              >
+                {SPRINT_FORMAT_ROWS.map((row) => (
+                  <div
+                    key={row.session}
                     style={{
-                      fontFamily: "var(--font-serif)",
-                      fontSize: "var(--step-body)",
-                      lineHeight: 1.6,
-                      color: "var(--fg2)",
-                      margin: 0,
+                      border: "1px solid var(--rule)",
+                      padding: "18px 20px",
+                      background: "var(--surface)",
                     }}
                   >
-                    {row.whatWeDo}
-                  </p>
-                </div>
-              ))}
-            </div>
-
-            <Rule />
-
-            {/* Private audience section */}
-            <SectionHeading
-              title="Who We Work With"
-              subtitle="Private workshops are designed around the group — its purpose, pace, and people."
-            />
-            <div
-              className="grid grid-cols-[1fr_auto] gap-12 max-[880px]:grid-cols-1 max-[880px]:gap-8"
-              style={{ alignItems: "start", marginTop: "28px" }}
-            >
-              <div>
-                <ul
-                  className="grid grid-cols-2 gap-x-6 gap-y-3 max-[560px]:grid-cols-1"
-                  style={{ margin: 0, padding: 0, listStyle: "none" }}
-                >
-                  {PRIVATE_AUDIENCE_GROUPS.map((group) => (
-                    <li
-                      key={group}
+                    <div
                       style={{
                         display: "flex",
-                        alignItems: "center",
-                        gap: "10px",
-                        fontFamily: "var(--font-serif)",
-                        fontSize: "var(--step-body)",
-                        color: "var(--fg2)",
+                        justifyContent: "space-between",
+                        alignItems: "baseline",
+                        marginBottom: "8px",
+                        flexWrap: "wrap",
+                        gap: "8px",
                       }}
                     >
                       <span
-                        aria-hidden="true"
                         style={{
-                          display: "inline-block",
-                          width: "18px",
-                          height: "2px",
-                          background: "var(--hjc-yellow)",
-                          flexShrink: 0,
+                          fontFamily: "var(--font-display)",
+                          fontSize: "1rem",
+                          textTransform: "uppercase",
+                          color: "var(--fg1)",
                         }}
-                      />
-                      {group}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* What to bring */}
-              <div
-                style={{
-                  border: "1px solid var(--rule)",
-                  padding: "26px 24px",
-                  background: "var(--surface-inset)",
-                  minWidth: "280px",
-                }}
-                className="max-[880px]:min-w-0 max-[880px]:w-full"
-              >
-                <MonoLabel>What to bring</MonoLabel>
-                <ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: "10px" }}>
-                  {WHAT_TO_BRING.map((item) => (
-                    <li
-                      key={item}
+                      >
+                        {row.session}
+                      </span>
+                      <span
+                        style={{
+                          fontFamily: "var(--font-mono)",
+                          fontSize: "9px",
+                          letterSpacing: "0.12em",
+                          textTransform: "uppercase",
+                          color: "var(--fg3)",
+                        }}
+                      >
+                        {row.focus}
+                      </span>
+                    </div>
+                    <p
                       style={{
                         fontFamily: "var(--font-serif)",
                         fontSize: "var(--step-body)",
-                        lineHeight: 1.5,
+                        lineHeight: 1.6,
                         color: "var(--fg2)",
+                        margin: 0,
                       }}
                     >
-                      {item}
-                    </li>
-                  ))}
-                </ul>
+                      {row.whatWeDo}
+                    </p>
+                  </div>
+                ))}
               </div>
-            </div>
 
-            <Rule />
+              <hr style={{ border: "none", borderTop: "1px solid var(--rule)", margin: "60px 0" }} />
 
-            {/* Facilitator note */}
-            <div
-              style={{
-                borderLeft: "4px solid var(--hjc-yellow)",
-                paddingLeft: "28px",
-                maxWidth: "680px",
-              }}
-            >
-              <MonoLabel>The Facilitator</MonoLabel>
-              <p
-                style={{
-                  fontFamily: "var(--font-serif)",
-                  fontSize: "var(--step-body-lg)",
-                  fontStyle: "italic",
-                  lineHeight: 1.55,
-                  color: "var(--fg2)",
-                  margin: "0 0 16px",
-                }}
+              {/* Private audience section */}
+              <SectionHeading
+                title="Who We Work With"
+                subtitle="Private workshops are designed around the group — its purpose, pace, and people."
+              />
+              <div
+                className="grid grid-cols-[1fr_auto] gap-12 max-[880px]:grid-cols-1 max-[880px]:gap-8"
+                style={{ alignItems: "start", marginTop: "28px" }}
               >
-                Kauri has 15+ years of storytelling experience across television, film, creative
-                development, and public-sector programme work — and is currently completing an
-                action-fantasy novel set in classical Polynesia.
-              </p>
-              <a
-                href={`mailto:${BRAND_INFO.email}`}
-                style={{
-                  fontFamily: "var(--font-mono)",
-                  fontSize: "11px",
-                  letterSpacing: "0.1em",
-                  color: "var(--fg1)",
-                  textDecoration: "underline",
-                  textUnderlineOffset: "3px",
-                }}
-              >
-                {BRAND_INFO.email}
-              </a>
-            </div>
-
-            <Rule />
-
-            {/* Final CTA row */}
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "flex-start",
-                gap: "24px",
-              }}
-            >
-              <SectionHeading title="Ready to Write?" />
-              <p
-                style={{
-                  fontFamily: "var(--font-serif)",
-                  fontSize: "var(--step-body-lg)",
-                  lineHeight: 1.5,
-                  color: "var(--fg2)",
-                  maxWidth: "560px",
-                  margin: 0,
-                }}
-              >
-                Join an upcoming public session on Meetup, or get in touch to arrange a private
-                workshop for your group.
-              </p>
-              <div style={{ display: "flex", flexWrap: "wrap", gap: "14px" }}>
-                <a
-                  href={WORKSHOPS_MEETUP_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hjc-btn hjc-btn-yellow"
-                >
-                  Join a Public Workshop
-                </a>
-                <Link
-                  href="/contact?interest=private-workshop"
-                  className="hjc-btn hjc-btn-ghost"
-                >
-                  Enquire About a Private Booking
-                </Link>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {selectedTrack === "ai" && (
-          <div
-            id="panel-ai-engineering"
-            role="tabpanel"
-            aria-labelledby="tab-ai-engineering"
-            className="hjc-fade"
-          >
-            {/* AI Engineering & Product-Building Workshops */}
-            <SectionHeading
-              title="AI Engineering & Product-Building Workshops"
-              subtitle="Practical, hands-on workshops in AI-assisted product development — for corporate teams, founders, and technically curious professionals."
-            />
-
-            <div
-              style={{
-                border: "1px solid var(--rule)",
-                background: "var(--surface)",
-                marginTop: "36px",
-              }}
-            >
-              <div style={{ height: "3px", background: "var(--hjc-yellow)" }} />
-              <div style={{ padding: "32px 28px 30px" }}>
-
-                <MonoLabel>Corporate / Zoom cohorts / Meetup tasters</MonoLabel>
-                <h3
-                  style={{
-                    fontFamily: "var(--font-display)",
-                    textTransform: "uppercase",
-                    fontSize: "clamp(1.4rem, 3vw, 2rem)",
-                    lineHeight: 1.05,
-                    color: "var(--fg1)",
-                    margin: "0 0 8px",
-                  }}
-                >
-                  AI Engineering Workshop: Vibe Coding 101
-                </h3>
-                <div
-                  style={{
-                    fontFamily: "var(--font-mono)",
-                    fontSize: "11px",
-                    letterSpacing: "0.1em",
-                    textTransform: "uppercase",
-                    color: "var(--fg3)",
-                    marginBottom: "22px",
-                  }}
-                >
-                  Build a SaaS-style prototype in one day
-                </div>
-
-                <p
-                  style={{
-                    fontFamily: "var(--font-serif)",
-                    fontSize: "var(--step-body-lg)",
-                    lineHeight: 1.6,
-                    color: "var(--fg2)",
-                    maxWidth: "800px",
-                    margin: "0 0 14px",
-                  }}
-                >
-                  A practical AI engineering workshop for people who want to understand how modern
-                  software products are now being designed, built, tested, and shipped with the help
-                  of frontier AI models.
-                </p>
-                <p
-                  style={{
-                    fontFamily: "var(--font-serif)",
-                    fontSize: "var(--step-body)",
-                    lineHeight: 1.6,
-                    color: "var(--fg2)",
-                    maxWidth: "800px",
-                    margin: "0 0 14px",
-                  }}
-                >
-                  Using VouchMeApp as the real-world exemplar, this workshop walks participants
-                  through the end-to-end build of a SaaS or micro-SaaS product: from problem
-                  framing and user journeys through to product requirements, interface structure,
-                  database design, AI-assisted coding, testing, deployment, and iteration.
-                </p>
-                <p
-                  style={{
-                    fontFamily: "var(--font-serif)",
-                    fontStyle: "italic",
-                    fontSize: "var(--step-body)",
-                    lineHeight: 1.6,
-                    color: "var(--fg2)",
-                    maxWidth: "800px",
-                    margin: "0 0 32px",
-                  }}
-                >
-                  This is not a passive AI awareness session. It is a guided build workshop.
-                </p>
-
-                {/* What the workshop covers */}
-                <div style={{ marginBottom: "36px" }}>
-                  <MonoLabel>The workshop covers</MonoLabel>
+                <div>
                   <ul
                     className="grid grid-cols-2 gap-x-6 gap-y-3 max-[560px]:grid-cols-1"
                     style={{ margin: 0, padding: 0, listStyle: "none" }}
                   >
-                    {AI_WORKSHOP_COVERS.map((item) => (
+                    {PRIVATE_AUDIENCE_GROUPS.map((group) => (
                       <li
-                        key={item}
+                        key={group}
                         style={{
                           display: "flex",
-                          alignItems: "flex-start",
+                          alignItems: "center",
                           gap: "10px",
                           fontFamily: "var(--font-serif)",
                           fontSize: "var(--step-body)",
                           color: "var(--fg2)",
-                          lineHeight: 1.5,
                         }}
                       >
                         <span
@@ -804,176 +553,414 @@ export default function WorkshopsPage() {
                             height: "2px",
                             background: "var(--hjc-yellow)",
                             flexShrink: 0,
-                            marginTop: "0.6em",
                           }}
                         />
-                        {item}
+                        {group}
                       </li>
                     ))}
                   </ul>
                 </div>
 
-                {/* Delivery formats + Prerequisites */}
+                {/* What to bring */}
                 <div
-                  className="grid grid-cols-[1fr_auto] gap-10 max-[880px]:grid-cols-1 max-[880px]:gap-8"
-                  style={{ alignItems: "start", marginBottom: "32px" }}
+                  style={{
+                    border: "1px solid var(--rule)",
+                    padding: "26px 24px",
+                    background: "var(--surface-inset)",
+                    minWidth: "280px",
+                  }}
+                  className="max-[880px]:min-w-0 max-[880px]:w-full"
                 >
-                  {/* Delivery formats */}
-                  <div>
-                    <MonoLabel>Delivery options</MonoLabel>
-                    <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-                      {AI_WORKSHOP_FORMATS.map((fmt) => (
-                        <div
-                          key={fmt.label}
-                          style={{
-                            border: "1px solid var(--rule)",
-                            padding: "18px 20px",
-                            background: "var(--surface-inset)",
-                          }}
-                        >
-                          <div
-                            style={{
-                              display: "flex",
-                              justifyContent: "space-between",
-                              alignItems: "baseline",
-                              flexWrap: "wrap",
-                              gap: "8px",
-                              marginBottom: "8px",
-                            }}
-                          >
-                            <span
-                              style={{
-                                fontFamily: "var(--font-display)",
-                                fontSize: "1rem",
-                                textTransform: "uppercase",
-                                color: "var(--fg1)",
-                              }}
-                            >
-                              {fmt.label}
-                            </span>
-                            {fmt.price && (
-                              <span
-                                style={{
-                                  fontFamily: "var(--font-mono)",
-                                  fontSize: "9px",
-                                  letterSpacing: "0.12em",
-                                  textTransform: "uppercase",
-                                  color: "var(--fg3)",
-                                }}
-                              >
-                                {fmt.price}
-                              </span>
-                            )}
-                          </div>
-                          <p
-                            style={{
-                              fontFamily: "var(--font-serif)",
-                              fontSize: "var(--step-body)",
-                              lineHeight: 1.6,
-                              color: "var(--fg2)",
-                              margin: 0,
-                            }}
-                          >
-                            {fmt.description}
-                          </p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
+                  <MonoLabel>What to bring</MonoLabel>
+                  <ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: "10px" }}>
+                    {WHAT_TO_BRING.map((item) => (
+                      <li
+                        key={item}
+                        style={{
+                          fontFamily: "var(--font-serif)",
+                          fontSize: "var(--step-body)",
+                          lineHeight: 1.5,
+                          color: "var(--fg2)",
+                        }}
+                      >
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
 
-                  {/* Prerequisites */}
+              <hr style={{ border: "none", borderTop: "1px solid var(--rule)", margin: "60px 0" }} />
+
+              {/* Facilitator note */}
+              <div
+                style={{
+                  borderLeft: "4px solid var(--hjc-yellow)",
+                  paddingLeft: "28px",
+                  maxWidth: "680px",
+                }}
+              >
+                <MonoLabel>The Facilitator</MonoLabel>
+                <p
+                  style={{
+                    fontFamily: "var(--font-serif)",
+                    fontSize: "var(--step-body-lg)",
+                    fontStyle: "italic",
+                    lineHeight: 1.55,
+                    color: "var(--fg2)",
+                    margin: "0 0 16px",
+                  }}
+                >
+                  Kauri has 15+ years of storytelling experience across television, film, creative
+                  development, and public-sector programme work — and is currently completing an
+                  action-fantasy novel set in classical Polynesia.
+                </p>
+                <a
+                  href={`mailto:${BRAND_INFO.email}`}
+                  style={{
+                    fontFamily: "var(--font-mono)",
+                    fontSize: "11px",
+                    letterSpacing: "0.1em",
+                    color: "var(--fg1)",
+                    textDecoration: "underline",
+                    textUnderlineOffset: "3px",
+                  }}
+                >
+                  {BRAND_INFO.email}
+                </a>
+              </div>
+
+              <hr style={{ border: "none", borderTop: "1px solid var(--rule)", margin: "60px 0" }} />
+
+              {/* Final CTA row */}
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "flex-start",
+                  gap: "24px",
+                }}
+              >
+                <SectionHeading title="Ready to Write?" />
+                <p
+                  style={{
+                    fontFamily: "var(--font-serif)",
+                    fontSize: "var(--step-body-lg)",
+                    lineHeight: 1.5,
+                    color: "var(--fg2)",
+                    maxWidth: "560px",
+                    margin: 0,
+                  }}
+                >
+                  Join an upcoming public session on Meetup, or get in touch to arrange a private
+                  workshop for your group.
+                </p>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: "14px" }}>
+                  <a
+                    href={WORKSHOPS_MEETUP_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hjc-btn hjc-btn-yellow"
+                  >
+                    Join a Public Workshop
+                  </a>
+                  <Link
+                    href="/contact?interest=private-workshop"
+                    className="hjc-btn hjc-btn-ghost"
+                  >
+                    Enquire About a Private Booking
+                  </Link>
+                </div>
+              </div>
+            </>
+          )}
+
+          {selectedTrack === "ai" && (
+            <>
+              {/* AI Engineering & Product-Building Workshops */}
+              <SectionHeading
+                title="AI Engineering & Product-Building Workshops"
+                subtitle="Practical, hands-on workshops in AI-assisted product development — for corporate teams, founders, and technically curious professionals."
+              />
+
+              <div
+                style={{
+                  border: "1px solid var(--rule)",
+                  background: "var(--surface)",
+                  marginTop: "36px",
+                }}
+              >
+                <div style={{ height: "3px", background: "var(--hjc-yellow)" }} />
+                <div style={{ padding: "32px 28px 30px" }}>
+
+                  <MonoLabel>Corporate / Zoom cohorts / Meetup tasters</MonoLabel>
+                  <h3
+                    style={{
+                      fontFamily: "var(--font-display)",
+                      textTransform: "uppercase",
+                      fontSize: "clamp(1.4rem, 3vw, 2rem)",
+                      lineHeight: 1.05,
+                      color: "var(--fg1)",
+                      margin: "0 0 8px",
+                    }}
+                  >
+                    AI Engineering Workshop: Vibe Coding 101
+                  </h3>
                   <div
                     style={{
-                      border: "1px solid var(--rule)",
-                      padding: "26px 24px",
-                      background: "var(--surface-inset)",
-                      minWidth: "300px",
+                      fontFamily: "var(--font-mono)",
+                      fontSize: "11px",
+                      letterSpacing: "0.1em",
+                      textTransform: "uppercase",
+                      color: "var(--fg3)",
+                      marginBottom: "22px",
                     }}
-                    className="max-[880px]:min-w-0 max-[880px]:w-full"
                   >
-                    <MonoLabel>Assumptions and prerequisites</MonoLabel>
+                    Build a SaaS-style prototype in one day
+                  </div>
+
+                  <p
+                    style={{
+                      fontFamily: "var(--font-serif)",
+                      fontSize: "var(--step-body-lg)",
+                      lineHeight: 1.6,
+                      color: "var(--fg2)",
+                      maxWidth: "800px",
+                      margin: "0 0 14px",
+                    }}
+                  >
+                    A practical AI engineering workshop for people who want to understand how modern
+                    software products are now being designed, built, tested, and shipped with the help
+                    of frontier AI models.
+                  </p>
+                  <p
+                    style={{
+                      fontFamily: "var(--font-serif)",
+                      fontSize: "var(--step-body)",
+                      lineHeight: 1.6,
+                      color: "var(--fg2)",
+                      maxWidth: "800px",
+                      margin: "0 0 14px",
+                    }}
+                  >
+                    Using VouchMeApp as the real-world exemplar, this workshop walks participants
+                    through the end-to-end build of a SaaS or micro-SaaS product: from problem
+                    framing and user journeys through to product requirements, interface structure,
+                    database design, AI-assisted coding, testing, deployment, and iteration.
+                  </p>
+                  <p
+                    style={{
+                      fontFamily: "var(--font-serif)",
+                      fontStyle: "italic",
+                      fontSize: "var(--step-body)",
+                      lineHeight: 1.6,
+                      color: "var(--fg2)",
+                      maxWidth: "800px",
+                      margin: "0 0 32px",
+                    }}
+                  >
+                    This is not a passive AI awareness session. It is a guided build workshop.
+                  </p>
+
+                  {/* What the workshop covers */}
+                  <div style={{ marginBottom: "36px" }}>
+                    <MonoLabel>The workshop covers</MonoLabel>
                     <ul
-                      style={{
-                        margin: "0 0 18px",
-                        padding: 0,
-                        listStyle: "none",
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: "10px",
-                      }}
+                      className="grid grid-cols-2 gap-x-6 gap-y-3 max-[560px]:grid-cols-1"
+                      style={{ margin: 0, padding: 0, listStyle: "none" }}
                     >
-                      {AI_WORKSHOP_PREREQUISITES.map((item) => (
+                      {AI_WORKSHOP_COVERS.map((item) => (
                         <li
                           key={item}
                           style={{
+                            display: "flex",
+                            alignItems: "flex-start",
+                            gap: "10px",
                             fontFamily: "var(--font-serif)",
                             fontSize: "var(--step-body)",
-                            lineHeight: 1.5,
                             color: "var(--fg2)",
+                            lineHeight: 1.5,
                           }}
                         >
+                          <span
+                            aria-hidden="true"
+                            style={{
+                              display: "inline-block",
+                              width: "18px",
+                              height: "2px",
+                              background: "var(--hjc-yellow)",
+                              flexShrink: 0,
+                              marginTop: "0.6em",
+                            }}
+                          />
                           {item}
                         </li>
                       ))}
                     </ul>
-                    <p
-                      style={{
-                        fontFamily: "var(--font-serif)",
-                        fontWeight: 600,
-                        fontSize: "var(--step-body)",
-                        lineHeight: 1.5,
-                        color: "var(--fg1)",
-                        margin: "0 0 12px",
-                      }}
-                    >
-                      Microsoft 365 Copilot on its own is not sufficient for this workshop.
-                    </p>
-                    <p
-                      style={{
-                        fontFamily: "var(--font-serif)",
-                        fontSize: "var(--step-body)",
-                        lineHeight: 1.5,
-                        color: "var(--fg2)",
-                        margin: 0,
-                      }}
-                    >
-                      Participants do not need to be professional developers, but they do need
-                      access to a capable frontier model such as ChatGPT, Claude, Gemini, or an
-                      equivalent coding-capable AI assistant. The workshop is designed for people
-                      who want to learn the build process, not simply watch a presentation about AI.
-                    </p>
                   </div>
+
+                  {/* Delivery formats + Prerequisites */}
+                  <div
+                    className="grid grid-cols-[1fr_auto] gap-10 max-[880px]:grid-cols-1 max-[880px]:gap-8"
+                    style={{ alignItems: "start", marginBottom: "32px" }}
+                  >
+                    {/* Delivery formats */}
+                    <div>
+                      <MonoLabel>Delivery options</MonoLabel>
+                      <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+                        {AI_WORKSHOP_FORMATS.map((fmt) => (
+                          <div
+                            key={fmt.label}
+                            style={{
+                              border: "1px solid var(--rule)",
+                              padding: "18px 20px",
+                              background: "var(--surface-inset)",
+                            }}
+                          >
+                            <div
+                              style={{
+                                display: "flex",
+                                justifyContent: "space-between",
+                                alignItems: "baseline",
+                                flexWrap: "wrap",
+                                gap: "8px",
+                                marginBottom: "8px",
+                              }}
+                            >
+                              <span
+                                style={{
+                                  fontFamily: "var(--font-display)",
+                                  fontSize: "1rem",
+                                  textTransform: "uppercase",
+                                  color: "var(--fg1)",
+                                }}
+                              >
+                                {fmt.label}
+                              </span>
+                              {fmt.price && (
+                                <span
+                                  style={{
+                                    fontFamily: "var(--font-mono)",
+                                    fontSize: "9px",
+                                    letterSpacing: "0.12em",
+                                    textTransform: "uppercase",
+                                    color: "var(--fg3)",
+                                  }}
+                                >
+                                  {fmt.price}
+                                </span>
+                              )}
+                            </div>
+                            <p
+                              style={{
+                                fontFamily: "var(--font-serif)",
+                                fontSize: "var(--step-body)",
+                                lineHeight: 1.6,
+                                color: "var(--fg2)",
+                                margin: 0,
+                              }}
+                            >
+                              {fmt.description}
+                            </p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Prerequisites */}
+                    <div
+                      style={{
+                        border: "1px solid var(--rule)",
+                        padding: "26px 24px",
+                        background: "var(--surface-inset)",
+                        minWidth: "300px",
+                      }}
+                      className="max-[880px]:min-w-0 max-[880px]:w-full"
+                    >
+                      <MonoLabel>Assumptions and prerequisites</MonoLabel>
+                      <ul
+                        style={{
+                          margin: "0 0 18px",
+                          padding: 0,
+                          listStyle: "none",
+                          display: "flex",
+                          flexDirection: "column",
+                          gap: "10px",
+                        }}
+                      >
+                        {AI_WORKSHOP_PREREQUISITES.map((item) => (
+                          <li
+                            key={item}
+                            style={{
+                              fontFamily: "var(--font-serif)",
+                              fontSize: "var(--step-body)",
+                              lineHeight: 1.5,
+                              color: "var(--fg2)",
+                            }}
+                          >
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                      <p
+                        style={{
+                          fontFamily: "var(--font-serif)",
+                          fontWeight: 600,
+                          fontSize: "var(--step-body)",
+                          lineHeight: 1.5,
+                          color: "var(--fg1)",
+                          margin: "0 0 12px",
+                        }}
+                      >
+                        Microsoft 365 Copilot on its own is not sufficient for this workshop.
+                      </p>
+                      <p
+                        style={{
+                          fontFamily: "var(--font-serif)",
+                          fontSize: "var(--step-body)",
+                          lineHeight: 1.5,
+                          color: "var(--fg2)",
+                          margin: 0,
+                        }}
+                      >
+                        Participants do not need to be professional developers, but they do need
+                        access to a capable frontier model such as ChatGPT, Claude, Gemini, or an
+                        equivalent coding-capable AI assistant. The workshop is designed for people
+                        who want to learn the build process, not simply watch a presentation about AI.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Best suited for */}
+                  <p
+                    style={{
+                      fontFamily: "var(--font-serif)",
+                      fontSize: "var(--step-body)",
+                      lineHeight: 1.6,
+                      color: "var(--fg3)",
+                      margin: "0 0 28px",
+                      maxWidth: "760px",
+                    }}
+                  >
+                    Best suited for founders, product teams, innovation teams, analysts, service
+                    designers, business owners, and technically curious professionals who want a
+                    grounded view of what AI-assisted software development now makes possible.
+                  </p>
+
+                  {/* CTA */}
+                  <Link
+                    href="/contact?interest=ai-engineering-workshop"
+                    className="hjc-btn hjc-btn-yellow"
+                    style={{ alignSelf: "flex-start" }}
+                  >
+                    Enquire about this workshop
+                  </Link>
+
                 </div>
-
-                {/* Best suited for */}
-                <p
-                  style={{
-                    fontFamily: "var(--font-serif)",
-                    fontSize: "var(--step-body)",
-                    lineHeight: 1.6,
-                    color: "var(--fg3)",
-                    margin: "0 0 28px",
-                    maxWidth: "760px",
-                  }}
-                >
-                  Best suited for founders, product teams, innovation teams, analysts, service
-                  designers, business owners, and technically curious professionals who want a
-                  grounded view of what AI-assisted software development now makes possible.
-                </p>
-
-                {/* CTA */}
-                <Link
-                  href="/contact?interest=ai-engineering-workshop"
-                  className="hjc-btn hjc-btn-yellow"
-                  style={{ alignSelf: "flex-start" }}
-                >
-                  Enquire about this workshop
-                </Link>
-
               </div>
-            </div>
-          </div>
-        )}
+            </>
+          )}
+        </div>
 
       </div>
     </div>
