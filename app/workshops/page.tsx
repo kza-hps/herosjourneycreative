@@ -326,78 +326,82 @@ export default async function WorkshopsPage({
                 <Rule />
               </div>
 
-              {/* Pricing */}
-              <SectionHeading
-                title="Workshop Pricing"
-                subtitle="All prices are GST exclusive. Custom quotes available for larger or specialist engagements."
-              />
-              <div
-                className="grid grid-cols-3 gap-5 max-[1024px]:grid-cols-1"
-                style={{ marginTop: "36px" }}
-              >
-                {WORKSHOP_PRICING.map((tier) => (
+              {activePath === "auckland-live" && (
+                <>
+                  {/* Pricing — Auckland Live only */}
+                  <SectionHeading
+                    title="Workshop Pricing"
+                    subtitle="All prices are GST exclusive. Custom quotes available for larger or specialist engagements."
+                  />
                   <div
-                    key={tier.title}
+                    className="grid grid-cols-3 gap-5 max-[1024px]:grid-cols-1"
+                    style={{ marginTop: "36px" }}
+                  >
+                    {WORKSHOP_PRICING.map((tier) => (
+                      <div
+                        key={tier.title}
+                        style={{
+                          background: "var(--surface-inset)",
+                          border: "1px solid var(--rule)",
+                          padding: "28px 26px",
+                        }}
+                      >
+                        <MonoLabel>{tier.title}</MonoLabel>
+                        <div
+                          style={{
+                            fontFamily: "var(--font-display)",
+                            fontSize: "clamp(1.8rem, 3.5vw, 2.6rem)",
+                            lineHeight: 1,
+                            color: "var(--fg1)",
+                            marginBottom: "10px",
+                          }}
+                        >
+                          {tier.price}
+                        </div>
+                        <div
+                          style={{
+                            fontFamily: "var(--font-mono)",
+                            fontSize: "11px",
+                            letterSpacing: "0.1em",
+                            textTransform: "uppercase",
+                            color: "var(--fg3)",
+                          }}
+                        >
+                          {tier.detail}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  <p
                     style={{
-                      background: "var(--surface-inset)",
-                      border: "1px solid var(--rule)",
-                      padding: "28px 26px",
+                      fontFamily: "var(--font-mono)",
+                      fontSize: "10px",
+                      letterSpacing: "0.08em",
+                      color: "var(--fg3)",
+                      marginTop: "16px",
+                      lineHeight: 1.6,
                     }}
                   >
-                    <MonoLabel>{tier.title}</MonoLabel>
-                    <div
-                      style={{
-                        fontFamily: "var(--font-display)",
-                        fontSize: "clamp(1.8rem, 3.5vw, 2.6rem)",
-                        lineHeight: 1,
-                        color: "var(--fg1)",
-                        marginBottom: "10px",
-                      }}
-                    >
-                      {tier.price}
-                    </div>
-                    <div
-                      style={{
-                        fontFamily: "var(--font-mono)",
-                        fontSize: "11px",
-                        letterSpacing: "0.1em",
-                        textTransform: "uppercase",
-                        color: "var(--fg3)",
-                      }}
-                    >
-                      {tier.detail}
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <p
-                style={{
-                  fontFamily: "var(--font-mono)",
-                  fontSize: "10px",
-                  letterSpacing: "0.08em",
-                  color: "var(--fg3)",
-                  marginTop: "16px",
-                  lineHeight: 1.6,
-                }}
-              >
-                Custom programmes, travel, larger groups, specialist preparation, and sessions
-                longer than two hours can be quoted separately.
-              </p>
-              <p
-                style={{
-                  fontFamily: "var(--font-mono)",
-                  fontSize: "10px",
-                  letterSpacing: "0.08em",
-                  color: "var(--fg3)",
-                  marginTop: "8px",
-                  lineHeight: 1.6,
-                }}
-              >
-                Custom AI workshop pricing may vary for larger teams, tailored use cases, travel,
-                discovery, or multi-session delivery.
-              </p>
+                    Custom programmes, travel, larger groups, specialist preparation, and sessions
+                    longer than two hours can be quoted separately.
+                  </p>
+                  <p
+                    style={{
+                      fontFamily: "var(--font-mono)",
+                      fontSize: "10px",
+                      letterSpacing: "0.08em",
+                      color: "var(--fg3)",
+                      marginTop: "8px",
+                      lineHeight: 1.6,
+                    }}
+                  >
+                    Custom AI workshop pricing may vary for larger teams, tailored use cases, travel,
+                    discovery, or multi-session delivery.
+                  </p>
 
-              <Rule />
+                  <Rule />
+                </>
+              )}
 
               {/* Sprint format */}
               <SectionHeading
