@@ -16,6 +16,50 @@ import {
   AI_WORKSHOP_PREREQUISITES,
 } from "@/lib/site-content";
 
+// ─── static config ────────────────────────────────────────────────────────────
+
+const VALID_PATHS = ["auckland-live", "zoom-sprint", "private-groups", "ai-engineering"];
+
+const WORKSHOP_PATHS = [
+  {
+    id: "auckland-live",
+    eyebrow: "Public / Auckland",
+    title: "Auckland Live Sprint Workshops",
+    summary: "Drop-in writing sprint sessions held in Auckland. Timed prompts, group energy, and a structured container for stories you haven’t written yet.",
+    cta: "View on Meetup",
+    href: WORKSHOPS_MEETUP_URL,
+    external: true,
+  },
+  {
+    id: "zoom-sprint",
+    eyebrow: "Public / Zoom",
+    title: "Zoom Sprint Workshops",
+    summary: "The same guided sprint format, open to writers anywhere in Aotearoa and internationally. Join live from wherever you write.",
+    cta: "View on Meetup",
+    href: WORKSHOPS_MEETUP_URL,
+    external: true,
+  },
+  {
+    id: "private-groups",
+    eyebrow: "Private / Group Booking",
+    title: "Creative & Legacy Writing Workshops",
+    summary: "Bespoke workshops tailored for your team, school, community group, marae, or care setting. We design the session around your people and purpose.",
+    cta: "Enquire about a private workshop",
+    href: "/contact?interest=private-workshop",
+    external: false,
+  },
+  {
+    id: "ai-engineering",
+    eyebrow: "Corporate / AI Build",
+    title: "AI Engineering: Vibe Coding 101",
+    summary: "A hands-on AI engineering workshop where participants are walked through the end-to-end build of a SaaS-style prototype using VouchMeApp as the exemplar.",
+    cta: "Enquire about this workshop",
+    href: "/contact?interest=ai-engineering-workshop",
+    external: false,
+    price: "From $2,000 + GST",
+  },
+];
+
 // ─── local helpers ────────────────────────────────────────────────────────────
 
 function MonoLabel({ children }: { children: React.ReactNode }) {
@@ -35,6 +79,12 @@ function MonoLabel({ children }: { children: React.ReactNode }) {
   );
 }
 
+function Rule() {
+  return (
+    <hr style={{ border: "none", borderTop: "1px solid var(--rule)", margin: "60px 0" }} />
+  );
+}
+
 // ─── page ─────────────────────────────────────────────────────────────────────
 
 export default function WorkshopsPage() {
@@ -51,10 +101,11 @@ export default function WorkshopsPage() {
       const hashParam = window.location.hash.replace("#", "");
       
       const targetPath = pathParam || hashParam;
-      if (targetPath) {
-        if (["auckland-live", "zoom-sprint", "private-groups", "ai-engineering"].includes(targetPath)) {
-          setActivePath(targetPath);
-        }
+      if (targetPath && VALID_PATHS.includes(targetPath)) {
+        setActivePath(targetPath);
+      } else {
+        // Reset to default if no valid path param/hash is present
+        setActivePath("auckland-live");
       }
     };
 
@@ -73,46 +124,6 @@ export default function WorkshopsPage() {
     setActivePath(pathId);
     router.push(`${pathname}?path=${pathId}`, { scroll: false });
   };
-
-  const workshopPaths = [
-    {
-      id: "auckland-live",
-      eyebrow: "Public / Auckland",
-      title: "Auckland Live Sprint Workshops",
-      summary: "Drop-in writing sprint sessions held in Auckland. Timed prompts, group energy, and a structured container for stories you haven’t written yet.",
-      cta: "View on Meetup",
-      href: WORKSHOPS_MEETUP_URL,
-      external: true,
-    },
-    {
-      id: "zoom-sprint",
-      eyebrow: "Public / Zoom",
-      title: "Zoom Sprint Workshops",
-      summary: "The same guided sprint format, open to writers anywhere in Aotearoa and internationally. Join live from wherever you write.",
-      cta: "View on Meetup",
-      href: WORKSHOPS_MEETUP_URL,
-      external: true,
-    },
-    {
-      id: "private-groups",
-      eyebrow: "Private / Group Booking",
-      title: "Creative & Legacy Writing Workshops",
-      summary: "Bespoke workshops tailored for your team, school, community group, marae, or care setting. We design the session around your people and purpose.",
-      cta: "Enquire about a private workshop",
-      href: "/contact?interest=private-workshop",
-      external: false,
-    },
-    {
-      id: "ai-engineering",
-      eyebrow: "Corporate / AI Build",
-      title: "AI Engineering: Vibe Coding 101",
-      summary: "A hands-on AI engineering workshop where participants are walked through the end-to-end build of a SaaS-style prototype using VouchMeApp as the exemplar.",
-      cta: "Enquire about this workshop",
-      href: "/contact?interest=ai-engineering-workshop",
-      external: false,
-      price: "From $2,000 + GST",
-    },
-  ];
 
   return (
     <div className="hjc-fade flex-1" style={{ background: "var(--bg)" }}>
@@ -184,7 +195,7 @@ export default function WorkshopsPage() {
           className="grid grid-cols-2 gap-5 max-[880px]:grid-cols-1"
           style={{ marginTop: "36px" }}
         >
-          {workshopPaths.map((path) => {
+          {WORKSHOP_PATHS.map((path) => {
             const isActive = activePath === path.id;
 
             return (
@@ -307,6 +318,8 @@ export default function WorkshopsPage() {
           })}
         </div>
 
+        <Rule />
+
         {/* Selected Content Panel */}
         <div
           id="panel-workshops-content"
@@ -314,7 +327,6 @@ export default function WorkshopsPage() {
           aria-labelledby={`tab-${activePath}`}
           className="hjc-fade"
           key={activePath}
-          style={{ marginTop: "60px" }}
         >
           {selectedTrack === "writing" && (
             <>
@@ -335,7 +347,7 @@ export default function WorkshopsPage() {
                       Join Auckland Sprint on Meetup
                     </a>
                   </div>
-                  <hr style={{ border: "none", borderTop: "1px solid var(--rule)", margin: "48px 0 0" }} />
+                  <Rule />
                 </div>
               )}
 
@@ -355,7 +367,7 @@ export default function WorkshopsPage() {
                       Join Zoom Sprint on Meetup
                     </a>
                   </div>
-                  <hr style={{ border: "none", borderTop: "1px solid var(--rule)", margin: "48px 0 0" }} />
+                  <Rule />
                 </div>
               )}
 
@@ -373,84 +385,82 @@ export default function WorkshopsPage() {
                       Enquire about a private workshop
                     </Link>
                   </div>
-                  <hr style={{ border: "none", borderTop: "1px solid var(--rule)", margin: "48px 0 0" }} />
+                  <Rule />
                 </div>
               )}
 
               {/* Pricing */}
-              <div style={{ marginTop: "48px" }}>
-                <SectionHeading
-                  title="Workshop Pricing"
-                  subtitle="All prices are GST exclusive. Custom quotes available for larger or specialist engagements."
-                />
-                <div
-                  className="grid grid-cols-3 gap-5 max-[1024px]:grid-cols-1"
-                  style={{ marginTop: "36px" }}
-                >
-                  {WORKSHOP_PRICING.map((tier) => (
+              <SectionHeading
+                title="Workshop Pricing"
+                subtitle="All prices are GST exclusive. Custom quotes available for larger or specialist engagements."
+              />
+              <div
+                className="grid grid-cols-3 gap-5 max-[1024px]:grid-cols-1"
+                style={{ marginTop: "36px" }}
+              >
+                {WORKSHOP_PRICING.map((tier) => (
+                  <div
+                    key={tier.title}
+                    style={{
+                      background: "var(--surface-inset)",
+                      border: "1px solid var(--rule)",
+                      padding: "28px 26px",
+                    }}
+                  >
+                    <MonoLabel>{tier.title}</MonoLabel>
                     <div
-                      key={tier.title}
                       style={{
-                        background: "var(--surface-inset)",
-                        border: "1px solid var(--rule)",
-                        padding: "28px 26px",
+                        fontFamily: "var(--font-display)",
+                        fontSize: "clamp(1.8rem, 3.5vw, 2.6rem)",
+                        lineHeight: 1,
+                        color: "var(--fg1)",
+                        marginBottom: "10px",
                       }}
                     >
-                      <MonoLabel>{tier.title}</MonoLabel>
-                      <div
-                        style={{
-                          fontFamily: "var(--font-display)",
-                          fontSize: "clamp(1.8rem, 3.5vw, 2.6rem)",
-                          lineHeight: 1,
-                          color: "var(--fg1)",
-                          marginBottom: "10px",
-                        }}
-                      >
-                        {tier.price}
-                      </div>
-                      <div
-                        style={{
-                          fontFamily: "var(--font-mono)",
-                          fontSize: "11px",
-                          letterSpacing: "0.1em",
-                          textTransform: "uppercase",
-                          color: "var(--fg3)",
-                        }}
-                      >
-                        {tier.detail}
-                      </div>
+                      {tier.price}
                     </div>
-                  ))}
-                </div>
-                <p
-                  style={{
-                    fontFamily: "var(--font-mono)",
-                    fontSize: "10px",
-                    letterSpacing: "0.08em",
-                    color: "var(--fg3)",
-                    marginTop: "16px",
-                    lineHeight: 1.6,
-                  }}
-                >
-                  Custom programmes, travel, larger groups, specialist preparation, and sessions
-                  longer than two hours can be quoted separately.
-                </p>
-                <p
-                  style={{
-                    fontFamily: "var(--font-mono)",
-                    fontSize: "10px",
-                    letterSpacing: "0.08em",
-                    color: "var(--fg3)",
-                    marginTop: "8px",
-                    lineHeight: 1.6,
-                  }}
-                >
-                  Custom AI workshop pricing may vary for larger teams, tailored use cases, travel,
-                  discovery, or multi-session delivery.
-                </p>
+                    <div
+                      style={{
+                        fontFamily: "var(--font-mono)",
+                        fontSize: "11px",
+                        letterSpacing: "0.1em",
+                        textTransform: "uppercase",
+                        color: "var(--fg3)",
+                      }}
+                    >
+                      {tier.detail}
+                    </div>
+                  </div>
+                ))}
               </div>
+              <p
+                style={{
+                  fontFamily: "var(--font-mono)",
+                  fontSize: "10px",
+                  letterSpacing: "0.08em",
+                  color: "var(--fg3)",
+                  marginTop: "16px",
+                  lineHeight: 1.6,
+                }}
+              >
+                Custom programmes, travel, larger groups, specialist preparation, and sessions
+                longer than two hours can be quoted separately.
+              </p>
+              <p
+                style={{
+                  fontFamily: "var(--font-mono)",
+                  fontSize: "10px",
+                  letterSpacing: "0.08em",
+                  color: "var(--fg3)",
+                  marginTop: "8px",
+                  lineHeight: 1.6,
+                }}
+              >
+                Custom AI workshop pricing may vary for larger teams, tailored use cases, travel,
+                discovery, or multi-session delivery.
+              </p>
 
-              <hr style={{ border: "none", borderTop: "1px solid var(--rule)", margin: "60px 0" }} />
+              <Rule />
 
               {/* Sprint format */}
               <SectionHeading
@@ -517,7 +527,7 @@ export default function WorkshopsPage() {
                 ))}
               </div>
 
-              <hr style={{ border: "none", borderTop: "1px solid var(--rule)", margin: "60px 0" }} />
+              <Rule />
 
               {/* Private audience section */}
               <SectionHeading
@@ -590,7 +600,7 @@ export default function WorkshopsPage() {
                 </div>
               </div>
 
-              <hr style={{ border: "none", borderTop: "1px solid var(--rule)", margin: "60px 0" }} />
+              <Rule />
 
               {/* Facilitator note */}
               <div
@@ -630,7 +640,7 @@ export default function WorkshopsPage() {
                 </a>
               </div>
 
-              <hr style={{ border: "none", borderTop: "1px solid var(--rule)", margin: "60px 0" }} />
+              <Rule />
 
               {/* Final CTA row */}
               <div
