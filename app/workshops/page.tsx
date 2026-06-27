@@ -48,18 +48,34 @@ export default function WorkshopsPage() {
 
   // Support direct linking using query params or hashes
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const params = new URLSearchParams(window.location.search);
-      const pathParam = params.get("path");
-      const hashParam = window.location.hash.replace("#", "");
-      
-      const targetPath = pathParam || hashParam;
-      if (targetPath) {
-        if (["auckland-live", "zoom-sprint", "private-groups", "ai-engineering"].includes(targetPath)) {
-          setActivePath(targetPath);
+    const handleLocationCheck = () => {
+      if (typeof window !== "undefined") {
+        const params = new URLSearchParams(window.location.search);
+        const pathParam = params.get("path");
+        const hashParam = window.location.hash.replace("#", "");
+        
+        const targetPath = pathParam || hashParam;
+        if (targetPath) {
+          if (["auckland-live", "zoom-sprint", "private-groups", "ai-engineering"].includes(targetPath)) {
+            setActivePath(targetPath);
+          }
         }
       }
+    };
+
+    handleLocationCheck();
+
+    if (typeof window !== "undefined") {
+      window.addEventListener("popstate", handleLocationCheck);
+      window.addEventListener("hashchange", handleLocationCheck);
     }
+
+    return () => {
+      if (typeof window !== "undefined") {
+        window.removeEventListener("popstate", handleLocationCheck);
+        window.removeEventListener("hashchange", handleLocationCheck);
+      }
+    };
   }, []);
 
   const handlePathChange = (pathId: string) => {
@@ -308,7 +324,7 @@ export default function WorkshopsPage() {
         {/* Selected Content Panel */}
         {selectedTrack === "writing" && (
           <div
-            id="panel-writing"
+            id={`panel-${activePath}`}
             role="tabpanel"
             aria-labelledby={`tab-${activePath}`}
             className="hjc-fade"
