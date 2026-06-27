@@ -100,13 +100,13 @@ export default function WorkshopsPage() {
       {/* ── Main content ─────────────────────────────────────────────────── */}
       <div className="max-w-[1200px] mx-auto px-8 max-[880px]:px-5" style={{ paddingTop: "68px", paddingBottom: "88px" }}>
 
-        {/* Pathway cards */}
+        {/* Pathway cards — 2×2 grid */}
         <SectionHeading
           title="Choose Your Path"
           subtitle="Public sessions are open-enrolment via Meetup. Private bookings are arranged directly with the studio."
         />
         <div
-          className="grid grid-cols-3 gap-5 max-[880px]:grid-cols-1"
+          className="grid grid-cols-2 gap-5 max-[560px]:grid-cols-1"
           style={{ marginTop: "36px" }}
         >
           {WORKSHOP_PATHWAY_CARDS.map((card) => (
@@ -139,12 +139,26 @@ export default function WorkshopsPage() {
                   fontSize: "var(--step-body)",
                   lineHeight: 1.6,
                   color: "var(--fg2)",
-                  margin: "0 0 24px",
+                  margin: "0 0 20px",
                   flex: 1,
                 }}
               >
                 {card.body}
               </p>
+              {card.price && (
+                <div
+                  style={{
+                    fontFamily: "var(--font-mono)",
+                    fontSize: "11px",
+                    letterSpacing: "0.1em",
+                    textTransform: "uppercase",
+                    color: "var(--fg1)",
+                    marginBottom: "16px",
+                  }}
+                >
+                  {card.price}
+                </div>
+              )}
               {card.external ? (
                 <a
                   href={card.href}
@@ -172,11 +186,11 @@ export default function WorkshopsPage() {
 
         {/* Pricing */}
         <SectionHeading
-          title="Private Workshop Pricing"
+          title="Workshop Pricing"
           subtitle="All prices are GST exclusive. Custom quotes available for larger or specialist engagements."
         />
         <div
-          className="grid grid-cols-2 gap-5 max-[880px]:grid-cols-1"
+          className="grid grid-cols-3 gap-5 max-[880px]:grid-cols-1"
           style={{ marginTop: "36px" }}
         >
           {WORKSHOP_PRICING.map((tier) => (
@@ -227,193 +241,25 @@ export default function WorkshopsPage() {
           Custom programmes, travel, larger groups, specialist preparation, and sessions
           longer than two hours can be quoted separately.
         </p>
-
-        <Rule />
-
-        {/* Sprint format */}
-        <SectionHeading
-          title="The Sprint Format"
-          subtitle="A typical two-hour session — structured, timed, and deliberately simple."
-        />
-
-        <div
-          style={{ marginTop: "28px", display: "flex", flexDirection: "column", gap: "10px" }}
-        >
-          {SPRINT_FORMAT_ROWS.map((row) => (
-            <div
-              key={row.session}
-              style={{
-                border: "1px solid var(--rule)",
-                padding: "18px 20px",
-                background: "var(--surface)",
-              }}
-            >
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "baseline",
-                  marginBottom: "8px",
-                  flexWrap: "wrap",
-                  gap: "8px",
-                }}
-              >
-                <span
-                  style={{
-                    fontFamily: "var(--font-display)",
-                    fontSize: "1rem",
-                    textTransform: "uppercase",
-                    color: "var(--fg1)",
-                  }}
-                >
-                  {row.session}
-                </span>
-                <span
-                  style={{
-                    fontFamily: "var(--font-mono)",
-                    fontSize: "9px",
-                    letterSpacing: "0.12em",
-                    textTransform: "uppercase",
-                    color: "var(--fg3)",
-                  }}
-                >
-                  {row.focus}
-                </span>
-              </div>
-              <p
-                style={{
-                  fontFamily: "var(--font-serif)",
-                  fontSize: "var(--step-body)",
-                  lineHeight: 1.6,
-                  color: "var(--fg2)",
-                  margin: 0,
-                }}
-              >
-                {row.whatWeDo}
-              </p>
-            </div>
-          ))}
-        </div>
-
-        <Rule />
-
-        {/* Private audience section */}
-        <SectionHeading
-          title="Who We Work With"
-          subtitle="Private workshops are designed around the group — its purpose, pace, and people."
-        />
-        <div
-          className="grid grid-cols-[1fr_auto] gap-12 max-[880px]:grid-cols-1 max-[880px]:gap-8"
-          style={{ alignItems: "start", marginTop: "28px" }}
-        >
-          <div>
-            <ul
-              className="grid grid-cols-2 gap-x-6 gap-y-3 max-[560px]:grid-cols-1"
-              style={{ margin: 0, padding: 0, listStyle: "none" }}
-            >
-              {PRIVATE_AUDIENCE_GROUPS.map((group) => (
-                <li
-                  key={group}
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "10px",
-                    fontFamily: "var(--font-serif)",
-                    fontSize: "var(--step-body)",
-                    color: "var(--fg2)",
-                  }}
-                >
-                  <span
-                    aria-hidden="true"
-                    style={{
-                      display: "inline-block",
-                      width: "18px",
-                      height: "2px",
-                      background: "var(--hjc-yellow)",
-                      flexShrink: 0,
-                    }}
-                  />
-                  {group}
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* What to bring */}
-
-          <div
-            style={{
-              border: "1px solid var(--rule)",
-              padding: "26px 24px",
-              background: "var(--surface-inset)",
-              minWidth: "280px",
-            }}
-            className="max-[880px]:min-w-0 max-[880px]:w-full"
-          >
-            <MonoLabel>What to bring</MonoLabel>
-            <ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: "10px" }}>
-              {WHAT_TO_BRING.map((item) => (
-                <li
-                  key={item}
-                  style={{
-                    fontFamily: "var(--font-serif)",
-                    fontSize: "var(--step-body)",
-                    lineHeight: 1.5,
-                    color: "var(--fg2)",
-                  }}
-                >
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-
-        <Rule />
-
-        {/* Facilitator note */}
-        <div
+        <p
           style={{
-            borderLeft: "4px solid var(--hjc-yellow)",
-            paddingLeft: "28px",
-            maxWidth: "680px",
+            fontFamily: "var(--font-mono)",
+            fontSize: "10px",
+            letterSpacing: "0.08em",
+            color: "var(--fg3)",
+            marginTop: "8px",
+            lineHeight: 1.6,
           }}
         >
-          <MonoLabel>The Facilitator</MonoLabel>
-          <p
-            style={{
-              fontFamily: "var(--font-serif)",
-              fontSize: "var(--step-body-lg)",
-              fontStyle: "italic",
-              lineHeight: 1.55,
-              color: "var(--fg2)",
-              margin: "0 0 16px",
-            }}
-          >
-            Kauri has 15+ years of storytelling experience across television, film, creative
-            development, and public-sector programme work — and is currently completing an
-            action-fantasy novel set in classical Polynesia.
-          </p>
-          <a
-            href={`mailto:${BRAND_INFO.email}`}
-            style={{
-              fontFamily: "var(--font-mono)",
-              fontSize: "11px",
-              letterSpacing: "0.1em",
-              color: "var(--fg1)",
-              textDecoration: "underline",
-              textUnderlineOffset: "3px",
-            }}
-          >
-            {BRAND_INFO.email}
-          </a>
-        </div>
+          Custom AI workshop pricing may vary for larger teams, tailored use cases, travel,
+          discovery, or multi-session delivery.
+        </p>
 
         <Rule />
 
-        {/* AI & Product-Building Workshops */}
+        {/* AI Engineering & Product-Building Workshops */}
         <SectionHeading
-          title="AI & Product-Building Workshops"
+          title="AI Engineering & Product-Building Workshops"
           subtitle="Practical, hands-on workshops in AI-assisted product development — for corporate teams, founders, and technically curious professionals."
         />
 
@@ -533,14 +379,14 @@ export default function WorkshopsPage() {
               </ul>
             </div>
 
-            {/* Formats + Prerequisites */}
+            {/* Delivery formats + Prerequisites */}
             <div
               className="grid grid-cols-[1fr_auto] gap-10 max-[880px]:grid-cols-1 max-[880px]:gap-8"
               style={{ alignItems: "start", marginBottom: "32px" }}
             >
               {/* Delivery formats */}
               <div>
-                <MonoLabel>Format &amp; pricing</MonoLabel>
+                <MonoLabel>Delivery options</MonoLabel>
                 <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
                   {AI_WORKSHOP_FORMATS.map((fmt) => (
                     <div
@@ -691,6 +537,186 @@ export default function WorkshopsPage() {
             </Link>
 
           </div>
+        </div>
+
+        <Rule />
+
+        {/* Sprint format */}
+        <SectionHeading
+          title="The Sprint Format"
+          subtitle="A typical two-hour session — structured, timed, and deliberately simple."
+        />
+
+        <div
+          style={{ marginTop: "28px", display: "flex", flexDirection: "column", gap: "10px" }}
+        >
+          {SPRINT_FORMAT_ROWS.map((row) => (
+            <div
+              key={row.session}
+              style={{
+                border: "1px solid var(--rule)",
+                padding: "18px 20px",
+                background: "var(--surface)",
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "baseline",
+                  marginBottom: "8px",
+                  flexWrap: "wrap",
+                  gap: "8px",
+                }}
+              >
+                <span
+                  style={{
+                    fontFamily: "var(--font-display)",
+                    fontSize: "1rem",
+                    textTransform: "uppercase",
+                    color: "var(--fg1)",
+                  }}
+                >
+                  {row.session}
+                </span>
+                <span
+                  style={{
+                    fontFamily: "var(--font-mono)",
+                    fontSize: "9px",
+                    letterSpacing: "0.12em",
+                    textTransform: "uppercase",
+                    color: "var(--fg3)",
+                  }}
+                >
+                  {row.focus}
+                </span>
+              </div>
+              <p
+                style={{
+                  fontFamily: "var(--font-serif)",
+                  fontSize: "var(--step-body)",
+                  lineHeight: 1.6,
+                  color: "var(--fg2)",
+                  margin: 0,
+                }}
+              >
+                {row.whatWeDo}
+              </p>
+            </div>
+          ))}
+        </div>
+
+        <Rule />
+
+        {/* Private audience section */}
+        <SectionHeading
+          title="Who We Work With"
+          subtitle="Private workshops are designed around the group — its purpose, pace, and people."
+        />
+        <div
+          className="grid grid-cols-[1fr_auto] gap-12 max-[880px]:grid-cols-1 max-[880px]:gap-8"
+          style={{ alignItems: "start", marginTop: "28px" }}
+        >
+          <div>
+            <ul
+              className="grid grid-cols-2 gap-x-6 gap-y-3 max-[560px]:grid-cols-1"
+              style={{ margin: 0, padding: 0, listStyle: "none" }}
+            >
+              {PRIVATE_AUDIENCE_GROUPS.map((group) => (
+                <li
+                  key={group}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "10px",
+                    fontFamily: "var(--font-serif)",
+                    fontSize: "var(--step-body)",
+                    color: "var(--fg2)",
+                  }}
+                >
+                  <span
+                    aria-hidden="true"
+                    style={{
+                      display: "inline-block",
+                      width: "18px",
+                      height: "2px",
+                      background: "var(--hjc-yellow)",
+                      flexShrink: 0,
+                    }}
+                  />
+                  {group}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* What to bring */}
+          <div
+            style={{
+              border: "1px solid var(--rule)",
+              padding: "26px 24px",
+              background: "var(--surface-inset)",
+              minWidth: "280px",
+            }}
+            className="max-[880px]:min-w-0 max-[880px]:w-full"
+          >
+            <MonoLabel>What to bring</MonoLabel>
+            <ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: "10px" }}>
+              {WHAT_TO_BRING.map((item) => (
+                <li
+                  key={item}
+                  style={{
+                    fontFamily: "var(--font-serif)",
+                    fontSize: "var(--step-body)",
+                    lineHeight: 1.5,
+                    color: "var(--fg2)",
+                  }}
+                >
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        <Rule />
+
+        {/* Facilitator note */}
+        <div
+          style={{
+            borderLeft: "4px solid var(--hjc-yellow)",
+            paddingLeft: "28px",
+            maxWidth: "680px",
+          }}
+        >
+          <MonoLabel>The Facilitator</MonoLabel>
+          <p
+            style={{
+              fontFamily: "var(--font-serif)",
+              fontSize: "var(--step-body-lg)",
+              fontStyle: "italic",
+              lineHeight: 1.55,
+              color: "var(--fg2)",
+              margin: "0 0 16px",
+            }}
+          >
+            Kauri has 15+ years of storytelling experience across television, film, creative
+            development, and public-sector programme work — and is currently completing an
+            action-fantasy novel set in classical Polynesia.
+          </p>
+          <a
+            href={`mailto:${BRAND_INFO.email}`}
+            style={{
+              fontFamily: "var(--font-mono)",
+              fontSize: "11px",
+              letterSpacing: "0.1em",
+              color: "var(--fg1)",
+              textDecoration: "underline",
+              textUnderlineOffset: "3px",
+            }}
+          >
+            {BRAND_INFO.email}
+          </a>
         </div>
 
         <Rule />
