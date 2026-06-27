@@ -1,11 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import SectionHeading from "@/components/section-heading";
 import {
   WORKSHOPS_MEETUP_URL,
-  WORKSHOP_PATHWAY_CARDS,
   WORKSHOP_PRICING,
   SPRINT_FORMAT_ROWS,
   PRIVATE_AUDIENCE_GROUPS,
@@ -44,8 +43,72 @@ function Rule() {
 // ─── page ─────────────────────────────────────────────────────────────────────
 
 export default function WorkshopsPage() {
-  const [selectedCardIdx, setSelectedCardIdx] = useState<number>(0);
-  const selectedTrack = selectedCardIdx === 3 ? "ai" : "writing";
+  const [activePath, setActivePath] = useState("auckland-live");
+  const selectedTrack = activePath === "ai-engineering" ? "ai" : "writing";
+
+  // Support direct linking using query params or hashes
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const pathParam = params.get("path");
+      const hashParam = window.location.hash.replace("#", "");
+      
+      const targetPath = pathParam || hashParam;
+      if (targetPath) {
+        if (["auckland-live", "zoom-sprint", "private-groups", "ai-engineering"].includes(targetPath)) {
+          setActivePath(targetPath);
+        }
+      }
+    }
+  }, []);
+
+  const handlePathChange = (pathId: string) => {
+    setActivePath(pathId);
+    if (typeof window !== "undefined") {
+      const newUrl = `${window.location.pathname}?path=${pathId}`;
+      window.history.pushState({ path: pathId }, "", newUrl);
+    }
+  };
+
+  const workshopPaths = [
+    {
+      id: "auckland-live",
+      eyebrow: "Public / Auckland",
+      title: "Auckland Live Sprint Workshops",
+      summary: "Drop-in writing sprint sessions held in Auckland. Timed prompts, group energy, and a structured container for stories you haven’t written yet.",
+      cta: "View on Meetup",
+      href: WORKSHOPS_MEETUP_URL,
+      external: true,
+    },
+    {
+      id: "zoom-sprint",
+      eyebrow: "Public / Zoom",
+      title: "Zoom Sprint Workshops",
+      summary: "The same guided sprint format, open to writers anywhere in Aotearoa and internationally. Join live from wherever you write.",
+      cta: "View on Meetup",
+      href: WORKSHOPS_MEETUP_URL,
+      external: true,
+    },
+    {
+      id: "private-groups",
+      eyebrow: "Private / Group Booking",
+      title: "Creative & Legacy Writing Workshops",
+      summary: "Bespoke workshops tailored for your team, school, community group, marae, or care setting. We design the session around your people and purpose.",
+      cta: "Enquire about a private workshop",
+      href: "/contact?interest=private-workshop",
+      external: false,
+    },
+    {
+      id: "ai-engineering",
+      eyebrow: "Corporate / AI Build",
+      title: "AI Engineering: Vibe Coding 101",
+      summary: "A hands-on AI engineering workshop where participants are walked through the end-to-end build of a SaaS-style prototype using VouchMeApp as the exemplar.",
+      cta: "Enquire about this workshop",
+      href: "/contact?interest=ai-engineering-workshop",
+      external: false,
+      price: "From $2,000 + GST",
+    },
+  ];
 
   return (
     <div className="hjc-fade flex-1" style={{ background: "var(--bg)" }}>
@@ -112,28 +175,80 @@ export default function WorkshopsPage() {
           subtitle="Public sessions are open-enrolment via Meetup. Private bookings are arranged directly with the studio."
         />
         <div
+          role="tablist"
+          aria-label="Workshop Pathways"
           className="grid grid-cols-2 gap-5 max-[880px]:grid-cols-1"
           style={{ marginTop: "36px" }}
         >
-          {WORKSHOP_PATHWAY_CARDS.map((card, idx) => {
-            const isActive = selectedCardIdx === idx;
+          {workshopPaths.map((path) => {
+            const isActive = activePath === path.id;
 
             return (
-              <div
-                key={card.label}
-                onClick={() => setSelectedCardIdx(idx)}
+              <button
+                key={path.id}
+                type="button"
+                role="tab"
+                aria-selected={isActive}
+                aria-controls={`panel-${path.id}`}
+                id={`tab-${path.id}`}
+                onClick={() => handlePathChange(path.id)}
                 style={{
-                  border: isActive ? "1px solid var(--hjc-yellow)" : "1px solid var(--rule)",
+                  border: isActive ? "2px solid var(--fg1)" : "1px solid var(--rule)",
                   boxShadow: isActive ? "var(--shadow-stamp)" : "none",
                   padding: "28px 26px 24px",
-                  background: "var(--surface)",
+                  background: isActive ? "var(--surface)" : "var(--surface-inset)",
                   display: "flex",
                   flexDirection: "column",
                   cursor: "pointer",
-                  transition: "border var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease)",
+                  textAlign: "left",
+                  color: "inherit",
+                  font: "inherit",
+                  width: "100%",
+                  outline: "none",
+                  position: "relative",
+                  transition: "all var(--dur-fast) var(--ease)",
                 }}
               >
-                <MonoLabel>{card.label}</MonoLabel>
+                {/* Yellow accent line at the top of active card */}
+                {isActive && (
+                  <div
+                    style={{
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      height: "3px",
+                      background: "var(--hjc-yellow)",
+                    }}
+                  />
+                )}
+
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "baseline",
+                    width: "100%",
+                    marginBottom: "12px",
+                  }}
+                >
+                  <MonoLabel>{path.eyebrow}</MonoLabel>
+                  {isActive && (
+                    <span
+                      style={{
+                        fontFamily: "var(--font-mono)",
+                        fontSize: "9px",
+                        letterSpacing: "0.12em",
+                        textTransform: "uppercase",
+                        color: "var(--link)",
+                        fontWeight: 600,
+                      }}
+                    >
+                      [ Selected ]
+                    </span>
+                  )}
+                </div>
+
                 <h3
                   style={{
                     fontFamily: "var(--font-display)",
@@ -144,7 +259,7 @@ export default function WorkshopsPage() {
                     margin: "0 0 12px",
                   }}
                 >
-                  {card.heading}
+                  {path.title}
                 </h3>
                 <p
                   style={{
@@ -156,9 +271,9 @@ export default function WorkshopsPage() {
                     flex: 1,
                   }}
                 >
-                  {card.body}
+                  {path.summary}
                 </p>
-                {card.price && (
+                {path.price && (
                   <div
                     style={{
                       fontFamily: "var(--font-mono)",
@@ -169,39 +284,94 @@ export default function WorkshopsPage() {
                       marginBottom: "16px",
                     }}
                   >
-                    {card.price}
+                    {path.price}
                   </div>
                 )}
-                {card.external ? (
-                  <a
-                    href={card.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hjc-lnk"
-                    style={{ alignSelf: "flex-start" }}
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    {card.cta} <span aria-hidden="true">→</span>
-                  </a>
-                ) : (
-                  <Link
-                    href={card.href}
-                    className="hjc-lnk"
-                    style={{ alignSelf: "flex-start" }}
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    {card.cta} <span aria-hidden="true">→</span>
-                  </Link>
-                )}
-              </div>
+                <span
+                  className="hjc-lnk"
+                  style={{
+                    alignSelf: "flex-start",
+                    fontWeight: isActive ? 600 : 400,
+                    textDecoration: isActive ? "underline" : "none",
+                    textDecorationThickness: isActive ? "2px" : "1px",
+                  }}
+                >
+                  {path.cta} <span aria-hidden="true">→</span>
+                </span>
+              </button>
             );
           })}
         </div>
 
         <Rule />
 
+        {/* Selected Content Panel */}
         {selectedTrack === "writing" && (
-          <div className="hjc-fade">
+          <div
+            id="panel-writing"
+            role="tabpanel"
+            aria-labelledby={`tab-${activePath}`}
+            className="hjc-fade"
+          >
+            {/* Context Heading */}
+            {activePath === "auckland-live" && (
+              <div style={{ marginBottom: "48px" }}>
+                <SectionHeading
+                  title="Auckland Live Sprint Workshops"
+                  subtitle="Drop-in writing sprint sessions held in Auckland. Timed prompts, group energy, and a structured container for stories you haven’t written yet."
+                />
+                <div style={{ marginTop: "24px" }}>
+                  <a
+                    href={WORKSHOPS_MEETUP_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hjc-btn hjc-btn-yellow"
+                  >
+                    Join Auckland Sprint on Meetup
+                  </a>
+                </div>
+                <Rule />
+              </div>
+            )}
+
+            {activePath === "zoom-sprint" && (
+              <div style={{ marginBottom: "48px" }}>
+                <SectionHeading
+                  title="Zoom Sprint Workshops"
+                  subtitle="The same guided sprint format, open to writers anywhere in Aotearoa and internationally. Join live from wherever you write."
+                />
+                <div style={{ marginTop: "24px" }}>
+                  <a
+                    href={WORKSHOPS_MEETUP_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hjc-btn hjc-btn-yellow"
+                  >
+                    Join Zoom Sprint on Meetup
+                  </a>
+                </div>
+                <Rule />
+              </div>
+            )}
+
+            {activePath === "private-groups" && (
+              <div style={{ marginBottom: "48px" }}>
+                <SectionHeading
+                  title="Creative & Legacy Writing Workshops"
+                  subtitle="Bespoke workshops tailored for your team, school, community group, marae, or care setting. We design the session around your people and purpose."
+                />
+                <div style={{ marginTop: "24px" }}>
+                  <Link
+                    href="/contact?interest=private-workshop"
+                    className="hjc-btn hjc-btn-yellow"
+                  >
+                    Enquire about a private workshop
+                  </Link>
+                </div>
+                <Rule />
+              </div>
+            )}
+
             {/* Pricing */}
             <SectionHeading
               title="Workshop Pricing"
@@ -498,10 +668,13 @@ export default function WorkshopsPage() {
           </div>
         )}
 
-        <Rule />
-
         {selectedTrack === "ai" && (
-          <div className="hjc-fade">
+          <div
+            id="panel-ai-engineering"
+            role="tabpanel"
+            aria-labelledby="tab-ai-engineering"
+            className="hjc-fade"
+          >
             {/* AI Engineering & Product-Building Workshops */}
             <SectionHeading
               title="AI Engineering & Product-Building Workshops"
@@ -785,8 +958,6 @@ export default function WorkshopsPage() {
             </div>
           </div>
         )}
-
-
 
       </div>
     </div>
