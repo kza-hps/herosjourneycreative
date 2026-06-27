@@ -14,8 +14,6 @@ import {
 
 // ─── static config ────────────────────────────────────────────────────────────
 
-const VALID_PATHS = ["auckland-live", "zoom-sprint", "private-groups", "ai-engineering"];
-
 const WORKSHOP_PATHS = [
   {
     id: "auckland-live",
@@ -25,6 +23,7 @@ const WORKSHOP_PATHS = [
     cta: "View on Meetup",
     href: WORKSHOPS_MEETUP_URL,
     external: true,
+    panelActionText: "Join Auckland Sprint on Meetup",
   },
   {
     id: "zoom-sprint",
@@ -34,6 +33,7 @@ const WORKSHOP_PATHS = [
     cta: "View on Meetup",
     href: WORKSHOPS_MEETUP_URL,
     external: true,
+    panelActionText: "Join Zoom Sprint on Meetup",
   },
   {
     id: "private-groups",
@@ -43,6 +43,7 @@ const WORKSHOP_PATHS = [
     cta: "Enquire about a private workshop",
     href: "/contact?interest=private-workshop",
     external: false,
+    panelActionText: "Enquire about a private workshop",
   },
   {
     id: "ai-engineering",
@@ -53,8 +54,11 @@ const WORKSHOP_PATHS = [
     href: "/contact?interest=ai-engineering-workshop",
     external: false,
     price: "From $2,000 + GST",
+    panelActionText: "Enquire about this workshop",
   },
 ];
+
+const VALID_PATHS = WORKSHOP_PATHS.map((path) => path.id);
 
 // ─── local helpers ────────────────────────────────────────────────────────────
 
@@ -75,17 +79,24 @@ function MonoLabel({ children }: { children: React.ReactNode }) {
   );
 }
 
+function Rule() {
+  return (
+    <hr style={{ border: "none", borderTop: "1px solid var(--rule)", margin: "60px 0" }} />
+  );
+}
+
 // ─── page ─────────────────────────────────────────────────────────────────────
 
 export default async function WorkshopsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ path?: string }>;
+  searchParams: Promise<{ path?: string | string[] }>;
 }) {
   const resolvedParams = await searchParams;
   const pathParam = Array.isArray(resolvedParams.path) ? resolvedParams.path[0] : resolvedParams.path;
   const activePath = (pathParam && VALID_PATHS.includes(pathParam)) ? pathParam : "auckland-live";
   const selectedTrack = activePath === "ai-engineering" ? "ai" : "writing";
+  const currentPathConfig = WORKSHOP_PATHS.find((p) => p.id === activePath);
 
   return (
     <div className="hjc-fade flex-1" style={{ background: "var(--bg)" }}>
@@ -151,9 +162,8 @@ export default async function WorkshopsPage({
           title="Choose Your Path"
           subtitle="Public sessions are open-enrolment via Meetup. Private bookings are arranged directly with the studio."
         />
-        <div
-          role="tablist"
-          aria-label="Workshop Pathways"
+        <nav
+          aria-label="Workshop pathways navigation"
           className="grid grid-cols-2 gap-5 max-[880px]:grid-cols-1"
           style={{ marginTop: "36px" }}
         >
@@ -165,10 +175,7 @@ export default async function WorkshopsPage({
                 key={path.id}
                 href={`/workshops?path=${path.id}`}
                 scroll={false}
-                role="tab"
-                aria-selected={isActive}
-                aria-controls="panel-workshops-content"
-                id={`tab-${path.id}`}
+                aria-current={isActive ? "page" : undefined}
                 style={{
                   border: isActive ? "2px solid var(--fg1)" : "1px solid var(--rule)",
                   boxShadow: isActive ? "var(--shadow-stamp)" : "none",
@@ -279,152 +286,118 @@ export default async function WorkshopsPage({
               </Link>
             );
           })}
-        </div>
+        </nav>
+
+        <Rule />
 
         {/* Selected Content Panel */}
         <div
           id="panel-workshops-content"
-          role="tabpanel"
-          aria-labelledby={`tab-${activePath}`}
           className="hjc-fade"
           key={activePath}
-          style={{ marginTop: "60px" }}
         >
-          {selectedTrack === "writing" && (
+          {selectedTrack === "writing" && currentPathConfig && (
             <>
-              {/* Context Heading */}
-              {activePath === "auckland-live" && (
-                <div style={{ marginBottom: "48px" }}>
-                  <SectionHeading
-                    title="Auckland Live Sprint Workshops"
-                    subtitle="Drop-in writing sprint sessions held in Auckland. Timed prompts, group energy, and a structured container for stories you haven’t written yet."
-                  />
-                  <div style={{ marginTop: "24px" }}>
-                    <a
-                      href={WORKSHOPS_MEETUP_URL}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="hjc-btn hjc-btn-yellow"
-                    >
-                      Join Auckland Sprint on Meetup
-                    </a>
-                  </div>
-                  <hr style={{ border: "none", borderTop: "1px solid var(--rule)", margin: "48px 0 0" }} />
-                </div>
-              )}
-
-              {activePath === "zoom-sprint" && (
-                <div style={{ marginBottom: "48px" }}>
-                  <SectionHeading
-                    title="Zoom Sprint Workshops"
-                    subtitle="The same guided sprint format, open to writers anywhere in Aotearoa and internationally. Join live from wherever you write."
-                  />
-                  <div style={{ marginTop: "24px" }}>
-                    <a
-                      href={WORKSHOPS_MEETUP_URL}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="hjc-btn hjc-btn-yellow"
-                    >
-                      Join Zoom Sprint on Meetup
-                    </a>
-                  </div>
-                  <hr style={{ border: "none", borderTop: "1px solid var(--rule)", margin: "48px 0 0" }} />
-                </div>
-              )}
-
-              {activePath === "private-groups" && (
-                <div style={{ marginBottom: "48px" }}>
-                  <SectionHeading
-                    title="Creative & Legacy Writing Workshops"
-                    subtitle="Bespoke workshops tailored for your team, school, community group, marae, or care setting. We design the session around your people and purpose."
-                  />
-                  <div style={{ marginTop: "24px" }}>
-                    <Link
-                      href="/contact?interest=private-workshop"
-                      className="hjc-btn hjc-btn-yellow"
-                    >
-                      Enquire about a private workshop
-                    </Link>
-                  </div>
-                  <hr style={{ border: "none", borderTop: "1px solid var(--rule)", margin: "48px 0 0" }} />
-                </div>
-              )}
-
-              {/* Pricing */}
-              <div style={{ marginTop: "48px" }}>
+              {/* Context Heading (DRYed up dynamic rendering from config) */}
+              <div style={{ marginBottom: "48px" }}>
                 <SectionHeading
-                  title="Workshop Pricing"
-                  subtitle="All prices are GST exclusive. Custom quotes available for larger or specialist engagements."
+                  title={currentPathConfig.title}
+                  subtitle={currentPathConfig.summary}
                 />
-                <div
-                  className="grid grid-cols-3 gap-5 max-[1024px]:grid-cols-1"
-                  style={{ marginTop: "36px" }}
-                >
-                  {WORKSHOP_PRICING.map((tier) => (
-                    <div
-                      key={tier.title}
-                      style={{
-                        background: "var(--surface-inset)",
-                        border: "1px solid var(--rule)",
-                        padding: "28px 26px",
-                      }}
+                <div style={{ marginTop: "24px" }}>
+                  {currentPathConfig.external ? (
+                    <a
+                      href={currentPathConfig.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hjc-btn hjc-btn-yellow"
                     >
-                      <MonoLabel>{tier.title}</MonoLabel>
-                      <div
-                        style={{
-                          fontFamily: "var(--font-display)",
-                          fontSize: "clamp(1.8rem, 3.5vw, 2.6rem)",
-                          lineHeight: 1,
-                          color: "var(--fg1)",
-                          marginBottom: "10px",
-                        }}
-                      >
-                        {tier.price}
-                      </div>
-                      <div
-                        style={{
-                          fontFamily: "var(--font-mono)",
-                          fontSize: "11px",
-                          letterSpacing: "0.1em",
-                          textTransform: "uppercase",
-                          color: "var(--fg3)",
-                        }}
-                      >
-                        {tier.detail}
-                      </div>
-                    </div>
-                  ))}
+                      {currentPathConfig.panelActionText}
+                    </a>
+                  ) : (
+                    <Link
+                      href={currentPathConfig.href}
+                      className="hjc-btn hjc-btn-yellow"
+                    >
+                      {currentPathConfig.panelActionText}
+                    </Link>
+                  )}
                 </div>
-                <p
-                  style={{
-                    fontFamily: "var(--font-mono)",
-                    fontSize: "10px",
-                    letterSpacing: "0.08em",
-                    color: "var(--fg3)",
-                    marginTop: "16px",
-                    lineHeight: 1.6,
-                  }}
-                >
-                  Custom programmes, travel, larger groups, specialist preparation, and sessions
-                  longer than two hours can be quoted separately.
-                </p>
-                <p
-                  style={{
-                    fontFamily: "var(--font-mono)",
-                    fontSize: "10px",
-                    letterSpacing: "0.08em",
-                    color: "var(--fg3)",
-                    marginTop: "8px",
-                    lineHeight: 1.6,
-                  }}
-                >
-                  Custom AI workshop pricing may vary for larger teams, tailored use cases, travel,
-                  discovery, or multi-session delivery.
-                </p>
+                <Rule />
               </div>
 
-              <hr style={{ border: "none", borderTop: "1px solid var(--rule)", margin: "60px 0" }} />
+              {/* Pricing */}
+              <SectionHeading
+                title="Workshop Pricing"
+                subtitle="All prices are GST exclusive. Custom quotes available for larger or specialist engagements."
+              />
+              <div
+                className="grid grid-cols-3 gap-5 max-[1024px]:grid-cols-1"
+                style={{ marginTop: "36px" }}
+              >
+                {WORKSHOP_PRICING.map((tier) => (
+                  <div
+                    key={tier.title}
+                    style={{
+                      background: "var(--surface-inset)",
+                      border: "1px solid var(--rule)",
+                      padding: "28px 26px",
+                    }}
+                  >
+                    <MonoLabel>{tier.title}</MonoLabel>
+                    <div
+                      style={{
+                        fontFamily: "var(--font-display)",
+                        fontSize: "clamp(1.8rem, 3.5vw, 2.6rem)",
+                        lineHeight: 1,
+                        color: "var(--fg1)",
+                        marginBottom: "10px",
+                      }}
+                    >
+                      {tier.price}
+                    </div>
+                    <div
+                      style={{
+                        fontFamily: "var(--font-mono)",
+                        fontSize: "11px",
+                        letterSpacing: "0.1em",
+                        textTransform: "uppercase",
+                        color: "var(--fg3)",
+                      }}
+                    >
+                      {tier.detail}
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <p
+                style={{
+                  fontFamily: "var(--font-mono)",
+                  fontSize: "10px",
+                  letterSpacing: "0.08em",
+                  color: "var(--fg3)",
+                  marginTop: "16px",
+                  lineHeight: 1.6,
+                }}
+              >
+                Custom programmes, travel, larger groups, specialist preparation, and sessions
+                longer than two hours can be quoted separately.
+              </p>
+              <p
+                style={{
+                  fontFamily: "var(--font-mono)",
+                  fontSize: "10px",
+                  letterSpacing: "0.08em",
+                  color: "var(--fg3)",
+                  marginTop: "8px",
+                  lineHeight: 1.6,
+                }}
+              >
+                Custom AI workshop pricing may vary for larger teams, tailored use cases, travel,
+                discovery, or multi-session delivery.
+              </p>
+
+              <Rule />
 
               {/* Sprint format */}
               <SectionHeading
@@ -491,7 +464,7 @@ export default async function WorkshopsPage({
                 ))}
               </div>
 
-              <hr style={{ border: "none", borderTop: "1px solid var(--rule)", margin: "60px 0" }} />
+              <Rule />
 
               {/* Private audience section */}
               <SectionHeading
@@ -564,7 +537,7 @@ export default async function WorkshopsPage({
                 </div>
               </div>
 
-              <hr style={{ border: "none", borderTop: "1px solid var(--rule)", margin: "60px 0" }} />
+              <Rule />
 
               {/* Facilitator note */}
               <div
@@ -604,7 +577,7 @@ export default async function WorkshopsPage({
                 </a>
               </div>
 
-              <hr style={{ border: "none", borderTop: "1px solid var(--rule)", margin: "60px 0" }} />
+              <Rule />
 
               {/* Final CTA row */}
               <div
