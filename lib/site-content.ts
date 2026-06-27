@@ -75,7 +75,7 @@ export const WORKSHOP_PRICING: WorkshopPricingTier[] = [
   {
     title: "AI Engineering full-day intensive",
     price: "From $2,000 + GST",
-    detail: "Corporate full-day workshop. Hands-on AI-assisted SaaS or micro-SaaS prototype build using VouchMeApp as the exemplar.",
+    detail: "Full-day corporate intensive. Hands-on SaaS prototype build.",
   },
 ];
 

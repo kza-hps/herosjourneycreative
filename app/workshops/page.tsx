@@ -106,7 +106,7 @@ export default function WorkshopsPage() {
           subtitle="Public sessions are open-enrolment via Meetup. Private bookings are arranged directly with the studio."
         />
         <div
-          className="grid grid-cols-2 gap-5 max-[880px]:grid-cols-1"
+          className="grid grid-cols-2 gap-5 max-[560px]:grid-cols-1"
           style={{ marginTop: "36px" }}
         >
           {WORKSHOP_PATHWAY_CARDS.map((card) => (
