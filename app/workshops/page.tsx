@@ -746,136 +746,125 @@ export default async function WorkshopsPage({
                     </ul>
                   </div>
 
-                  {/* Delivery formats + Prerequisites */}
-                  <div
-                    className="grid grid-cols-[1fr_auto] gap-10 max-[880px]:grid-cols-1 max-[880px]:gap-8"
-                    style={{ alignItems: "start", marginBottom: "32px" }}
-                  >
-                    {/* Delivery formats */}
-                    <div>
-                      <MonoLabel>Delivery options</MonoLabel>
-                      <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-                        {AI_WORKSHOP_FORMATS.map((fmt) => (
-                          <div
-                            key={fmt.label}
+                  {/* Delivery options — horizontal card grid */}
+                  <div style={{ marginBottom: "36px" }}>
+                    <MonoLabel>Delivery options</MonoLabel>
+                    <div
+                      className="grid grid-cols-3 gap-5 max-[1024px]:grid-cols-2 max-[560px]:grid-cols-1"
+                    >
+                      {AI_WORKSHOP_FORMATS.map((fmt) => (
+                        <div
+                          key={fmt.label}
+                          style={{
+                            border: "1px solid var(--rule)",
+                            padding: "22px 20px",
+                            background: "var(--surface-inset)",
+                            display: "flex",
+                            flexDirection: "column",
+                            gap: "8px",
+                          }}
+                        >
+                          <span
                             style={{
-                              border: "1px solid var(--rule)",
-                              padding: "18px 20px",
-                              background: "var(--surface-inset)",
+                              fontFamily: "var(--font-display)",
+                              fontSize: "1rem",
+                              textTransform: "uppercase",
+                              color: "var(--fg1)",
+                              lineHeight: 1.1,
                             }}
                           >
-                            <div
+                            {fmt.label}
+                          </span>
+                          {fmt.price && (
+                            <span
                               style={{
-                                display: "flex",
-                                justifyContent: "space-between",
-                                alignItems: "baseline",
-                                flexWrap: "wrap",
-                                gap: "8px",
-                                marginBottom: "8px",
+                                fontFamily: "var(--font-mono)",
+                                fontSize: "10px",
+                                letterSpacing: "0.1em",
+                                textTransform: "uppercase",
+                                color: "var(--fg3)",
                               }}
                             >
-                              <span
-                                style={{
-                                  fontFamily: "var(--font-display)",
-                                  fontSize: "1rem",
-                                  textTransform: "uppercase",
-                                  color: "var(--fg1)",
-                                }}
-                              >
-                                {fmt.label}
-                              </span>
-                              {fmt.price && (
-                                <span
-                                  style={{
-                                    fontFamily: "var(--font-mono)",
-                                    fontSize: "9px",
-                                    letterSpacing: "0.12em",
-                                    textTransform: "uppercase",
-                                    color: "var(--fg3)",
-                                  }}
-                                >
-                                  {fmt.price}
-                                </span>
-                              )}
-                            </div>
-                            <p
-                              style={{
-                                fontFamily: "var(--font-serif)",
-                                fontSize: "var(--step-body)",
-                                lineHeight: 1.6,
-                                color: "var(--fg2)",
-                                margin: 0,
-                              }}
-                            >
-                              {fmt.description}
-                            </p>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* Prerequisites */}
-                    <div
-                      style={{
-                        border: "1px solid var(--rule)",
-                        padding: "26px 24px",
-                        background: "var(--surface-inset)",
-                        minWidth: "300px",
-                      }}
-                      className="max-[880px]:min-w-0 max-[880px]:w-full"
-                    >
-                      <MonoLabel>Assumptions and prerequisites</MonoLabel>
-                      <ul
-                        style={{
-                          margin: "0 0 18px",
-                          padding: 0,
-                          listStyle: "none",
-                          display: "flex",
-                          flexDirection: "column",
-                          gap: "10px",
-                        }}
-                      >
-                        {AI_WORKSHOP_PREREQUISITES.map((item) => (
-                          <li
-                            key={item}
+                              {fmt.price}
+                            </span>
+                          )}
+                          <p
                             style={{
                               fontFamily: "var(--font-serif)",
                               fontSize: "var(--step-body)",
-                              lineHeight: 1.5,
+                              lineHeight: 1.6,
                               color: "var(--fg2)",
+                              margin: 0,
+                              flex: 1,
                             }}
                           >
-                            {item}
-                          </li>
-                        ))}
-                      </ul>
-                      <p
-                        style={{
-                          fontFamily: "var(--font-serif)",
-                          fontWeight: 600,
-                          fontSize: "var(--step-body)",
-                          lineHeight: 1.5,
-                          color: "var(--fg1)",
-                          margin: "0 0 12px",
-                        }}
-                      >
-                        Microsoft 365 Copilot on its own is not sufficient for this workshop.
-                      </p>
-                      <p
-                        style={{
-                          fontFamily: "var(--font-serif)",
-                          fontSize: "var(--step-body)",
-                          lineHeight: 1.5,
-                          color: "var(--fg2)",
-                          margin: 0,
-                        }}
-                      >
-                        Participants do not need to be professional developers, but they do need
-                        access to a capable frontier model such as ChatGPT, Claude, Gemini, or an
-                        equivalent coding-capable AI assistant. The workshop is designed for people
-                        who want to learn the build process, not simply watch a presentation about AI.
-                      </p>
+                            {fmt.description}
+                          </p>
+                        </div>
+                      ))}
                     </div>
+                  </div>
+
+                  {/* Assumptions and prerequisites */}
+                  <div
+                    style={{
+                      border: "1px solid var(--rule)",
+                      padding: "26px 24px",
+                      background: "var(--surface-inset)",
+                      marginBottom: "32px",
+                    }}
+                  >
+                    <MonoLabel>Assumptions and prerequisites</MonoLabel>
+                    <ul
+                      style={{
+                        margin: "0 0 18px",
+                        padding: 0,
+                        listStyle: "none",
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "10px",
+                      }}
+                    >
+                      {AI_WORKSHOP_PREREQUISITES.map((item) => (
+                        <li
+                          key={item}
+                          style={{
+                            fontFamily: "var(--font-serif)",
+                            fontSize: "var(--step-body)",
+                            lineHeight: 1.5,
+                            color: "var(--fg2)",
+                          }}
+                        >
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                    <p
+                      style={{
+                        fontFamily: "var(--font-serif)",
+                        fontWeight: 600,
+                        fontSize: "var(--step-body)",
+                        lineHeight: 1.5,
+                        color: "var(--fg1)",
+                        margin: "0 0 12px",
+                      }}
+                    >
+                      Microsoft 365 Copilot on its own is not sufficient for this workshop.
+                    </p>
+                    <p
+                      style={{
+                        fontFamily: "var(--font-serif)",
+                        fontSize: "var(--step-body)",
+                        lineHeight: 1.5,
+                        color: "var(--fg2)",
+                        margin: 0,
+                      }}
+                    >
+                      Participants do not need to be professional developers, but they do need
+                      access to a capable frontier model such as ChatGPT, Claude, Gemini, or an
+                      equivalent coding-capable AI assistant. The workshop is designed for people
+                      who want to learn the build process, not simply watch a presentation about AI.
+                    </p>
                   </div>
 
                   {/* Best suited for */}
