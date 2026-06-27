@@ -65,7 +65,7 @@ export const WORKSHOP_PRICING: WorkshopPricingTier[] = [
   {
     title: "Writing workshop",
     price: "$350 + GST",
-    detail: "Up to 20 participants, up to 2 hours",
+    detail: "Up to 20 participants, up to 2 hours.",
   },
   {
     title: "Writing workshop bundle",
