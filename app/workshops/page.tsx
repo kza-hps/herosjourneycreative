@@ -190,7 +190,7 @@ export default function WorkshopsPage() {
           subtitle="All prices are GST exclusive. Custom quotes available for larger or specialist engagements."
         />
         <div
-          className="grid grid-cols-3 gap-5 max-[880px]:grid-cols-1"
+          className="grid grid-cols-3 gap-5 max-[1024px]:grid-cols-1"
           style={{ marginTop: "36px" }}
         >
           {WORKSHOP_PRICING.map((tier) => (
