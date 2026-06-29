@@ -180,7 +180,7 @@ export default async function ChapterPage({
                   Previous
                 </p>
                 <Link
-                  href="/journal/ho-and-the-baby-eater/epigraph"
+                  href={`/journal/ho-and-the-baby-eater/${epigraph.slug}`}
                   className="hjc-lnk"
                 >
                   {epigraph.label}

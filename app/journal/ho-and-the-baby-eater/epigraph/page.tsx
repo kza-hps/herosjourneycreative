@@ -12,13 +12,14 @@ import styles from "../[slug]/reader.module.css";
 
 export function generateMetadata(): Metadata {
   const epigraph = getFrontMatterBySlug("epigraph");
+  const published = epigraph?.status === "published";
   return {
-    title: epigraph
-      ? `${epigraph.title} - Ho & the Baby Eater | Hero's Journey Creative`
-      : "Epigraph - Ho & the Baby Eater | Hero's Journey Creative",
-    description:
-      epigraph?.summary ??
-      "The epigraph for Ho & the Baby Eater, a mythic fantasy serial by Kauri Tukere.",
+    title: published
+      ? `${epigraph!.title} - Ho & the Baby Eater | Hero's Journey Creative`
+      : "Ho & the Baby Eater | Hero's Journey Creative",
+    description: published
+      ? epigraph!.summary
+      : "A mythic fantasy serial by Kauri Tukere.",
   };
 }
 
