@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import {
   getBook,
   getPublishedChapters,
+  getPublishedFrontMatter,
   getChapterBySlug,
   getAdjacentChapters,
   renderChapterDocx,
@@ -47,6 +48,9 @@ export default async function ChapterPage({
 
   const book = getBook();
   const { prev, next } = getAdjacentChapters(slug);
+  const epigraph = !prev
+    ? getPublishedFrontMatter().find((item) => item.slug === "epigraph")
+    : undefined;
   const glossaryHref = "/journal/ho-and-the-baby-eater/glossary";
   const bodyHtml = await renderChapterDocx(chapter.sourceFile, chapter.title);
 
@@ -159,6 +163,27 @@ export default async function ChapterPage({
                   className="hjc-lnk"
                 >
                   Chapter {chapterWord(prev.chapterNumber)}
+                </Link>
+              </div>
+            ) : epigraph ? (
+              <div>
+                <p
+                  style={{
+                    fontFamily: "var(--font-mono)",
+                    fontSize: "9px",
+                    letterSpacing: "0.16em",
+                    textTransform: "uppercase",
+                    color: "var(--fg3)",
+                    margin: "0 0 6px",
+                  }}
+                >
+                  Previous
+                </p>
+                <Link
+                  href={`/journal/ho-and-the-baby-eater/${epigraph.slug}`}
+                  className="hjc-lnk"
+                >
+                  {epigraph.label}
                 </Link>
               </div>
             ) : (

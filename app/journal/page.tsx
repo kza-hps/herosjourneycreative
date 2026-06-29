@@ -1,8 +1,9 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { getBook, getPublishedChapters } from "@/lib/journal";
+import { getBook, getPublishedChapters, getPublishedFrontMatter } from "@/lib/journal";
 import BookCover from "@/components/book-cover";
 import ChapterCard from "@/components/chapter-card";
+import FrontMatterCard from "@/components/front-matter-card";
 
 export const metadata: Metadata = {
   title: "Journal — Ho & the Baby Eater | Hero's Journey Creative",
@@ -13,7 +14,14 @@ export const metadata: Metadata = {
 export default function JournalPage() {
   const book = getBook();
   const chapters = getPublishedChapters();
+  const frontMatter = getPublishedFrontMatter();
+  const epigraph = frontMatter.find((item) => item.slug === "epigraph");
   const firstChapter = chapters[0];
+  const startHref = epigraph
+    ? "/journal/ho-and-the-baby-eater/epigraph"
+    : firstChapter
+      ? `/journal/ho-and-the-baby-eater/${firstChapter.slug}`
+      : "#chapters";
 
   return (
     <div className="hjc-fade flex-1" style={{ background: "var(--bg)" }}>
@@ -90,9 +98,9 @@ export default function JournalPage() {
               </p>
 
               <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
-                {firstChapter && (
+                {(epigraph || firstChapter) && (
                   <Link
-                    href={`/journal/ho-and-the-baby-eater/${firstChapter.slug}`}
+                    href={startHref}
                     className="hjc-btn hjc-btn-yellow"
                   >
                     Start Reading
@@ -146,7 +154,7 @@ export default function JournalPage() {
             </h2>
           </div>
 
-          {chapters.length === 0 ? (
+          {frontMatter.length === 0 && chapters.length === 0 ? (
             <p
               style={{
                 fontFamily: "var(--font-serif)",
@@ -158,6 +166,9 @@ export default function JournalPage() {
             </p>
           ) : (
             <div className="grid grid-cols-3 gap-6 max-[880px]:grid-cols-1">
+              {frontMatter.map((item) => (
+                <FrontMatterCard key={item.slug} item={item} />
+              ))}
               {chapters.map((chapter) => (
                 <ChapterCard key={chapter.slug} chapter={chapter} />
               ))}

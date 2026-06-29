@@ -56,6 +56,61 @@
   line-height: 1.25;
 }
 
+.body blockquote {
+  margin: 0 0 3rem;
+  padding: 0;
+  border: none;
+}
+
+.body blockquote p,
+.body blockquote p:first-child {
+  text-indent: 0;
+  text-align: left;
+  font-style: normal;
+}
+
+.body blockquote footer {
+  margin-top: 1rem;
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--fg2);
+  text-align: right;
+}
+
+/* Epigraph-specific overrides — applied alongside .body on the epigraph page */
+.epigraphBody blockquote {
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+.epigraphBody blockquote:first-of-type {
+  margin-bottom: 4.5rem;
+}
+
+.epigraphBody blockquote + blockquote {
+  margin-top: 4.5rem;
+}
+
+.epigraphBody p {
+  text-indent: 0;
+  margin: 0 0 1.35rem;
+  line-height: 1.9;
+  text-align: left;
+}
+
+.epigraphBody footer {
+  margin-top: 1.75rem;
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--fg2);
+  text-align: right;
+}
+
+.epigraphBody blockquote:first-of-type footer {
+  margin-top: 1.5rem;
+}
+
 /* Mobile */
 @media (max-width: 880px) {
   .body {
