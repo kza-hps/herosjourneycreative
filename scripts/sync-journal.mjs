@@ -162,6 +162,61 @@ async function chapterFromFile(fileName, existingByNumber) {
   };
 }
 
+/**
+ * Converts epigraph.docx → epigraph.html if epigraph.docx exists.
+ *
+ * The DOCX must follow this paragraph convention:
+ *   - Content paragraphs for a blockquote, then one attribution paragraph
+ *     starting with "—". This attribution line ends the blockquote.
+ *   - Blank paragraphs between blockquotes are ignored.
+ *
+ * To update the Epigraph: edit public/journal/epigraph.docx in Word, then
+ * run `npm run journal:sync`. The HTML is regenerated automatically.
+ */
+async function syncEpigraph() {
+  const docxPath = path.join(JOURNAL_DIR, "epigraph.docx");
+  if (!fs.existsSync(docxPath)) {
+    console.log("No epigraph.docx found; skipping epigraph sync.");
+    return;
+  }
+
+  const { value: rawHtml } = await mammoth.convertToHtml({ path: docxPath });
+  const html = buildEpigraphHtml(rawHtml);
+
+  const outputPath = path.join(JOURNAL_DIR, "epigraph.html");
+  fs.writeFileSync(outputPath, html + "\n", "utf8");
+  console.log(`Regenerated ${path.relative(process.cwd(), outputPath)} from epigraph.docx`);
+}
+
+function buildEpigraphHtml(mammothHtml) {
+  const paragraphRegex = /<p(?:[^>]*)>([\s\S]*?)<\/p>/g;
+  const inners = [...mammothHtml.matchAll(paragraphRegex)].map(([, inner]) => inner);
+
+  const blockquotes = [];
+  let currentBody = [];
+
+  for (const inner of inners) {
+    const text = inner.replace(/<[^>]+>/g, "").replace(/&[a-z]+;/g, " ").trim();
+    if (!text) continue;
+
+    if (/^[—–-]/.test(text)) {
+      if (currentBody.length > 0) {
+        blockquotes.push({ body: [...currentBody], attribution: inner });
+        currentBody = [];
+      }
+    } else {
+      currentBody.push(inner);
+    }
+  }
+
+  return blockquotes
+    .map(({ body, attribution }) => {
+      const bodyHtml = body.map((p) => `  <p>${p}</p>`).join("\n\n");
+      return `<blockquote>\n${bodyHtml}\n\n  <footer>${attribution}</footer>\n</blockquote>`;
+    })
+    .join("\n\n");
+}
+
 async function main() {
   const existingByNumber = readExistingChapters();
   const files = fs
@@ -181,6 +236,8 @@ async function main() {
   const chaptersPath = path.join(JOURNAL_DIR, "chapters.json");
   fs.writeFileSync(chaptersPath, `${JSON.stringify(chapters, null, 2)}\n`, "utf8");
   console.log(`Synced ${chapters.length} journal chapters to ${path.relative(process.cwd(), chaptersPath)}`);
+
+  await syncEpigraph();
 }
 
 main().catch((error) => {

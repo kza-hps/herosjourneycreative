@@ -303,8 +303,6 @@ function stripOpeningTitlePrefix(html: string, title: string): string {
   if (!match || !match[0]) return html;
 
   const innerHtml = match[1];
-  if (/<[^>]+>/.test(innerHtml)) return html;
-
   const paragraphText = normalizeParagraphText(innerHtml);
   const normalizedParagraph = normalizeComparableText(paragraphText);
   const normalizedTitle = normalizeComparableText(title);

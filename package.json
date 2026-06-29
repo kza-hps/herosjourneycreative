@@ -8,6 +8,7 @@
     "prebuild": "node scripts/hash-tam-frozen.mjs && node scripts/build-glossary-from-docx.mjs",
     "glossary:build": "node scripts/build-glossary-from-docx.mjs",
     "journal:sync": "node scripts/sync-journal.mjs",
+    "epigraph:create": "node scripts/create-epigraph-docx.mjs",
     "start": "next start",
     "lint": "eslint"
   },
@@ -23,6 +24,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "docx": "^9.7.1",
     "eslint": "^9",
     "eslint-config-next": "16.2.6",
     "tailwindcss": "^4",
