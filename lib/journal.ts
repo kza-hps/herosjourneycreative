@@ -80,6 +80,16 @@ function assertChapters(data: unknown): ChapterMeta[] {
   });
 }
 
+const FRONT_MATTER_STATUSES = ["published", "draft", "scheduled"] as const;
+
+function resolveSafeJournalPath(sourceFile: string, label: string): string {
+  const resolved = path.resolve(JOURNAL_DIR, sourceFile);
+  if (!resolved.startsWith(path.resolve(JOURNAL_DIR) + path.sep)) {
+    throw new Error(`${label}: sourceFile must be within the journal directory`);
+  }
+  return resolved;
+}
+
 function assertFrontMatter(data: unknown): FrontMatterMeta[] {
   if (!Array.isArray(data)) throw new Error("front-matter.json: must be an array");
   const slugs = new Set<string>();
@@ -90,7 +100,11 @@ function assertFrontMatter(data: unknown): FrontMatterMeta[] {
     if (!d.slug) throw new Error(`front-matter.json[${i}]: missing slug`);
     if (!d.summary) throw new Error(`front-matter.json[${i}]: missing summary`);
     if (!d.sourceFile) throw new Error(`front-matter.json[${i}]: missing sourceFile`);
-    if (!d.status) throw new Error(`front-matter.json[${i}]: missing status`);
+    if (!FRONT_MATTER_STATUSES.includes(d.status as typeof FRONT_MATTER_STATUSES[number])) {
+      throw new Error(
+        `front-matter.json[${i}]: status must be one of ${FRONT_MATTER_STATUSES.join(", ")}`
+      );
+    }
     if (!d.publishDate) throw new Error(`front-matter.json[${i}]: missing publishDate`);
     if (!d.label) throw new Error(`front-matter.json[${i}]: missing label`);
     if (!d.ctaLabel) throw new Error(`front-matter.json[${i}]: missing ctaLabel`);
@@ -99,7 +113,10 @@ function assertFrontMatter(data: unknown): FrontMatterMeta[] {
     }
     slugs.add(d.slug as string);
     if (d.status === "published") {
-      const sourcePath = path.join(JOURNAL_DIR, d.sourceFile as string);
+      const sourcePath = resolveSafeJournalPath(
+        d.sourceFile as string,
+        `front-matter.json[${i}]`
+      );
       if (!fs.existsSync(sourcePath)) {
         throw new Error(
           `front-matter.json[${i}]: published source file not found: ${d.sourceFile}`
@@ -366,7 +383,7 @@ export async function renderChapterDocx(sourceFile: string, chapterTitle?: strin
 }
 
 export function renderFrontMatterHtml(sourceFile: string): string {
-  const sourcePath = path.join(JOURNAL_DIR, sourceFile);
+  const sourcePath = resolveSafeJournalPath(sourceFile, "renderFrontMatterHtml");
   if (!fs.existsSync(sourcePath)) {
     throw new Error(`Front matter source file not found: ${sourceFile}`);
   }
