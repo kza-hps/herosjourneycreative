@@ -28,6 +28,18 @@ export interface ChapterMeta {
   contentWarning?: string;
 }
 
+export interface FrontMatterMeta {
+  kind: "epigraph";
+  title: string;
+  slug: string;
+  sourceFile: string;
+  summary: string;
+  status: "published" | "draft" | "scheduled";
+  publishDate: string;
+  label: string;
+  ctaLabel: string;
+}
+
 function assertBook(data: unknown): BookMeta {
   if (!data || typeof data !== "object") throw new Error("book.json: invalid format");
   const d = data as Record<string, unknown>;
@@ -68,6 +80,36 @@ function assertChapters(data: unknown): ChapterMeta[] {
   });
 }
 
+function assertFrontMatter(data: unknown): FrontMatterMeta[] {
+  if (!Array.isArray(data)) throw new Error("front-matter.json: must be an array");
+  const slugs = new Set<string>();
+  return data.map((item, i) => {
+    const d = item as Record<string, unknown>;
+    if (d.kind !== "epigraph") throw new Error(`front-matter.json[${i}]: unsupported kind`);
+    if (!d.title) throw new Error(`front-matter.json[${i}]: missing title`);
+    if (!d.slug) throw new Error(`front-matter.json[${i}]: missing slug`);
+    if (!d.summary) throw new Error(`front-matter.json[${i}]: missing summary`);
+    if (!d.sourceFile) throw new Error(`front-matter.json[${i}]: missing sourceFile`);
+    if (!d.status) throw new Error(`front-matter.json[${i}]: missing status`);
+    if (!d.publishDate) throw new Error(`front-matter.json[${i}]: missing publishDate`);
+    if (!d.label) throw new Error(`front-matter.json[${i}]: missing label`);
+    if (!d.ctaLabel) throw new Error(`front-matter.json[${i}]: missing ctaLabel`);
+    if (slugs.has(d.slug as string)) {
+      throw new Error(`front-matter.json: duplicate slug "${d.slug}"`);
+    }
+    slugs.add(d.slug as string);
+    if (d.status === "published") {
+      const sourcePath = path.join(JOURNAL_DIR, d.sourceFile as string);
+      if (!fs.existsSync(sourcePath)) {
+        throw new Error(
+          `front-matter.json[${i}]: published source file not found: ${d.sourceFile}`
+        );
+      }
+    }
+    return d as unknown as FrontMatterMeta;
+  });
+}
+
 export function getBook(): BookMeta {
   const bookPath = path.join(JOURNAL_DIR, "book.json");
   if (!fs.existsSync(bookPath)) {
@@ -82,6 +124,22 @@ export function getAllChapters(): ChapterMeta[] {
     throw new Error("chapters.json is missing from public/journal/");
   }
   return assertChapters(JSON.parse(fs.readFileSync(chaptersPath, "utf-8")));
+}
+
+export function getAllFrontMatter(): FrontMatterMeta[] {
+  const frontMatterPath = path.join(JOURNAL_DIR, "front-matter.json");
+  if (!fs.existsSync(frontMatterPath)) {
+    return [];
+  }
+  return assertFrontMatter(JSON.parse(fs.readFileSync(frontMatterPath, "utf-8")));
+}
+
+export function getPublishedFrontMatter(): FrontMatterMeta[] {
+  return getAllFrontMatter().filter((item) => item.status === "published");
+}
+
+export function getFrontMatterBySlug(slug: string): FrontMatterMeta | undefined {
+  return getAllFrontMatter().find((item) => item.slug === slug);
 }
 
 export function getPublishedChapters(): ChapterMeta[] {
@@ -305,6 +363,18 @@ export async function renderChapterDocx(sourceFile: string, chapterTitle?: strin
     throw new Error(`Chapter body is empty after processing: ${sourceFile}`);
   }
   return processed;
+}
+
+export function renderFrontMatterHtml(sourceFile: string): string {
+  const sourcePath = path.join(JOURNAL_DIR, sourceFile);
+  if (!fs.existsSync(sourcePath)) {
+    throw new Error(`Front matter source file not found: ${sourceFile}`);
+  }
+  const sanitized = sanitizeHtml(fs.readFileSync(sourcePath, "utf-8"));
+  if (!sanitized.trim()) {
+    throw new Error(`Front matter body is empty after processing: ${sourceFile}`);
+  }
+  return sanitized;
 }
 
 function addGlossaryAnchors(html: string): string {
