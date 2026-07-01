@@ -281,7 +281,7 @@ export const LANE_ITEMS: LaneItem[] = [
     no: "03",
     id: "journal",
     title: "Journal",
-    description: "Reflections on language, notes from the workshop table, and careful AI enquiry.",
+    description: "Original works, serial fiction, language notes, and reflections from the workshop table.",
     href: "/journal",
   },
   {
