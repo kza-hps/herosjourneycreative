@@ -33,12 +33,15 @@ const NUMBER_WORDS = [
 
 function sentenceTitle(value) {
   const trimmed = value.replace(/\s+/g, " ").trim();
-  const firstLetter = trimmed.search(/[A-Za-zÀ-ž]/);
+  const cased = /[A-Za-zÀ-ž]/.test(trimmed) && trimmed === trimmed.toLocaleUpperCase()
+    ? trimmed.toLocaleLowerCase()
+    : trimmed;
+  const firstLetter = cased.search(/[A-Za-zÀ-ž]/);
   if (firstLetter < 0) return trimmed;
   return (
-    trimmed.slice(0, firstLetter) +
-    trimmed[firstLetter].toLocaleUpperCase() +
-    trimmed.slice(firstLetter + 1)
+    cased.slice(0, firstLetter) +
+    cased[firstLetter].toLocaleUpperCase() +
+    cased.slice(firstLetter + 1)
   );
 }
 
@@ -48,10 +51,15 @@ function normalizeText(value) {
 
 function stripChapterHeading(lines) {
   const copy = [...lines];
-  if (/^CHAPTER\s+\S+$/i.test(copy[0] ?? "")) {
+  if (/^CHAPTER\s+/i.test(copy[0] ?? "")) {
     copy.shift();
   }
   return copy;
+}
+
+function titleFromChapterHeading(line) {
+  const match = normalizeText(line).match(/^CHAPTER\s+[^|:–—-]+(?:\s*(?:\||:|–|—|-)\s*(.+))?$/i);
+  return match?.[1] ? sentenceTitle(cleanTitleLead(match[1])) : null;
 }
 
 function sentenceTokens(value) {
@@ -89,6 +97,9 @@ function cleanTitleLead(value) {
 }
 
 function extractTitle(lines) {
+  const headingTitle = titleFromChapterHeading(lines[0] ?? "");
+  if (headingTitle) return headingTitle;
+
   const bodyLines = stripChapterHeading(lines);
   const opening = bodyLines[0] ?? "";
   const lead = titleLead(opening);
@@ -153,7 +164,7 @@ async function chapterFromFile(fileName, existingByNumber) {
   return {
     chapterNumber,
     title,
-    slug: slugify(title, chapterNumber),
+    slug: existing?.sourceFile === fileName ? existing.slug : slugify(title, chapterNumber),
     sourceFile: fileName,
     summary: existing?.sourceFile === fileName ? existing.summary : excerpt(lines, title),
     status: "published",
