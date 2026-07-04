@@ -27,7 +27,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const book = getBook();
   return createPageMetadata({
     title: `${book.glossaryTitle ?? "Glossary"} | ${book.title} | Hero's Journey Creative`,
-    description: book.glossaryDescription ?? "A glossary for Ho & the Baby Eater.",
+    description: book.glossaryDescription || "A glossary for Ho & the Baby Eater.",
     canonical: "/journal/ho-and-the-baby-eater/glossary",
   });
 }
