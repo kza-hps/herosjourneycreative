@@ -31,7 +31,7 @@ export async function generateMetadata({
   const book = getBook();
   return createPageMetadata({
     title: `Chapter ${chapterWord(chapter.chapterNumber)}: ${chapter.title} - ${book.title} | Hero's Journey Creative`,
-    description: chapter.summary,
+    description: chapter.summary || `Read Chapter ${chapterWord(chapter.chapterNumber)} of ${book.title}.`,
     canonical: `/journal/ho-and-the-baby-eater/${chapter.slug}`,
   });
 }

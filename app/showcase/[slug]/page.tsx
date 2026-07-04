@@ -28,7 +28,7 @@ export async function generateMetadata({
   if (!item) return {};
   return createPageMetadata({
     title: `${item.title} — Showcase | Hero's Journey Creative`,
-    description: item.detail.heroSubtitle,
+    description: item.detail.heroSubtitle || `${item.title} — a project by Hero's Journey Creative.`,
     canonical: `/showcase/${item.slug}`,
   });
 }

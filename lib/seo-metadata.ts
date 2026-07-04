@@ -10,7 +10,7 @@ const defaultOgImage = {
 
 type PageMetadataOptions = {
   title: string;
-  description: string;
+  description?: string;
   canonical: string;
   openGraphTitle?: string;
   openGraphDescription?: string;
@@ -25,11 +25,11 @@ export function createPageMetadata({
 }: PageMetadataOptions): Metadata {
   return {
     title,
-    description,
+    ...(description && { description }),
     alternates: { canonical },
     openGraph: {
       title: openGraphTitle,
-      description: openGraphDescription,
+      ...(openGraphDescription && { description: openGraphDescription }),
       url: canonical,
       siteName,
       locale: "en_NZ",
@@ -39,7 +39,7 @@ export function createPageMetadata({
     twitter: {
       card: "summary_large_image",
       title: openGraphTitle,
-      description: openGraphDescription,
+      ...(openGraphDescription && { description: openGraphDescription }),
       images: [defaultOgImage.url],
     },
   };
