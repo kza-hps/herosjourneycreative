@@ -20,6 +20,7 @@ export function generateMetadata(): Metadata {
     description: published
       ? epigraph!.summary
       : "A mythic fantasy serial by Kauri Tukere.",
+    alternates: { canonical: "/journal/ho-and-the-baby-eater/epigraph" },
   };
 }
 

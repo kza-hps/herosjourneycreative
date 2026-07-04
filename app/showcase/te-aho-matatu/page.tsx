@@ -18,6 +18,7 @@ const item = SHOWCASE_ITEMS.find((i) => i.slug === "te-aho-matatu")!;
 export const metadata: Metadata = {
   title: `${item.title} — Showcase | Hero's Journey Creative`,
   description: item.detail.heroSubtitle,
+  alternates: { canonical: "/showcase/te-aho-matatu" },
 };
 
 function DetailBlock({ label, children }: { label: string; children: React.ReactNode }) {

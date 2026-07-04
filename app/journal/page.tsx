@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   title: "Journal — Ho & the Baby Eater | Hero's Journey Creative",
   description:
     "A Polynesian-inspired mythic fantasy novel about exile, hunger, mana, prophecy, pride, gods, monsters, and the cost of becoming a hero.",
+  alternates: { canonical: "/journal" },
 };
 
 export default function JournalPage() {

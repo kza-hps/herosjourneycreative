@@ -28,6 +28,7 @@ export async function generateMetadata({
   return {
     title: `${item.title} — Showcase | Hero's Journey Creative`,
     description: item.detail.heroSubtitle,
+    alternates: { canonical: `/showcase/${item.slug}` },
   };
 }
 

@@ -1,4 +1,12 @@
 import Link from "next/link";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Legacy Writing | Hero's Journey Creative",
+  description:
+    "Legacy writing and personal story support for memoirs, family histories, archives, and meaningful life stories.",
+  alternates: { canonical: "/legacy-writing" },
+};
 
 export default function LegacyWritingPage() {
   return (

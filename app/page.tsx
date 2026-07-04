@@ -4,7 +4,12 @@ import ShowcaseCard from "@/components/showcase-card";
 import CtaBand from "@/components/cta-band";
 import SectionHeading from "@/components/section-heading";
 import Link from "next/link";
+import type { Metadata } from "next";
 import { LANE_ITEMS, SHOWCASE_ITEMS } from "@/lib/site-content";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
 
 export default function Home() {
   return (

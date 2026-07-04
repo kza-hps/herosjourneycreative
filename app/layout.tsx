@@ -34,13 +34,9 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://www.herosjourneycreative.co.nz"),
   title: "Hero's Journey Creative | Writing, Workshops, Story Worlds",
   description: "A story-led creative studio for human writing practice, disciplined AI engineering, and careful enquiry into the future of creativity, memory, and technology.",
-  alternates: {
-    canonical: "/",
-  },
   openGraph: {
     title: "Hero's Journey Creative",
     description: "A story-led creative studio for human writing practice, disciplined AI engineering, and careful enquiry into the future of creativity, memory, and technology.",
-    url: "https://herosjourneycreative.co.nz",
     siteName: "Hero's Journey Creative",
     locale: "en_NZ",
     type: "website",
