@@ -1,12 +1,12 @@
 import Link from "next/link";
-import type { Metadata } from "next";
+import { createPageMetadata } from "@/lib/seo-metadata";
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: "About | Hero's Journey Creative",
   description:
     "A story-led creative studio in Aotearoa New Zealand working across human writing practice, disciplined AI engineering, and careful technology enquiry.",
-  alternates: { canonical: "/about" },
-};
+  canonical: "/about",
+});
 
 export default function AboutPage() {
   return (

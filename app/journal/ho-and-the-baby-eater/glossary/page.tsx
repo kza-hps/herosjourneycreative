@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import Link from "next/link";
 import type { Metadata } from "next";
+import { createPageMetadata } from "@/lib/seo-metadata";
 import { getBook } from "@/lib/journal";
 import ReturnToReading from "./return-to-reading";
 import GlossaryClient, { type GlossarySection } from "./glossary-client";
@@ -24,11 +25,11 @@ function getGlossaryData(): GlossaryData {
 
 export async function generateMetadata(): Promise<Metadata> {
   const book = getBook();
-  return {
+  return createPageMetadata({
     title: `${book.glossaryTitle ?? "Glossary"} | ${book.title} | Hero's Journey Creative`,
-    description: book.glossaryDescription,
-    alternates: { canonical: "/journal/ho-and-the-baby-eater/glossary" },
-  };
+    description: book.glossaryDescription ?? "A glossary for Ho & the Baby Eater.",
+    canonical: "/journal/ho-and-the-baby-eater/glossary",
+  });
 }
 
 export default function GlossaryPage() {

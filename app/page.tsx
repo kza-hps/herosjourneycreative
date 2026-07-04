@@ -4,12 +4,16 @@ import ShowcaseCard from "@/components/showcase-card";
 import CtaBand from "@/components/cta-band";
 import SectionHeading from "@/components/section-heading";
 import Link from "next/link";
-import type { Metadata } from "next";
+import { createPageMetadata } from "@/lib/seo-metadata";
 import { LANE_ITEMS, SHOWCASE_ITEMS } from "@/lib/site-content";
 
-export const metadata: Metadata = {
-  alternates: { canonical: "/" },
-};
+export const metadata = createPageMetadata({
+  title: "Hero's Journey Creative | Writing, Workshops, Story Worlds",
+  description:
+    "A story-led creative studio for human writing practice, disciplined AI engineering, and careful enquiry into the future of creativity, memory, and technology.",
+  canonical: "/",
+  openGraphTitle: "Hero's Journey Creative",
+});
 
 export default function Home() {
   return (

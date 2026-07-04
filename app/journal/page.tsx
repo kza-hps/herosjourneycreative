@@ -1,16 +1,16 @@
 import Link from "next/link";
-import type { Metadata } from "next";
+import { createPageMetadata } from "@/lib/seo-metadata";
 import { getBook, getPublishedChapters, getPublishedFrontMatter } from "@/lib/journal";
 import BookCover from "@/components/book-cover";
 import ChapterCard from "@/components/chapter-card";
 import FrontMatterCard from "@/components/front-matter-card";
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: "Journal — Ho & the Baby Eater | Hero's Journey Creative",
   description:
     "A Polynesian-inspired mythic fantasy novel about exile, hunger, mana, prophecy, pride, gods, monsters, and the cost of becoming a hero.",
-  alternates: { canonical: "/journal" },
-};
+  canonical: "/journal",
+});
 
 export default function JournalPage() {
   const book = getBook();

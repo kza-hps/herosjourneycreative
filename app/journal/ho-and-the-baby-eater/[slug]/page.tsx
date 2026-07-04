@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import type { Metadata } from "next";
+import { createPageMetadata } from "@/lib/seo-metadata";
 import {
   getBook,
   getPublishedChapters,
@@ -28,11 +29,11 @@ export async function generateMetadata({
   const chapter = getChapterBySlug(slug);
   if (!chapter || chapter.status !== "published") return {};
   const book = getBook();
-  return {
+  return createPageMetadata({
     title: `Chapter ${chapterWord(chapter.chapterNumber)}: ${chapter.title} - ${book.title} | Hero's Journey Creative`,
     description: chapter.summary,
-    alternates: { canonical: `/journal/ho-and-the-baby-eater/${chapter.slug}` },
-  };
+    canonical: `/journal/ho-and-the-baby-eater/${chapter.slug}`,
+  });
 }
 
 export default async function ChapterPage({
