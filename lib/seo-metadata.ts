@@ -42,7 +42,7 @@ export function createPageMetadata({
     twitter: {
       card: "summary_large_image",
       title: openGraphTitle,
-      ...(openGraphDescription !== undefined ? { description: openGraphDescription } : {}),
+      ...(hasOpenGraphDescription ? { description: openGraphDescription } : {}),
       images: [defaultOgImage.url],
     },
   };
