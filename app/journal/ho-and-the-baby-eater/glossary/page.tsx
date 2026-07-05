@@ -23,7 +23,7 @@ function getGlossaryData(): GlossaryData {
   return JSON.parse(fs.readFileSync(file, "utf-8")) as GlossaryData;
 }
 
-export async function generateMetadata(): Promise<Metadata> {
+export function generateMetadata(): Metadata {
   const book = getBook();
   return createPageMetadata({
     title: `${book.glossaryTitle ?? "Glossary"} | ${book.title} | Hero's Journey Creative`,

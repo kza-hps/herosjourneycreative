@@ -23,13 +23,16 @@ export function createPageMetadata({
   openGraphTitle = title,
   openGraphDescription = description,
 }: PageMetadataOptions): Metadata {
+  const hasOpenGraphDescription =
+    openGraphDescription !== undefined && openGraphDescription !== null;
+
   return {
     title,
-    ...(description ? { description } : {}),
+    ...(description !== undefined ? { description } : {}),
     alternates: { canonical },
     openGraph: {
       title: openGraphTitle,
-      ...(openGraphDescription ? { description: openGraphDescription } : {}),
+      ...(hasOpenGraphDescription ? { description: openGraphDescription } : {}),
       url: canonical,
       siteName,
       locale: "en_NZ",
@@ -39,7 +42,7 @@ export function createPageMetadata({
     twitter: {
       card: "summary_large_image",
       title: openGraphTitle,
-      ...(openGraphDescription ? { description: openGraphDescription } : {}),
+      ...(openGraphDescription !== undefined ? { description: openGraphDescription } : {}),
       images: [defaultOgImage.url],
     },
   };
