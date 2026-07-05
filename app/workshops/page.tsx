@@ -1,5 +1,6 @@
 import Link from "next/link";
 import SectionHeading from "@/components/section-heading";
+import { createPageMetadata } from "@/lib/seo-metadata";
 import {
   WORKSHOPS_MEETUP_URL,
   WORKSHOP_PRICING,
@@ -13,6 +14,13 @@ import {
 } from "@/lib/site-content";
 
 // ─── static config ────────────────────────────────────────────────────────────
+
+export const metadata = createPageMetadata({
+  title: "Workshops | Hero's Journey Creative",
+  description:
+    "Writing sprint workshops, creative writing sessions, legacy writing support, and AI engineering workshops from Hero's Journey Creative.",
+  canonical: "/workshops",
+});
 
 const WORKSHOP_PATHS = [
   {

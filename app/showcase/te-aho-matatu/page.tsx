@@ -1,6 +1,6 @@
 import { cookies } from "next/headers";
 import Link from "next/link";
-import type { Metadata } from "next";
+import { createPageMetadata } from "@/lib/seo-metadata";
 import { SHOWCASE_ITEMS } from "@/lib/site-content";
 import SectionHeading from "@/components/section-heading";
 import VideoPlaceholder from "@/components/video-placeholder";
@@ -15,10 +15,11 @@ export const dynamic = "force-dynamic";
 
 const item = SHOWCASE_ITEMS.find((i) => i.slug === "te-aho-matatu")!;
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: `${item.title} — Showcase | Hero's Journey Creative`,
-  description: item.detail.heroSubtitle,
-};
+  description: item.detail.heroSubtitle || `${item.title} - a project by Hero's Journey Creative.`,
+  canonical: "/showcase/te-aho-matatu",
+});
 
 function DetailBlock({ label, children }: { label: string; children: React.ReactNode }) {
   return (

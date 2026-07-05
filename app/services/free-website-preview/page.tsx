@@ -2,30 +2,21 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import SectionHeading from "@/components/section-heading";
+import { createPageMetadata } from "@/lib/seo-metadata";
 
 const isProduction = process.env.VERCEL_ENV === "production";
 
 export const metadata: Metadata = {
-  title: "Free Website Refresh Preview for Local Businesses | Hero's Journey Creative",
-  description:
-    "Get a free interactive homepage refresh preview for your small business website. Fixed-price website refresh packages from $300, with SEO foundation and AI Search Readiness included.",
-  alternates: { canonical: "/services/free-website-preview" },
-  robots: isProduction ? undefined : { index: false, follow: false },
-  openGraph: {
-    title: "Free Website Refresh Preview for Local Businesses",
+  ...createPageMetadata({
+    title: "Free Website Refresh Preview for Local Businesses | Hero's Journey Creative",
     description:
+      "Get a free interactive homepage refresh preview for your small business website. Fixed-price website refresh packages from $300, with SEO foundation and AI Search Readiness included.",
+    canonical: "/services/free-website-preview",
+    openGraphTitle: "Free Website Refresh Preview for Local Businesses",
+    openGraphDescription:
       "See what your website could look like before paying for a rebuild. Free homepage preview for selected local businesses. Fixed-price packages from $300.",
-    url: "https://www.herosjourneycreative.co.nz/services/free-website-preview",
-    siteName: "Hero's Journey Creative",
-    locale: "en_NZ",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Free Website Refresh Preview for Local Businesses",
-    description:
-      "See what your website could look like before paying for a rebuild. Fixed-price packages from $300.",
-  },
+  }),
+  robots: isProduction ? undefined : { index: false, follow: false },
 };
 
 // ── types ──────────────────────────────────────────────────────────────────────

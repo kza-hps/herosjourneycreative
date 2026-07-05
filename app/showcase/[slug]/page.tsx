@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import type { Metadata } from "next";
+import { createPageMetadata } from "@/lib/seo-metadata";
 import { SHOWCASE_ITEMS } from "@/lib/site-content";
 import SectionHeading from "@/components/section-heading";
 import ShowcaseImagePlaceholder from "@/components/showcase-image-placeholder";
@@ -25,10 +26,11 @@ export async function generateMetadata({
   const { slug } = await params;
   const item = SHOWCASE_ITEMS.find((i) => i.slug === slug);
   if (!item) return {};
-  return {
+  return createPageMetadata({
     title: `${item.title} — Showcase | Hero's Journey Creative`,
-    description: item.detail.heroSubtitle,
-  };
+    description: item.detail.heroSubtitle || `${item.title} — a project by Hero's Journey Creative.`,
+    canonical: `/showcase/${item.slug}`,
+  });
 }
 
 function DetailBlock({ label, children }: { label: string; children: React.ReactNode }) {

@@ -1,4 +1,12 @@
 import Link from "next/link";
+import { createPageMetadata } from "@/lib/seo-metadata";
+
+export const metadata = createPageMetadata({
+  title: "Personal Myth Authoring | Hero's Journey Creative",
+  description:
+    "A guided story-mapping process for turning lived experience, memory, and imagination into a personal mythic framework.",
+  canonical: "/personal-myth-authoring",
+});
 
 export default function PersonalMythAuthoringPage() {
   return (

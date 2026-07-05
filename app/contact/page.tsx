@@ -1,4 +1,12 @@
 import ContactForm from "@/components/contact-form";
+import { createPageMetadata } from "@/lib/seo-metadata";
+
+export const metadata = createPageMetadata({
+  title: "Contact | Hero's Journey Creative",
+  description:
+    "Start a conversation with Hero's Journey Creative about workshops, writing projects, story worlds, websites, or AI-assisted digital work.",
+  canonical: "/contact",
+});
 
 const WEBSITE_REFRESH_INTERESTS = new Set([
   "website-refresh",

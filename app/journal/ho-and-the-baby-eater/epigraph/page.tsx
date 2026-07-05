@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import type { Metadata } from "next";
+import { createPageMetadata } from "@/lib/seo-metadata";
 import {
   chapterWord,
   getBook,
@@ -13,14 +14,15 @@ import styles from "../[slug]/reader.module.css";
 export function generateMetadata(): Metadata {
   const epigraph = getFrontMatterBySlug("epigraph");
   const published = epigraph?.status === "published";
-  return {
+  return createPageMetadata({
     title: published
       ? `${epigraph!.title} - Ho & the Baby Eater | Hero's Journey Creative`
       : "Ho & the Baby Eater | Hero's Journey Creative",
-    description: published
-      ? epigraph!.summary
+    description: published && epigraph?.summary
+      ? epigraph.summary
       : "A mythic fantasy serial by Kauri Tukere.",
-  };
+    canonical: "/journal/ho-and-the-baby-eater/epigraph",
+  });
 }
 
 export default function EpigraphPage() {

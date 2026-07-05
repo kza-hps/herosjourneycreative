@@ -1,6 +1,14 @@
 import Link from "next/link";
+import { createPageMetadata } from "@/lib/seo-metadata";
 import ShowcaseCard from "@/components/showcase-card";
 import { SHOWCASE_ITEMS } from "@/lib/site-content";
+
+export const metadata = createPageMetadata({
+  title: "Showcase | Hero's Journey Creative",
+  description:
+    "A public archive of Hero's Journey Creative projects across story worlds, web experiences, AI-assisted builds, and creative systems.",
+  canonical: "/showcase",
+});
 
 export default function ShowcasePage() {
   return (
