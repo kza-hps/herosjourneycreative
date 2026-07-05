@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import SectionHeading from "@/components/section-heading";
@@ -5,7 +6,7 @@ import { createPageMetadata } from "@/lib/seo-metadata";
 
 const isProduction = process.env.VERCEL_ENV === "production";
 
-export const metadata = {
+export const metadata: Metadata = {
   ...createPageMetadata({
     title: "Free Website Refresh Preview for Local Businesses | Hero's Journey Creative",
     description:
