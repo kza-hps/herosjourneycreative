@@ -10,7 +10,7 @@ const defaultOgImage = {
 
 type PageMetadataOptions = {
   title: string;
-  description?: string | null;
+  description: string;
   canonical: string;
   openGraphTitle?: string;
   openGraphDescription?: string | null;
