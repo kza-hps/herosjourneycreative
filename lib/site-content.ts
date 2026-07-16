@@ -223,6 +223,7 @@ export interface ShowcaseScreenshot {
   src: string;
   alt: string;
   caption: string;
+  wide?: boolean;
 }
 
 export interface ShowcaseItem {
@@ -681,6 +682,64 @@ export const SHOWCASE_ITEMS: ShowcaseItem[] = [
           "An end-to-end AI-assisted concept-to-prototype pipeline: game design, art direction, and interactive engineering compressed into a single founder-led sprint.",
       },
       videoPlaceholderTitle: "Walkthrough coming soon",
+    },
+  },
+  {
+    id: "showcase-middlescribe",
+    slug: "middlescribe",
+    eyebrow: "Fiction Staging Platform / SaaS",
+    title: "Middlescribe",
+    description:
+      "A publishing-prep layer for world-rich fiction — manuscript management, living glossary, paid per-chapter beta reads, and multi-channel export, built end to end by a solo founder using AI-assisted development.",
+    metadata: "Live product",
+    notes: "Next.js · Supabase · Stripe · Vercel · TypeScript · Vitest",
+    heroImage: "/showcase/middlescribe/Interface.png",
+    screenshots: [
+      { src: "/showcase/middlescribe/data_model.png", alt: "Middlescribe platform data model — 16 tables, 29 RLS policies, 4 storage buckets", caption: "Platform data model — 16 tables, 29 RLS policies, 4 storage buckets", wide: true },
+      { src: "/showcase/middlescribe/manuscript.png", alt: "Middlescribe manuscript editor", caption: "Manuscript editor" },
+      { src: "/showcase/middlescribe/glossary.png", alt: "Middlescribe living glossary management", caption: "Living glossary management" },
+      { src: "/showcase/middlescribe/hover_example.png", alt: "Middlescribe glossary hover card in the reader view", caption: "Glossary hover card — reader view" },
+    ],
+    externalLinks: [
+      { label: "Visit Middlescribe", href: "https://www.middlescribe.com/", external: true },
+    ],
+    detail: {
+      heroSubtitle:
+        "The private source and the publishing path — a manuscript staging platform that lets fiction writers preserve the full Writers Edit, assemble a deliberate public Showcase, and commission paid per-chapter beta reads from human readers.",
+      summary: {
+        whatItIs:
+          "Middlescribe is a fiction staging platform for world-rich manuscripts — fantasy, sci-fi, mythology, indigenous, and lore-heavy fiction. Writers maintain a private maximal source (the Writers Edit), assemble a public or access-gated Showcase Edition from selected chapter variants, and sell per-chapter beta reads to verified human readers who provide anchored, attributable feedback. The same manuscript and living glossary render cleanly across multiple export channels — web serial, Kindle, paperback, and submission — without the author ever editing per-destination.",
+        whyItExists:
+          "Complex fiction is poorly served by the existing tool stack. Google Docs has no concept of a living glossary; Wattpad doesn't distinguish between the author's maximal source and the publication path; beta readers give informal notes with no structured feedback layer. Middlescribe sits between the working manuscript and the publishing channel as middleware — preserving lore, pronunciation, aliases, and reader-comprehension context while providing a clear, commerce-enabled path to every destination.",
+        whatWasBuilt:
+          "A full-stack Next.js application deployed on Vercel, backed by a 16-table Supabase database with row-level security on every table, Stripe subscriptions for author plans and per-chapter beta-read commerce. The platform includes a structured manuscript editor, a living glossary with alias resolution, spoiler safety, and per-channel export behaviour, private beta-reader releases with glossary hover cards and anchored comments, reader-friction analytics, and an export engine that renders the same source to web serial, Kindle, paperback, and submission formats.",
+      },
+      buildStory: {
+        problem:
+          "Fiction writers with lore-heavy manuscripts face an impossible choice at each stage of publication: preserve everything in the private draft and risk a bloated ungoverned mess, or strip the work down for readers and lose creative history, glossary, and worldbuilding context permanently. No existing platform manages the relationship between manuscript, glossary, reader comprehension, and export channel as a single integrated layer.",
+        insight:
+          "Model the manuscript and the publishing path as separate objects with an explicit assembly step between them. The Writers Edit is the author's private, exuberant, maximal source — it never has to ship. The Showcase Edition is a deliberate selection of chapter variants and access states assembled from that source. The glossary is not a word list but a managed lexicon layer that travels with every export and renders differently depending on the destination. This separation is the moat: no other tool answers where does this term appear, when is it safe to explain it, did readers understand it, and how should it render on Kindle versus submission.",
+        aiRole:
+          "Claude Code drove the full-stack build — Next.js app architecture, Supabase schema design (16 tables, 29 RLS policies, 4 storage buckets, app_private helper functions), Stripe subscription and per-chapter commerce wiring, the living glossary import and corpus-mapping pipeline, the invite-token access system, the plan-limits enforcement layer, the export rendering engine, and a comprehensive Vitest unit test suite across core library modules. The design system — a distinctive manuscript-and-marginalia aesthetic with vellum surfaces, obsidian identity areas, and verdigris glossary ink — was also built through Claude Code sessions from a brand-foundations brief.",
+        humanInLoop:
+          "All product decisions were the founder's: the fiction staging platform category, the Writers Edit and Showcase Edition architecture, the per-chapter beta-read commerce model (NZ$5 per chapter, 0% platform commission at launch), the access and visibility matrix (public, unlisted, invite-only, paid, subscriber, private), the decision to rate-limit all feedback writes from day one, the AI disclosure covenant system, and the choice to produce a complete design system with its own CSS token layer before writing a single application component. Claude executed each technical sprint; the founder directed every product, pricing, and architectural decision.",
+      },
+      productionNotes: {
+        stack: "Next.js (App Router) · TypeScript · Supabase (PostgreSQL + RLS + Storage) · Stripe (subscriptions + per-chapter payments) · Vercel · Vitest · Tailwind CSS",
+        designProcess:
+          "Started from a brand-foundations brief establishing the visual language — vellum grounds, obsidian identity surfaces, verdigris glossary ink, hairline rules, square corners, and restrained archival typography. A full design system with its own CSS token layer was produced before any application component was written. The manuscript-and-marginalia aesthetic was a deliberate counter-move against generic SaaS: no gradients, no AI sparkle, no shadow-heavy cards.",
+        promptingWorkflow:
+          "Built through discrete Claude Code sessions mapped tightly to product features: schema design, auth and RLS, plan limits, glossary import pipeline, invite token system, Stripe subscriptions, beta-read commerce, export engine, design system components, and unit test suite. Each session was scoped to one feature or module with the founder reviewing in the browser or running the test suite before moving to the next. Architectural decision records and product docs in docs/ served as the authoritative source of truth between sessions.",
+        testing:
+          "A Vitest unit test suite covers core library modules — plan limits, variant logic, work slug resolution, chapter labels, manuscript marks, glossary CSV import, clipboard HTML import, auth redirect rules, publication policy, and commerce minimums. Schema correctness is verified through Supabase migration apply and generated TypeScript database types. Each feature was manually validated against the live Vercel preview deployment before moving to the next.",
+      },
+      outcome: {
+        currentState:
+          "Middlescribe is live at middlescribe.com with the full Next.js application deployed on Vercel and a production Supabase database with the foundation schema applied — 16 tables, RLS on every table, and 4 storage buckets. The core manuscript, glossary, and access-control architecture is in place. Beta-read commerce, the Showcase Edition assembly workflow, and the export engine are in active development.",
+        demonstrates:
+          "What a solo founder can build with disciplined AI-assisted development: a full-stack SaaS platform with a coherent 16-table data model, row-level security throughout, dual commerce tracks (author subscriptions and per-unit reader payments), a living glossary system with alias and spoiler management, and a bespoke design system — conceived, architected, and shipped without a traditional engineering team.",
+      },
+      videoPlaceholderTitle: "Product walkthrough coming soon",
     },
   },
 ];
