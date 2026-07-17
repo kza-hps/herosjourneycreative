@@ -248,7 +248,6 @@ export const NAV_LINKS: NavLink[] = [
   { label: "Workshops", href: "/workshops" },
   { label: "Legacy Writing", href: "/legacy-writing" },
   { label: "Personal Myth Authoring", href: "/personal-myth-authoring" },
-  { label: "Journal", href: "/journal" },
   { label: "Showcase", href: "/showcase" },
   { label: "Contact", href: "/contact" },
 ];
@@ -280,13 +279,6 @@ export const LANE_ITEMS: LaneItem[] = [
   },
   {
     no: "03",
-    id: "journal",
-    title: "Journal",
-    description: "Original works, serial fiction, language notes, and reflections from the workshop table.",
-    href: "/journal",
-  },
-  {
-    no: "04",
     id: "showcase",
     title: "Showcase",
     description: "Selected case studies: hand-bound archives, interactive portals, and community programmes.",
@@ -466,7 +458,7 @@ export const SHOWCASE_ITEMS: ShowcaseItem[] = [
       { src: "/showcase/ho-and-the-baby-eater/concept-4.png", alt: "Concept art for the Seed of Kafiki world, study IV", caption: "Worldbuilding concept art — study IV" },
     ],
     externalLinks: [
-      { label: "Read the serial in the Journal", href: "/journal" },
+      { label: "Read on Middlescribe", href: "https://www.middlescribe.com" },
     ],
     detail: {
       heroSubtitle:

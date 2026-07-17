@@ -10,7 +10,6 @@ const STUDIO_LINKS = [
 ];
 
 const CONNECT_LINKS = [
-  { label: "Journal",   href: "/journal" },
   { label: "Showcase",  href: "/showcase" },
   { label: "Contact",   href: "/contact" },
 ];

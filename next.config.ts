@@ -53,6 +53,16 @@ const nextConfig: NextConfig = {
         destination: "/contact",
         permanent: true,
       },
+      {
+        source: "/journal",
+        destination: "https://www.middlescribe.com",
+        permanent: false,
+      },
+      {
+        source: "/journal/:path*",
+        destination: "https://www.middlescribe.com",
+        permanent: false,
+      },
     ];
   },
 };
