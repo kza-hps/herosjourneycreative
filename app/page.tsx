@@ -30,7 +30,7 @@ export default function Home() {
           />
           {/* Hairline grid: 1px charcoal gutters + outer border */}
           <div
-            className="grid grid-cols-4 max-[880px]:grid-cols-2"
+            className="grid grid-cols-3 max-[880px]:grid-cols-1"
             style={{
               gap: "1px",
               background: "var(--hjc-charcoal)",
