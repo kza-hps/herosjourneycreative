@@ -8,9 +8,6 @@ import {
   PRIVATE_AUDIENCE_GROUPS,
   WHAT_TO_BRING,
   BRAND_INFO,
-  AI_WORKSHOP_FORMATS,
-  AI_WORKSHOP_COVERS,
-  AI_WORKSHOP_PREREQUISITES,
 } from "@/lib/site-content";
 
 // ─── static config ────────────────────────────────────────────────────────────
@@ -18,7 +15,7 @@ import {
 export const metadata = createPageMetadata({
   title: "Workshops | Hero's Journey Creative",
   description:
-    "Writing sprint workshops, creative writing sessions, legacy writing support, and AI engineering workshops from Hero's Journey Creative.",
+    "Writing sprint workshops, creative writing sessions, legacy writing, and private group workshops from Hero's Journey Creative.",
   canonical: "/workshops",
 });
 
@@ -52,17 +49,6 @@ const WORKSHOP_PATHS = [
     href: "/contact?interest=private-workshop",
     external: false,
     panelActionText: "Enquire about a private workshop",
-  },
-  {
-    id: "ai-engineering",
-    eyebrow: "Corporate / AI Build",
-    title: "AI Engineering: Vibe Coding 101",
-    summary: "A hands-on AI engineering workshop demonstrating vibe coding with production discipline. We walk participants through the build of a SaaS-style tool, using VouchMeApp as the exemplar.",
-    cta: "Enquire about this workshop",
-    href: "/contact?interest=ai-engineering-workshop",
-    external: false,
-    price: "From $2,000 + GST",
-    panelActionText: "Enquire about this workshop",
   },
 ];
 
@@ -103,7 +89,6 @@ export default async function WorkshopsPage({
   const resolvedParams = await searchParams;
   const pathParam = Array.isArray(resolvedParams.path) ? resolvedParams.path[0] : resolvedParams.path;
   const activePath = (pathParam && VALID_PATHS.includes(pathParam)) ? pathParam : "auckland-live";
-  const selectedTrack = activePath === "ai-engineering" ? "ai" : "writing";
   const currentPathConfig = WORKSHOP_PATHS.find((p) => p.id === activePath);
 
   return (
@@ -266,20 +251,6 @@ export default async function WorkshopsPage({
                 >
                   {path.summary}
                 </p>
-                {path.price && (
-                  <div
-                    style={{
-                      fontFamily: "var(--font-mono)",
-                      fontSize: "11px",
-                      letterSpacing: "0.1em",
-                      textTransform: "uppercase",
-                      color: "var(--fg1)",
-                      marginBottom: "16px",
-                    }}
-                  >
-                    {path.price}
-                  </div>
-                )}
                 <span
                   className="hjc-lnk"
                   style={{
@@ -304,7 +275,7 @@ export default async function WorkshopsPage({
           className="hjc-fade"
           key={activePath}
         >
-          {selectedTrack === "writing" && currentPathConfig && (
+          {currentPathConfig && (
             <>
               {/* Context Heading (DRYed up dynamic rendering from config) */}
               <div style={{ marginBottom: "48px" }}>
@@ -393,20 +364,6 @@ export default async function WorkshopsPage({
                     Custom programmes, travel, larger groups, specialist preparation, and sessions
                     longer than two hours can be quoted separately.
                   </p>
-                  <p
-                    style={{
-                      fontFamily: "var(--font-mono)",
-                      fontSize: "10px",
-                      letterSpacing: "0.08em",
-                      color: "var(--fg3)",
-                      marginTop: "8px",
-                      lineHeight: 1.6,
-                    }}
-                  >
-                    Custom AI workshop pricing may vary for larger teams, tailored use cases, travel,
-                    discovery, or multi-session delivery.
-                  </p>
-
                   <Rule />
                 </>
               )}
@@ -634,280 +591,6 @@ export default async function WorkshopsPage({
             </>
           )}
 
-          {selectedTrack === "ai" && (
-            <>
-              {/* AI Engineering & Product-Building Workshops */}
-              <SectionHeading
-                title="AI Engineering & Product-Building Workshops"
-                subtitle="Practical, hands-on workshops in AI-assisted product development — for corporate teams, founders, and technically curious professionals."
-              />
-
-              <div
-                style={{
-                  border: "1px solid var(--rule)",
-                  background: "var(--surface)",
-                  marginTop: "36px",
-                }}
-              >
-                <div style={{ height: "3px", background: "var(--hjc-yellow)" }} />
-                <div style={{ padding: "32px 28px 30px" }}>
-
-                  <MonoLabel>Corporate / Zoom cohorts / Meetup tasters</MonoLabel>
-                  <h3
-                    style={{
-                      fontFamily: "var(--font-display)",
-                      textTransform: "uppercase",
-                      fontSize: "clamp(1.4rem, 3vw, 2rem)",
-                      lineHeight: 1.05,
-                      color: "var(--fg1)",
-                      margin: "0 0 8px",
-                    }}
-                  >
-                    AI Engineering Workshop: Vibe Coding 101
-                  </h3>
-                  <div
-                    style={{
-                      fontFamily: "var(--font-mono)",
-                      fontSize: "11px",
-                      letterSpacing: "0.1em",
-                      textTransform: "uppercase",
-                      color: "var(--fg3)",
-                      marginBottom: "22px",
-                    }}
-                  >
-                    Build a SaaS-style prototype in one day
-                  </div>
-
-                  <p
-                    style={{
-                      fontFamily: "var(--font-serif)",
-                      fontSize: "var(--step-body-lg)",
-                      lineHeight: 1.6,
-                      color: "var(--fg2)",
-                      maxWidth: "800px",
-                      margin: "0 0 14px",
-                    }}
-                  >
-                    A practical AI engineering workshop for people who want to understand how modern
-                    software products are designed, built, tested, and shipped using disciplined AI-assisted
-                    engineering methods.
-                  </p>
-                  <p
-                    style={{
-                      fontFamily: "var(--font-serif)",
-                      fontSize: "var(--step-body)",
-                      lineHeight: 1.6,
-                      color: "var(--fg2)",
-                      maxWidth: "800px",
-                      margin: "0 0 14px",
-                    }}
-                  >
-                    Using VouchMeApp as the real-world exemplar, this workshop walks participants
-                    through the end-to-end build of a SaaS product: from problem framing and user journeys
-                    to rapid prototyping, database design, vibe coding with production discipline, structured
-                    testing, deployment, and human-in-the-loop judgement.
-                  </p>
-                  <p
-                    style={{
-                      fontFamily: "var(--font-serif)",
-                      fontStyle: "italic",
-                      fontSize: "var(--step-body)",
-                      lineHeight: 1.6,
-                      color: "var(--fg2)",
-                      maxWidth: "800px",
-                      margin: "0 0 32px",
-                    }}
-                  >
-                    This is not a passive AI awareness session. It is a guided build workshop.
-                  </p>
-
-                  {/* What the workshop covers */}
-                  <div style={{ marginBottom: "36px" }}>
-                    <MonoLabel>The workshop covers</MonoLabel>
-                    <ul
-                      className="grid grid-cols-2 gap-x-6 gap-y-3 max-[560px]:grid-cols-1"
-                      style={{ margin: 0, padding: 0, listStyle: "none" }}
-                    >
-                      {AI_WORKSHOP_COVERS.map((item) => (
-                        <li
-                          key={item}
-                          style={{
-                            display: "flex",
-                            alignItems: "flex-start",
-                            gap: "10px",
-                            fontFamily: "var(--font-serif)",
-                            fontSize: "var(--step-body)",
-                            color: "var(--fg2)",
-                            lineHeight: 1.5,
-                          }}
-                        >
-                          <span
-                            aria-hidden="true"
-                            style={{
-                              display: "inline-block",
-                              width: "18px",
-                              height: "2px",
-                              background: "var(--hjc-yellow)",
-                              flexShrink: 0,
-                              marginTop: "0.6em",
-                            }}
-                          />
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  {/* Delivery options — horizontal card grid */}
-                  <div style={{ marginBottom: "36px" }}>
-                    <MonoLabel>Delivery options</MonoLabel>
-                    <div
-                      className="grid grid-cols-3 gap-5 max-[1024px]:grid-cols-2 max-[560px]:grid-cols-1"
-                    >
-                      {AI_WORKSHOP_FORMATS.map((fmt) => (
-                        <div
-                          key={fmt.label}
-                          style={{
-                            border: "1px solid var(--rule)",
-                            padding: "22px 20px",
-                            background: "var(--surface-inset)",
-                            display: "flex",
-                            flexDirection: "column",
-                            gap: "8px",
-                          }}
-                        >
-                          <span
-                            style={{
-                              fontFamily: "var(--font-display)",
-                              fontSize: "1rem",
-                              textTransform: "uppercase",
-                              color: "var(--fg1)",
-                              lineHeight: 1.1,
-                            }}
-                          >
-                            {fmt.label}
-                          </span>
-                          {fmt.price && (
-                            <span
-                              style={{
-                                fontFamily: "var(--font-mono)",
-                                fontSize: "10px",
-                                letterSpacing: "0.1em",
-                                textTransform: "uppercase",
-                                color: "var(--fg3)",
-                              }}
-                            >
-                              {fmt.price}
-                            </span>
-                          )}
-                          <p
-                            style={{
-                              fontFamily: "var(--font-serif)",
-                              fontSize: "var(--step-body)",
-                              lineHeight: 1.6,
-                              color: "var(--fg2)",
-                              margin: 0,
-                              flex: 1,
-                            }}
-                          >
-                            {fmt.description}
-                          </p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Assumptions and prerequisites */}
-                  <div
-                    style={{
-                      border: "1px solid var(--rule)",
-                      padding: "26px 24px",
-                      background: "var(--surface-inset)",
-                      marginBottom: "32px",
-                    }}
-                  >
-                    <MonoLabel>Assumptions and prerequisites</MonoLabel>
-                    <ul
-                      style={{
-                        margin: "0 0 18px",
-                        padding: 0,
-                        listStyle: "none",
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: "10px",
-                      }}
-                    >
-                      {AI_WORKSHOP_PREREQUISITES.map((item) => (
-                        <li
-                          key={item}
-                          style={{
-                            fontFamily: "var(--font-serif)",
-                            fontSize: "var(--step-body)",
-                            lineHeight: 1.5,
-                            color: "var(--fg2)",
-                          }}
-                        >
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-                    <p
-                      style={{
-                        fontFamily: "var(--font-serif)",
-                        fontWeight: 600,
-                        fontSize: "var(--step-body)",
-                        lineHeight: 1.5,
-                        color: "var(--fg1)",
-                        margin: "0 0 12px",
-                      }}
-                    >
-                      Microsoft 365 Copilot on its own is not sufficient for this workshop.
-                    </p>
-                    <p
-                      style={{
-                        fontFamily: "var(--font-serif)",
-                        fontSize: "var(--step-body)",
-                        lineHeight: 1.5,
-                        color: "var(--fg2)",
-                        margin: 0,
-                      }}
-                    >
-                      Participants do not need to be professional developers, but they do need
-                      access to a capable frontier model such as ChatGPT, Claude, Gemini, or an
-                      equivalent coding-capable AI assistant. The workshop is designed for people
-                      who want to learn the build process, not simply watch a presentation about AI.
-                    </p>
-                  </div>
-
-                  {/* Best suited for */}
-                  <p
-                    style={{
-                      fontFamily: "var(--font-serif)",
-                      fontSize: "var(--step-body)",
-                      lineHeight: 1.6,
-                      color: "var(--fg3)",
-                      margin: "0 0 28px",
-                      maxWidth: "760px",
-                    }}
-                  >
-                    Best suited for founders, product teams, innovation teams, analysts, service
-                    designers, business owners, and technically curious professionals who want a
-                    grounded view of what AI-assisted software development now makes possible.
-                  </p>
-
-                  {/* CTA */}
-                  <Link
-                    href="/contact?interest=ai-engineering-workshop"
-                    className="hjc-btn hjc-btn-yellow"
-                    style={{ alignSelf: "flex-start" }}
-                  >
-                    Enquire about this workshop
-                  </Link>
-
-                </div>
-              </div>
-            </>
-          )}
         </div>
 
       </div>

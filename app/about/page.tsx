@@ -4,7 +4,7 @@ import { createPageMetadata } from "@/lib/seo-metadata";
 export const metadata = createPageMetadata({
   title: "About | Hero's Journey Creative",
   description:
-    "A story-led creative studio in Aotearoa New Zealand working across human writing practice, disciplined AI engineering, and careful technology enquiry.",
+    "A story-led creative studio in Aotearoa New Zealand working with people turning memory, experience, and imagination into story.",
   canonical: "/about",
 });
 
@@ -58,7 +58,7 @@ export default function AboutPage() {
               margin: 0,
             }}
           >
-            Hero’s Journey Creative is a story-led creative studio based in Aotearoa New Zealand, working across human writing practice, disciplined AI engineering, and careful enquiry into the cultural implications of emerging technology.
+            Hero’s Journey Creative is a story-led creative studio based in Aotearoa New Zealand, working with people turning memory, experience, and imagination into lasting story.
           </p>
           <p
             style={{
@@ -80,29 +80,7 @@ export default function AboutPage() {
               margin: 0,
             }}
           >
-            Alongside that, we build high-quality digital products and web experiences using AI-assisted engineering methods: rapid prototyping, agentic workflows, vibe coding, structured testing, deployment discipline, and human-in-the-loop judgement. The goal is not to replace craft, but to compress the distance between idea, prototype, and production-ready tool.
-          </p>
-          <p
-            style={{
-              fontFamily: "var(--font-serif)",
-              fontSize: "var(--step-body)",
-              lineHeight: 1.62,
-              color: "var(--fg2)",
-              margin: 0,
-            }}
-          >
-            Our work with AI sits between practice and caution. We treat these systems as powerful collaborators that require governance, cultural care, privacy awareness, and respectful enquiry — especially when the subject matter involves story, whakapapa, memory, creativity, and community.
-          </p>
-          <p
-            style={{
-              fontFamily: "var(--font-serif)",
-              fontSize: "var(--step-body)",
-              lineHeight: 1.62,
-              color: "var(--fg2)",
-              margin: 0,
-            }}
-          >
-            At its heart, Hero’s Journey Creative is about helping people and organisations shape what matters into lasting forms: books, workshops, archives, websites, products, frameworks, and creative systems that carry human meaning forward.
+            At its heart, Hero’s Journey Creative is about helping people and organisations shape what matters into lasting forms: books, workshops, archives, family histories, and story works that carry human meaning forward.
           </p>
         </div>
 
