@@ -8,17 +8,14 @@ import Logo from "./logo";
 const MAIN_NAV = [
   { label: "About",            href: "/about" },
   { label: "Workshops",        href: "/workshops" },
-  { label: "Website Refresh",  href: "/services/free-website-preview" },
-  { label: "Showcase",         href: "/showcase" },
+  { label: "Legacy Writing",   href: "/legacy-writing" },
 ];
 
 const ALL_NAV = [
   { label: "About",                   href: "/about" },
   { label: "Workshops",               href: "/workshops" },
-  { label: "Website Refresh",         href: "/services/free-website-preview" },
   { label: "Legacy Writing",          href: "/legacy-writing" },
   { label: "Personal Myth Authoring", href: "/personal-myth-authoring" },
-  { label: "Showcase",                href: "/showcase" },
   { label: "Initiate Contact →",      href: "/contact" },
 ];
 

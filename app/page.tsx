@@ -1,16 +1,14 @@
 import HeroPanel from "@/components/hero-panel";
 import ServiceCard from "@/components/service-card";
-import ShowcaseCard from "@/components/showcase-card";
 import CtaBand from "@/components/cta-band";
 import SectionHeading from "@/components/section-heading";
-import Link from "next/link";
 import { createPageMetadata } from "@/lib/seo-metadata";
-import { LANE_ITEMS, SHOWCASE_ITEMS } from "@/lib/site-content";
+import { LANE_ITEMS } from "@/lib/site-content";
 
 export const metadata = createPageMetadata({
   title: "Hero's Journey Creative | Writing, Workshops, Story Worlds",
   description:
-    "A story-led creative studio for human writing practice, disciplined AI engineering, and careful enquiry into the future of creativity, memory, and technology.",
+    "A story-led creative studio for human writing practice, legacy storytelling, and workshops that help people shape meaningful lives into story.",
   canonical: "/",
   openGraphTitle: "Hero's Journey Creative",
 });
@@ -52,21 +50,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Website Refresh promo strip */}
-      <div style={{ background: "var(--hjc-yellow)", borderTop: "1px solid var(--hjc-black)", borderBottom: "1px solid var(--hjc-black)", padding: "20px 0" }}>
-        <div className="max-w-[1200px] mx-auto px-8 max-[880px]:px-5" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "16px", flexWrap: "wrap" }}>
-          <div>
-            <span style={{ fontFamily: "var(--font-mono)", fontSize: "9px", letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--hjc-black)", display: "block", marginBottom: "3px" }}>New service</span>
-            <p style={{ fontFamily: "var(--font-serif)", fontSize: "var(--step-body-lg)", color: "var(--hjc-black)", margin: 0 }}>
-              Free website refresh preview for local businesses.
-            </p>
-          </div>
-          <Link href="/services/free-website-preview" className="hjc-btn hjc-btn-dark" style={{ flexShrink: 0 }}>
-            See how it works →
-          </Link>
-        </div>
-      </div>
-
       {/* Manifesto band — black, cinematic breathing room */}
       <section style={{ background: "var(--hjc-black)", color: "var(--hjc-warm-white)", padding: "96px 0" }}>
         <div className="max-w-[1200px] mx-auto px-8 max-[880px]:px-5">
@@ -87,11 +70,7 @@ export default function Home() {
             <strong style={{ color: "var(--hjc-yellow)", fontWeight: 400 }}>
               meaningful stories
             </strong>{" "}
-            and{" "}
-            <strong style={{ color: "var(--hjc-yellow)", fontWeight: 400 }}>
-              useful digital systems
-            </strong>{" "}
-            through human-led creative practice, disciplined AI-assisted engineering, and careful, respectful enquiry into how emerging technologies should be used.
+            through human-led creative practice, guided writing, and careful, respectful engagement with memory, identity, and lived experience.
           </p>
           <div
             style={{
@@ -104,34 +83,6 @@ export default function Home() {
             }}
           >
             Hero&apos;s Journey Creative — Aotearoa New Zealand
-          </div>
-        </div>
-      </section>
-
-      {/* Selected Work — paper ground */}
-      <section style={{ padding: "90px 0", background: "var(--bg)" }}>
-        <div className="max-w-[1200px] mx-auto px-8 max-[880px]:px-5">
-          <div
-            style={{
-              display: "flex",
-              alignItems: "flex-end",
-              justifyContent: "space-between",
-              gap: "24px",
-              marginBottom: "42px",
-              flexWrap: "wrap",
-            }}
-          >
-            <SectionHeading title="Selected Work" />
-            <Link href="/showcase" className="hjc-lnk">
-              View Showcase →
-            </Link>
-          </div>
-          <div
-            className="grid grid-cols-3 gap-6 max-[880px]:grid-cols-1"
-          >
-            {SHOWCASE_ITEMS.filter((item) => !item.hidden).map((item) => (
-              <ShowcaseCard key={item.id} item={item} />
-            ))}
           </div>
         </div>
       </section>

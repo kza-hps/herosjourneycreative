@@ -33,10 +33,10 @@ const spaceMono = Space_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.herosjourneycreative.co.nz"),
   title: "Hero's Journey Creative | Writing, Workshops, Story Worlds",
-  description: "A story-led creative studio for human writing practice, disciplined AI engineering, and careful enquiry into the future of creativity, memory, and technology.",
+  description: "A story-led creative studio for human writing practice, legacy storytelling, and workshops that help people shape meaningful lives into story.",
   openGraph: {
     title: "Hero's Journey Creative",
-    description: "A story-led creative studio for human writing practice, disciplined AI engineering, and careful enquiry into the future of creativity, memory, and technology.",
+    description: "A story-led creative studio for human writing practice, legacy storytelling, and workshops that help people shape meaningful lives into story.",
     siteName: "Hero's Journey Creative",
     locale: "en_NZ",
     type: "website",
@@ -52,7 +52,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Hero's Journey Creative",
-    description: "A story-led creative studio for human writing practice, disciplined AI engineering, and careful enquiry into the future of creativity, memory, and technology.",
+    description: "A story-led creative studio for human writing practice, legacy storytelling, and workshops that help people shape meaningful lives into story.",
     images: ["/brand/NEW_HJC_LOGO.png"],
   },
 };

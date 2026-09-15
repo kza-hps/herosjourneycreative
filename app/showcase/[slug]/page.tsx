@@ -26,11 +26,14 @@ export async function generateMetadata({
   const { slug } = await params;
   const item = SHOWCASE_ITEMS.find((i) => i.slug === slug);
   if (!item) return {};
-  return createPageMetadata({
-    title: `${item.title} — Showcase | Hero's Journey Creative`,
-    description: item.detail.heroSubtitle || `${item.title} — a project by Hero's Journey Creative.`,
-    canonical: `/showcase/${item.slug}`,
-  });
+  return {
+    ...createPageMetadata({
+      title: `${item.title} — Showcase | Hero's Journey Creative`,
+      description: item.detail.heroSubtitle || `${item.title} — a project by Hero's Journey Creative.`,
+      canonical: `/showcase/${item.slug}`,
+    }),
+    robots: { index: false, follow: false },
+  };
 }
 
 function DetailBlock({ label, children }: { label: string; children: React.ReactNode }) {

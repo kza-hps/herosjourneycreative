@@ -15,11 +15,14 @@ export const dynamic = "force-dynamic";
 
 const item = SHOWCASE_ITEMS.find((i) => i.slug === "te-aho-matatu")!;
 
-export const metadata = createPageMetadata({
-  title: `${item.title} — Showcase | Hero's Journey Creative`,
-  description: item.detail.heroSubtitle || `${item.title} - a project by Hero's Journey Creative.`,
-  canonical: "/showcase/te-aho-matatu",
-});
+export const metadata = {
+  ...createPageMetadata({
+    title: `${item.title} — Showcase | Hero's Journey Creative`,
+    description: item.detail.heroSubtitle || `${item.title} - a project by Hero's Journey Creative.`,
+    canonical: "/showcase/te-aho-matatu",
+  }),
+  robots: { index: false, follow: false },
+};
 
 function DetailBlock({ label, children }: { label: string; children: React.ReactNode }) {
   return (

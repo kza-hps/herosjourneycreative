@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     openGraphDescription:
       "See what your website could look like before paying for a rebuild. Free homepage preview for selected local businesses. Fixed-price packages from $300.",
   }),
-  robots: isProduction ? undefined : { index: false, follow: false },
+  robots: { index: false, follow: false },
 };
 
 // ── types ──────────────────────────────────────────────────────────────────────

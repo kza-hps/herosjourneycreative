@@ -4,13 +4,11 @@ import Image from "next/image";
 const STUDIO_LINKS = [
   { label: "About",                   href: "/about" },
   { label: "Workshops",               href: "/workshops" },
-  { label: "Website Refresh",         href: "/services/free-website-preview" },
   { label: "Legacy Writing",          href: "/legacy-writing" },
   { label: "Personal Myth Authoring", href: "/personal-myth-authoring" },
 ];
 
 const CONNECT_LINKS = [
-  { label: "Showcase",  href: "/showcase" },
   { label: "Contact",   href: "/contact" },
 ];
 
@@ -46,7 +44,7 @@ export default function SiteFooter() {
                 margin: 0,
               }}
             >
-              A story-led creative studio for human writing practice, disciplined AI engineering, and careful enquiry into the future of creativity, memory, and technology.
+              A story-led creative studio for human writing practice, legacy storytelling, and workshops that help people shape meaningful lives into story.
             </p>
           </div>
 

@@ -5,6 +5,7 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
+      disallow: ["/showcase", "/showcase/", "/services/free-website-preview"],
     },
     sitemap: "https://www.herosjourneycreative.co.nz/sitemap.xml",
   };

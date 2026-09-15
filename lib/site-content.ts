@@ -248,13 +248,12 @@ export const NAV_LINKS: NavLink[] = [
   { label: "Workshops", href: "/workshops" },
   { label: "Legacy Writing", href: "/legacy-writing" },
   { label: "Personal Myth Authoring", href: "/personal-myth-authoring" },
-  { label: "Showcase", href: "/showcase" },
   { label: "Contact", href: "/contact" },
 ];
 
 export const BRAND_INFO = {
   name: "Hero's Journey Creative",
-  tagline: "A story-led creative studio for human writing practice, disciplined AI engineering, and careful enquiry into the future of creativity, memory, and technology.",
+  tagline: "A story-led creative studio for human writing practice, legacy storytelling, and workshops that help people shape meaningful lives into story.",
   location: "Based in Aotearoa New Zealand. Built for people turning memory, experience, and imagination into story.",
   copyright: "© 2026 Hero's Journey Creative",
   email: "kauri@herosjourneycreative.co.nz",
@@ -279,10 +278,10 @@ export const LANE_ITEMS: LaneItem[] = [
   },
   {
     no: "03",
-    id: "showcase",
-    title: "Showcase",
-    description: "Selected case studies: hand-bound archives, interactive portals, and community programmes.",
-    href: "/showcase",
+    id: "personal-myth",
+    title: "Personal Myth Authoring",
+    description: "Structured enquiry into the stories that shape a life — turned into a manuscript, a living document, or a gift.",
+    href: "/personal-myth-authoring",
   },
 ];
 
