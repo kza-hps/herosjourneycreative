@@ -59,7 +59,7 @@ export default function HeroPanel() {
               marginBottom: "36px",
             }}
           >
-            A story-led creative studio for human writing practice, disciplined AI engineering, and careful enquiry into the future of creativity, memory, and technology.
+            A story-led creative studio for human writing practice, legacy storytelling, and workshops that help people shape meaningful lives into story.
           </p>
 
           {/* CTAs */}
