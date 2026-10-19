@@ -59,7 +59,7 @@ export default function HeroPanel() {
               marginBottom: "36px",
             }}
           >
-            A story-led creative studio for human writing practice, legacy storytelling, and workshops that help people shape meaningful lives into story.
+            A creative studio for writing, storytelling, and workshops. Turn memory, experience, and imagination into stories worth sharing.
           </p>
 
           {/* CTAs */}

@@ -69,7 +69,7 @@ export default function AboutPage() {
               margin: 0,
             }}
           >
-            Our writing work is deliberately human-led. Through workshops, memoir structures, family-history projects, journals, and story-world development, we help people give form to memory, identity, imagination, and lived experience without outsourcing the soul of the work to machines.
+            Through workshops, journaling, and story-world development, we help writers find a starting point, build a regular practice, and develop their ideas. There is room for first attempts, unfinished drafts, and stories still finding their shape.
           </p>
           <p
             style={{
@@ -80,7 +80,7 @@ export default function AboutPage() {
               margin: 0,
             }}
           >
-            At its heart, Hero’s Journey Creative is about helping people and organisations shape what matters into lasting forms: books, workshops, archives, family histories, and story works that carry human meaning forward.
+            We bring people together to write, explore ideas, and share work. Whether you are beginning a story or finding your way through a longer project, our workshops offer prompts, structure, and space to keep going.
           </p>
         </div>
 

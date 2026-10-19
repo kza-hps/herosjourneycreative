@@ -6,7 +6,7 @@ const routes = [
   "",
   "/about",
   "/workshops",
-  "/legacy-writing",
+  "/blog",
   "/personal-myth-authoring",
   "/contact",
 ];

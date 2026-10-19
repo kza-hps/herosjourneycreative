@@ -8,13 +8,13 @@ import Logo from "./logo";
 const MAIN_NAV = [
   { label: "About",            href: "/about" },
   { label: "Workshops",        href: "/workshops" },
-  { label: "Legacy Writing",   href: "/legacy-writing" },
+  { label: "Blog",   href: "/blog" },
 ];
 
 const ALL_NAV = [
   { label: "About",                   href: "/about" },
   { label: "Workshops",               href: "/workshops" },
-  { label: "Legacy Writing",          href: "/legacy-writing" },
+  { label: "Blog",          href: "/blog" },
   { label: "Personal Myth Authoring", href: "/personal-myth-authoring" },
   { label: "Initiate Contact →",      href: "/contact" },
 ];

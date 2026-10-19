@@ -4,7 +4,7 @@ import { createPageMetadata } from "@/lib/seo-metadata";
 export const metadata = createPageMetadata({
   title: "Contact | Hero's Journey Creative",
   description:
-    "Start a conversation with Hero's Journey Creative about workshops, writing projects, legacy writing, story worlds, or memoir work.",
+    "Start a conversation with Hero's Journey Creative about workshops, creative writing projects, or story worlds.",
   canonical: "/contact",
 });
 
@@ -31,7 +31,7 @@ function resolveFormDefaults(interest: string | undefined, pkg: string | undefin
   notePlaceholder: string;
   initialPkg: string;
 } {
-  if (!interest) return { initialLane: "Workshops", notePlaceholder: "A memoir, a cohort, a story world, an archive...", initialPkg: "" };
+  if (!interest) return { initialLane: "Workshops", notePlaceholder: "A workshop, a writing group, a story world...", initialPkg: "" };
 
   if (WEBSITE_REFRESH_INTERESTS.has(interest)) {
     const pkgLabel = pkg ? (PACKAGE_LABELS[pkg] ?? "") : "";
@@ -44,7 +44,7 @@ function resolveFormDefaults(interest: string | undefined, pkg: string | undefin
     return { initialLane: "Website Refresh", notePlaceholder, initialPkg: pkg ?? "" };
   }
 
-  return { initialLane: "Workshops", notePlaceholder: "A memoir, a cohort, a story world, an archive...", initialPkg: "" };
+  return { initialLane: "Workshops", notePlaceholder: "A workshop, a writing group, a story world...", initialPkg: "" };
 }
 
 export default async function ContactPage({

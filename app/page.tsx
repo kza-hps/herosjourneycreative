@@ -8,7 +8,7 @@ import { LANE_ITEMS } from "@/lib/site-content";
 export const metadata = createPageMetadata({
   title: "Hero's Journey Creative | Writing, Workshops, Story Worlds",
   description:
-    "A story-led creative studio for human writing practice, legacy storytelling, and workshops that help people shape meaningful lives into story.",
+    "A creative studio for writing, storytelling, and workshops. Turn memory, experience, and imagination into stories worth sharing.",
   canonical: "/",
   openGraphTitle: "Hero's Journey Creative",
 });
@@ -70,7 +70,7 @@ export default function Home() {
             <strong style={{ color: "var(--hjc-yellow)", fontWeight: 400 }}>
               meaningful stories
             </strong>{" "}
-            through human-led creative practice, guided writing, and careful, respectful engagement with memory, identity, and lived experience.
+            through guided writing, creative exploration, and close attention to memory, identity, and lived experience.
           </p>
           <div
             style={{

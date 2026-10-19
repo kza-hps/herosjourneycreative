@@ -15,7 +15,7 @@ import {
 export const metadata = createPageMetadata({
   title: "Workshops | Hero's Journey Creative",
   description:
-    "Writing sprint workshops, creative writing sessions, legacy writing, and private group workshops from Hero's Journey Creative.",
+    "Writing sprint workshops, creative writing sessions, and private group workshops from Hero's Journey Creative.",
   canonical: "/workshops",
 });
 
@@ -43,7 +43,7 @@ const WORKSHOP_PATHS = [
   {
     id: "private-groups",
     eyebrow: "Private / Group Booking",
-    title: "Creative & Legacy Writing Workshops",
+    title: "Creative Writing Workshops",
     summary: "Bespoke workshops tailored for your team, school, community group, marae, or care setting. We design the session around your people and purpose.",
     cta: "Enquire about a private workshop",
     href: "/contact?interest=private-workshop",
@@ -98,7 +98,7 @@ export default async function WorkshopsPage({
       <section style={{ padding: "72px 0 68px", background: "var(--hjc-black)" }}>
         <div className="max-w-[1200px] mx-auto px-8 max-[880px]:px-5">
           <span className="hjc-kick hjc-kick-ink block mb-5">
-            Creative &amp; Legacy Writing Workshops
+            Creative Writing Workshops
           </span>
           <h1
             style={{
