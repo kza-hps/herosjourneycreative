@@ -13,7 +13,7 @@ interface ContactFormProps {
 
 export default function ContactForm({
   initialLane = "Workshops",
-  notePlaceholder = "A memoir, a cohort, a story world, an archive...",
+  notePlaceholder = "A workshop, a writing group, a story world...",
   initialPkg = "",
 }: ContactFormProps) {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
@@ -167,7 +167,6 @@ export default function ContactForm({
         <select id="contact-lane" name="lane" className="hjc-input" value={form.lane} onChange={set("lane")}>
           <option>Website Refresh</option>
           <option>Workshops</option>
-          <option>Legacy &amp; Personal Story</option>
           <option>Personal Myth Authoring</option>
           <option>A project / collaboration</option>
           <option>General enquiry</option>

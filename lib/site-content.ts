@@ -44,7 +44,7 @@ export const WORKSHOP_PATHWAY_CARDS: WorkshopPathwayCard[] = [
   },
   {
     label: "Private / Group Booking",
-    heading: "Creative & Legacy Writing Workshops",
+    heading: "Creative Writing Workshops",
     body: "Bespoke workshops tailored for your team, school, community group, marae, or care setting. We design the session around your people and purpose.",
     cta: "Enquire About a Private Workshop",
     href: "/contact?interest=private-workshop",
@@ -192,14 +192,14 @@ export const NAV_LINKS: NavLink[] = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
   { label: "Workshops", href: "/workshops" },
-  { label: "Legacy Writing", href: "/legacy-writing" },
+  { label: "Blog", href: "/blog" },
   { label: "Personal Myth Authoring", href: "/personal-myth-authoring" },
   { label: "Contact", href: "/contact" },
 ];
 
 export const BRAND_INFO = {
   name: "Hero's Journey Creative",
-  tagline: "A story-led creative studio for human writing practice, legacy storytelling, and workshops that help people shape meaningful lives into story.",
+  tagline: "A creative studio for writing, storytelling, and workshops. Turn memory, experience, and imagination into stories worth sharing.",
   location: "Based in Aotearoa New Zealand. Built for people turning memory, experience, and imagination into story.",
   copyright: "© 2026 Hero's Journey Creative",
   email: "kauri@herosjourneycreative.co.nz",
@@ -217,10 +217,10 @@ export const LANE_ITEMS: LaneItem[] = [
   },
   {
     no: "02",
-    id: "legacy",
-    title: "Legacy & Personal Story",
-    description: "Bespoke memoir, family-archive structuring, and personal-myth writing that captures a lifetime.",
-    href: "/legacy-writing",
+    id: "blog",
+    title: "Blog",
+    description: "Notes on writing practice, storytelling, and the ideas taking shape in the studio.",
+    href: "/blog",
   },
   {
     no: "03",
