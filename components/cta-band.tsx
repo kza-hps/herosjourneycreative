@@ -9,7 +9,7 @@ interface CtaBandProps {
 
 export default function CtaBand({
   title = "Begin your journey",
-  subtitle = "Tell us what you're working on — a memoir, a cohort, a story world, an archive.",
+  subtitle = "Tell us what you're working on — a workshop, a writing group, a story world.",
   buttonText = "Initiate Contact",
   href = "/contact",
 }: CtaBandProps) {

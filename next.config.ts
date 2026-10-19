@@ -4,6 +4,11 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
+        source: "/legacy-writing",
+        destination: "/blog",
+        permanent: true,
+      },
+      {
         source: "/products/your-heros-journey-creative-writing-sprints-group-workshop-booking",
         destination: "/workshops",
         permanent: true,
